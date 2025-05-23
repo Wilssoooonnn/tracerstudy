@@ -8,13 +8,13 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
-            <li class="{{ Request::is('dashboard') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('dashboard') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a>
+            <li class="{{ Request::is('admin/dashboard') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('admin/dashboard') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a>
             </li>
             </li>
             <li class="menu-header">Lulusan</li>
-            <li class="{{ Request::is('data-lulusan') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('data-lulusan') }}"><i class="far fa-user"></i> <span>Data
+            <li class="{{ Request::is('admin/data-lulusan') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('admin/data-lulusan') }}"><i class="far fa-user"></i> <span>Data
                         Lulusan</span></a>
             </li>
             <li class="{{ Request::is('generate-link-lulusan') ? 'active' : '' }}">
