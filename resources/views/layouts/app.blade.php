@@ -34,7 +34,7 @@
 </head>
 </head>
 
-<body>
+<body class="{{ isset($type_menu) ? ($type_menu == 'sidebar' ? '' : '') : '' }}">
     <div id="app">
         <div class="main-wrapper">
             <!-- Header -->

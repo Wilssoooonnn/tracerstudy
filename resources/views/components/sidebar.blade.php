@@ -9,7 +9,8 @@
         <ul class="sidebar-menu">
             <li class="menu-header">Dashboard</li>
             <li class="{{ Request::is('admin/dashboard') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/dashboard') }}"><i class="fas fa-fire"></i> <span>Dashboard</span></a>
+                <a class="nav-link" href="{{ url('admin/dashboard') }}"><i class="fas fa-fire"></i>
+                    <span>Dashboard</span></a>
             </li>
             </li>
             <li class="menu-header">Lulusan</li>
@@ -18,7 +19,8 @@
                         Lulusan</span></a>
             </li>
             <li class="{{ Request::is('admin/generate-link-lulusan') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/generate-link-lulusan') }}"><i class="fas fa-link"></i><span>Generate
+                <a class="nav-link" href="{{ url('admin/generate-link-lulusan') }}"><i
+                        class="fas fa-link"></i><span>Generate
                         Link</span></a>
             </li>
             <li class="menu-header">Stakeholder</li>

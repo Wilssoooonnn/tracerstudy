@@ -66,7 +66,8 @@
                                             <td>
                                                 <div class="badge badge-secondary">Pending</div>
                                             </td>
-                                            <td><a href="#" class="btn btn-primary"><i class="fa fa-link"></i> Generate</a></td>
+                                            <td><a href="#" class="btn btn-primary"><i class="fa fa-link"></i> Generate</a>
+                                            </td>
                                         </tr>
                                     </table>
                                 </div>

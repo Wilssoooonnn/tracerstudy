@@ -1,44 +1,26 @@
 <?php
-
+// routes/web.php
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-// Redirect root to welcome
+// Public routes
 Route::redirect('/', '/welcome');
-
-// Welcome route
 Route::get('/welcome', function () {
     return view('welcome');
-});
+})->name('welcome');
 
-// Admin Routes Group with Prefix 'admin'
-Route::prefix('admin')->group(function () {
-    // Dashboard route
-    Route::get('/dashboard', function () {
-        return view('admin.dashboard', ['type_menu' => 'dashboard']);
+// Admin routes
+Route::prefix('admin')->name('admin.')->group(function () {
+    // Public admin routes (no auth required)
+    Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [AuthController::class, 'login'])->name('login.submit');
+
+    // Authenticated admin routes
+    Route::middleware('auth:admin')->group(function () {
+        Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+        Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+        Route::get('profile', [AuthController::class, 'profile'])->name('profile');
+        Route::get('data-lulusan', [AuthController::class, 'data_lulusan'])->name('data-lulusan');
+        Route::get('generate-link-lulusan', [AuthController::class, 'generate_link_lulusan'])->name('generate-link-lulusan');
     });
-
-    // Data Lulusan route
-    Route::get('/data-lulusan', function () {
-        return view('admin.data-lulusan', ['type_menu' => 'lulusan']);
-    });
-
-    // Generate Link Lulusan route
-    Route::get('/generate-link-lulusan', function () {
-        return view('admin.generate-link-lulusan', ['type_menu' => 'lulusan']);
-    });
-});
-
-// Auth Routes
-Route::get('/auth/login', function () {
-    return view('auth.login-page');
 });

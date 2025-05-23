@@ -18,8 +18,5 @@
   </nav>
 
   <!-- Tombol untuk buka modal -->
-  <form action="{{ url('auth/login') }}" method="get">
-    <button type="submit" class="btn btn-outline-light mx-4">Login</button>
-  </form>
-
+  <a href="{{ route('admin.login') }}" class="btn btn-outline-light mx-4">Login</a>
 </div>
