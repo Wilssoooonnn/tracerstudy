@@ -28,17 +28,17 @@
                     <div class="m-3 p-4">
                         <img src="{{ asset('img/stisla-fill.svg') }}" alt="logo" width="80"
                             class="shadow-light rounded-circle mb-5 mt-2">
-                        <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">Stisla</span>
+                        <h4 class="text-dark font-weight-normal">Welcome to <span class="font-weight-bold">Tracer Study</span>
                         </h4>
                         <p class="text-muted">Before you get started, you must login or register if you don't already
                             have an account.</p>
                         <form method="POST" action="#" class="needs-validation" novalidate="">
                             <div class="form-group">
-                                <label for="email">Email</label>
-                                <input id="email" type="email" class="form-control" name="email" tabindex="1" required
+                                <label for="username">Username</label>
+                                <input id="username" type="username" class="form-control" name="username" tabindex="1" required
                                     autofocus>
                                 <div class="invalid-feedback">
-                                    Please fill in your email
+                                    Please fill in your username
                                 </div>
                             </div>
 
@@ -76,7 +76,7 @@
                         </form>
 
                         <div class="text-small mt-5 text-center">
-                            Copyright &copy; Your Company. Made with 💙 by Stisla
+                            Copyright &copy; Your Company. Made with 💙 by Tracers
                             <div class="mt-2">
                                 <a href="#">Privacy Policy</a>
                                 <div class="bullet"></div>
