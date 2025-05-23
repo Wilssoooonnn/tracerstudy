@@ -14,10 +14,12 @@
             </li>
             <li class="menu-header">Lulusan</li>
             <li class="{{ Request::is('data-lulusan') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('data-lulusan') }}"><i class="far fa-user"></i> <span>Data Lulusan</span></a>
+                <a class="nav-link" href="{{ url('data-lulusan') }}"><i class="far fa-user"></i> <span>Data
+                        Lulusan</span></a>
             </li>
-            <li class="{{ Request::is('#') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('#') }}"><i class="fas fa-link"></i><span>Generate Link</span></a>
+            <li class="{{ Request::is('generate-link-lulusan') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('generate-link-lulusan') }}"><i class="fas fa-link"></i><span>Generate
+                        Link</span></a>
             </li>
             <li class="menu-header">Stakeholder</li>
             <li class="{{ Request::is('#') ? 'active' : '' }}">
@@ -39,7 +41,7 @@
                     </li>
                 </ul>
             </li>
-             <li class="nav-item dropdown {{ $type_menu === '#' ? 'active' : '' }}">
+            <li class="nav-item dropdown {{ $type_menu === '#' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-file"></i>
                     <span>Rekap Belum Mengisi</span></a>
                 <ul class="dropdown-menu">

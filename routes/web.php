@@ -12,14 +12,33 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// Redirect root to welcome
+Route::redirect('/', '/welcome');
 
-Route::redirect('/', '/dashboard');
-
-// Dashboard
-Route::get('/dashboard', function () {
-    return view('pages.dashboard', ['type_menu' => 'dashboard']);
+// Welcome route
+Route::get('/welcome', function () {
+    return view('welcome');
 });
 
-Route::get('/data-lulusan', function () {
-    return view('pages.data-lulusan', ['type_menu' => 'lulusan']);
+// Admin Routes Group with Prefix 'admin'
+Route::prefix('admin')->group(function () {
+    // Dashboard route
+    Route::get('/dashboard', function () {
+        return view('admin.dashboard', ['type_menu' => 'dashboard']);
+    });
+
+    // Data Lulusan route
+    Route::get('/data-lulusan', function () {
+        return view('admin.data-lulusan', ['type_menu' => 'lulusan']);
+    });
+
+    // Generate Link Lulusan route
+    Route::get('/generate-link-lulusan', function () {
+        return view('admin.generate-link-lulusan', ['type_menu' => 'lulusan']);
+    });
+});
+
+// Auth Routes
+Route::get('/auth/login', function () {
+    return view('auth.login-page');
 });
