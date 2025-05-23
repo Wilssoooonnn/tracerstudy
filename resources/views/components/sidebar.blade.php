@@ -17,8 +17,8 @@
                 <a class="nav-link" href="{{ url('admin/data-lulusan') }}"><i class="far fa-user"></i> <span>Data
                         Lulusan</span></a>
             </li>
-            <li class="{{ Request::is('generate-link-lulusan') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('generate-link-lulusan') }}"><i class="fas fa-link"></i><span>Generate
+            <li class="{{ Request::is('admin/generate-link-lulusan') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('admin/generate-link-lulusan') }}"><i class="fas fa-link"></i><span>Generate
                         Link</span></a>
             </li>
             <li class="menu-header">Stakeholder</li>
