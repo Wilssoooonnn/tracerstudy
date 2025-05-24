@@ -80,4 +80,9 @@ class AuthController extends Controller
     {
         return view('admin.generate_link_penggunalulusan', ['type_menu' => 'sidebar']);
     }
+    
+ public function rekap_hasil_lulusan()
+    {
+        return view('admin.rekap_hasil_lulusan', ['type_menu' => 'sidebar']);
+    }
 }

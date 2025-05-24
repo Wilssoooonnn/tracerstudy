@@ -33,12 +33,13 @@
                     class="fas fa-link"></i><span>Generate Link</span></a>
             </li>
             <li class="menu-header">Report</li>
-            <li class="nav-item dropdown {{ $type_menu === '#' ? 'active' : '' }}">
+            <li class="nav-item dropdown {{ $type_menu === 'admin/rekap-hasil-lulusan' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-file"></i>
                     <span>Rekap Hasil</span></a>
                 <ul class="dropdown-menu">
-                    <li class="{{ Request::is('layout-default-layout') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('layout-default-layout') }}">Tracer Study Lulusan</a>
+                    <li class="{{ Request::is('admin/rekap-hasil-lulusan') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('admin/rekap-hasil-lulusan') }}">Tracer Study Lulusan</a>
+                    
                     </li>
                     <li class="{{ Request::is('transparent-sidebar') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('transparent-sidebar') }}">Survey Kepuasan</a>
