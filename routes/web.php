@@ -26,6 +26,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('data-stakeholder', [AuthController::class, 'data_stakeholder'])->name('data-stakeholder');
         Route::get('generate-link-penggunalulusan', [AuthController::class, 'generate_link_penggunalulusan'])
             ->name('generate-link-penggunalulusan');
+        Route::get('tambah-form', [AuthController::class, 'tambah_form'])->name('tambah-form');
         Route::get('rekap-hasil-lulusan', [AuthController::class, 'rekap_hasil_lulusan'])->name('rekap-hasil-lulusan');
         Route::get('rekap-hasil-surveykepuasan', [AuthController::class, 'rekap_hasil_surveykepuasan'])
             ->name('rekap-hasil-surveykepuasan');

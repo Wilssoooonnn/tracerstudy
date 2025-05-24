@@ -32,6 +32,10 @@
                 <a class="nav-link" href="{{ url('admin/generate-link-penggunalulusan') }}"><i 
                     class="fas fa-link"></i><span>Generate Link</span></a>
             </li>
+            <li class="{{ Request::is('admin/tambah-form') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('admin/tambah-form') }}"><i 
+                    class="fas fa-plus-square"></i><span>Tambah Form</span></a>
+            </li>
             <li class="menu-header">Report</li>
             <li class="nav-item dropdown {{ $type_menu === 'admin/rekap-hasil-lulusan' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-file"></i>
