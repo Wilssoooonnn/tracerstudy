@@ -75,5 +75,9 @@ class AuthController extends Controller
     {
         return view('admin.data_stakeholder', ['type_menu' => 'sidebar']);
     }
-        
+    
+    public function generate_link_penggunalulusan()
+    {
+        return view('admin.generate_link_penggunalulusan', ['type_menu' => 'sidebar']);
     }
+}
