@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -20,8 +21,8 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-        \Log::info('Session ID: ' . session()->getId());
-        \Log::info('CSRF Token: ' . $request->session()->token());
+        Log::info('Session ID: ' . session()->getId());
+        Log::info('CSRF Token: ' . $request->session()->token());
         $credentials = $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
@@ -69,4 +70,10 @@ class AuthController extends Controller
     {
         return view('admin.generate_link_lulusan', ['type_menu' => 'sidebar']);
     }
-}
+
+    public function data_stakeholder() 
+    {
+        return view('admin.data_stakeholder', ['type_menu' => 'sidebar']);
+    }
+        
+    }

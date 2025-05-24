@@ -24,11 +24,13 @@
                         Link</span></a>
             </li>
             <li class="menu-header">Stakeholder</li>
-            <li class="{{ Request::is('#') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('#') }}"><i class="far fa-user"></i> <span>Data Stakeholder</span></a>
+            <li class="{{ Request::is('admin/data-stakeholder') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('admin/data-stakeholder') }}"><i class="far fa-user"></i> <span>Data 
+                    Stakeholder</span></a>
             </li>
-            <li class="{{ Request::is('#') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('#') }}"><i class="fas fa-link"></i><span>Generate Link</span></a>
+            <li class="{{ Request::is('admin/generate-link-penggunalulusan') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('admin/generate-link-penggunalulusan') }}"><i 
+                    class="fas fa-link"></i><span>Generate Link</span></a>
             </li>
             <li class="menu-header">Report</li>
             <li class="nav-item dropdown {{ $type_menu === '#' ? 'active' : '' }}">
