@@ -50,15 +50,15 @@
                     </li>
                 </ul>
             </li>
-            <li class="nav-item dropdown {{ $type_menu === '#' ? 'active' : '' }}">
+            <li class="nav-item dropdown {{ $type_menu === 'admin/rekap-belum-mengisi-lulusan' ? 'active' : '' }}">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="far fa-file"></i>
                     <span>Rekap Belum Mengisi</span></a>
                 <ul class="dropdown-menu">
-                    <li class="{{ Request::is('layout-default-layout') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('layout-default-layout') }}">Tracer Study Lulusan</a>
+                    <li class="{{ Request::is('admin/rekap-belum-mengisi-lulusan') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('admin/rekap-belum-mengisi-lulusan') }}">Lulusan</a>
                     </li>
                     <li class="{{ Request::is('transparent-sidebar') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('transparent-sidebar') }}">Survey Kepuasan</a>
+                        <a class="nav-link" href="{{ url('transparent-sidebar') }}">Pengguna Lulusan</a>
                     </li>
                 </ul>
             </li>

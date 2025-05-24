@@ -30,5 +30,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('rekap-hasil-lulusan', [AuthController::class, 'rekap_hasil_lulusan'])->name('rekap-hasil-lulusan');
         Route::get('rekap-hasil-surveykepuasan', [AuthController::class, 'rekap_hasil_surveykepuasan'])
             ->name('rekap-hasil-surveykepuasan');
+        Route::get('rekap-belum-mengisi-lulusan', [AuthController::class, 'rekap_belum_mengisi_lulusan'])
+            ->name('rekap-belum-mengisi-lulusan');
     });
 });

@@ -93,6 +93,11 @@ class AuthController extends Controller
 
     public function rekap_hasil_surveykepuasan() 
     {
-    return view('admin.rekap_hasil_surveykepuasan', ['type_menu' => 'sidebar']);
+        return view('admin.rekap_hasil_surveykepuasan', ['type_menu' => 'sidebar']);
+    }
+
+    public function rekap_belum_mengisi_lulusan()
+    {
+        return view('admin.rekap_belum_mengisi_lulusan', ['type_menu' => 'sidebar']);
     }
 }
