@@ -100,4 +100,9 @@ class AuthController extends Controller
     {
         return view('admin.rekap_belum_mengisi_lulusan', ['type_menu' => 'sidebar']);
     }
+
+    public function rekap_belum_mengisi_pengguna()
+    {
+        return view('admin.rekap_belum_mengisi_pengguna', ['type_menu' => 'sidebar']);
+    }
 }

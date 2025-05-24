@@ -57,8 +57,8 @@
                     <li class="{{ Request::is('admin/rekap-belum-mengisi-lulusan') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('admin/rekap-belum-mengisi-lulusan') }}">Lulusan</a>
                     </li>
-                    <li class="{{ Request::is('transparent-sidebar') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('transparent-sidebar') }}">Pengguna Lulusan</a>
+                    <li class="{{ Request::is('admin/rekap-belum-mengisi-pengguna') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('admin/rekap-belum-mengisi-pengguna') }}">Pengguna Lulusan</a>
                     </li>
                 </ul>
             </li>
