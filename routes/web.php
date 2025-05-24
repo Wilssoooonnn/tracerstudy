@@ -1,6 +1,7 @@
 <?php
 // routes/web.php
 use App\Http\Controllers\AuthController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // Public routes
@@ -26,5 +27,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('generate-link-penggunalulusan', [AuthController::class, 'generate_link_penggunalulusan'])
             ->name('generate-link-penggunalulusan');
         Route::get('rekap-hasil-lulusan', [AuthController::class, 'rekap_hasil_lulusan'])->name('rekap-hasil-lulusan');
+        Route::get('rekap-hasil-surveykepuasan', [AuthController::class, 'rekap_hasil_surveykepuasan'])
+            ->name('rekap-hasil-surveykepuasan');
     });
 });

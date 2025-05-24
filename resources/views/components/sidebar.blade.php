@@ -41,8 +41,8 @@
                         <a class="nav-link" href="{{ url('admin/rekap-hasil-lulusan') }}">Tracer Study Lulusan</a>
                     
                     </li>
-                    <li class="{{ Request::is('transparent-sidebar') ? 'active' : '' }}">
-                        <a class="nav-link" href="{{ url('transparent-sidebar') }}">Survey Kepuasan</a>
+                    <li class="{{ Request::is('admin/rekap-hasil-surveykepuasan') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ url('admin/rekap-hasil-surveykepuasan') }}">Survey Kepuasan</a>
                     </li>
                 </ul>
             </li>
