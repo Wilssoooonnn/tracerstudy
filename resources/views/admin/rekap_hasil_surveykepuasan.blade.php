@@ -35,7 +35,7 @@
                                                 </div>
                                                 <div class="ml-3">
                                                 <button class="btn btn-success">
-                                                    <i class="fas fa-file-export"></i> Export Data
+                                                    <i class="fas fa-file-import"></i> Import Data
                                                 </button>
                                             </div>
                                         </div>
@@ -60,6 +60,7 @@
                                             <th>Nama Lulusan</th>
                                             <th>Program Studi</th>
                                             <th>Tahun Lulus</th>
+                                            <th>Aksi</th>
                                         </tr>
                                         <tr>
                                             <td class="p-0 text-center">
@@ -69,12 +70,45 @@
                                                     <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
                                                 </div>
                                             </td>
-                                            <td>No</td>
-                                            <td>Nama</td>
-                                            <td>Instansi</td>
-                                            <td>Nama Lulusan</td>
-                                            <td>Program Studi</td>
-                                            <td>Tahun Lulus</td>
+                                            <td>1</td>
+                                            <td>Annisa</td>
+                                            <td>PT. OTSUKA</td>
+                                            <td>Nasya</td>
+                                            <td>D4 - SIB</td>
+                                            <td>2025</td>
+                                            <td><a href="#" class="btn btn-primary">Detail</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-0 text-center">
+                                                <div class="custom-checkbox custom-control">
+                                                    <input type="checkbox" data-checkboxes="mygroup"
+                                                        class="custom-control-input" id="checkbox-2">
+                                                    <label for="checkbox-2" class="custom-control-label">&nbsp;</label>
+                                                </div>
+                                            </td>
+                                            <td>2</td>
+                                            <td>Kirana Salsabilla</td>
+                                            <td>PT. Jungan 99</td>
+                                            <td>Fasya Dita Nasahah</td>
+                                            <td>D4 - SIB</td>
+                                            <td>2026</td>
+                                            <td><a href="#" class="btn btn-primary">Detail</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="p-0 text-center">
+                                                <div class="custom-checkbox custom-control">
+                                                    <input type="checkbox" data-checkboxes="mygroup"
+                                                        class="custom-control-input" id="checkbox-3">
+                                                    <label for="checkbox-3" class="custom-control-label">&nbsp;</label>
+                                                </div>
+                                            </td>
+                                            <td>3</td>
+                                            <td>Hezakiel Ahmad</td>
+                                            <td>PT. Niko Elektronik</td>
+                                            <td>Adam Nur Alifi</td>
+                                            <td>D4 - SIB</td>
+                                            <td>2027</td>
+                                            <td><a href="#" class="btn btn-primary">Detail</a></td>
                                         </tr>
                                     </table>
                                 </div>
