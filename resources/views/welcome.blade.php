@@ -51,8 +51,9 @@
       <div class="container d-flex flex-column align-items-center justify-content-center text-center text-white py-5"
         style="min-height: 100vh;">
         <h2 data-aos="fade-up" data-aos-delay="100" class="display-4 fw-bold">TRACK. CONNECT. IMPROVE.</h2>
-        <p data-aos="fade-up" data-aos-delay="200" class="lead">Kami adalah tim yang berkomitmen melacak jejak lulusan
-          demi kualitas pendidikan yang lebih baik.</p>
+        <p data-aos="fade-up" data-aos-delay="200" class="lead">Halo, Selamat Datang di Tracer Study JTI POLINEMA! 
+          <br>Melalui sistem ini, kami menjalin koneksi antara kampus, alumni, dan dunia kerja 
+          untuk menciptakan pendidikan yang relevan dan berkualitas.</p>
         <div class="d-flex mt-4 gap-3 justify-content-center" data-aos="fade-up" data-aos-delay="300">
           <a href="#about" class="btn btn-primary btn-lg px-4">Get Started</a>
         </div>
@@ -76,17 +77,16 @@
       @include('landing.services')
     </section>
     <section id="testimonials" class="testimonials section dark-background">@include('landing.testimonial')</section>
-    <section id="portfolio" class="portfolio section">@include('landing.portofolio')</section>
+    {{-- <section id="portfolio" class="portfolio section">@include('landing.portofolio')</section> --}}
     <section id="team" class="team section light-background">@include('landing.team')</section>
   </main>
 
   <footer id="footer" class="footer dark-background">
     @include('landing.tentang')
     <div class="container text-center mt-4">
-      <p class="mb-0">&copy; <span>Copyright</span> <strong>Dewi</strong>. All Rights Reserved</p>
+      <p class="mb-0"><span>Copyright 2025</span> &#169; <strong>Tracer Study JTI - POLINEMA</strong>. All Rights Reserved</p>
       <div class="credits">
-        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>, Distributed by <a
-          href="https://themewagon.com">ThemeWagon</a>
+        Designed by <a href="#">Kelompok 6</a> - SIB 2C <!-- <a href="https://themewagon.com">ThemeWagon</a> -->
       </div>
     </div>
   </footer>

@@ -33,6 +33,12 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('rekap-belum-mengisi-lulusan', [AuthController::class, 'rekap_belum_mengisi_lulusan'])
             ->name('rekap-belum-mengisi-lulusan');
         Route::get('rekap-belum-mengisi-pengguna', [AuthController::class, 'rekap_belum_mengisi_pengguna'])
-            ->name('rekap-belum-mengisi-pengguna');
+            ->name('rekap-belum-mengisi-pengguna');        
+    });
+});
+
+Route::prefix('lulusan')->name('lulusan.')->group(function() {
+    Route::get('/form-lulusan', function () {
+                return view('lulusan.form-lulusan');
     });
 });

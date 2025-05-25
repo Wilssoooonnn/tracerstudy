@@ -1,17 +1,21 @@
 <div class="container-fluid container-xl position-relative d-flex align-items-center">
-
-  <a href="index.html" class="logo d-flex align-items-center me-auto">
-    <!-- Uncomment the line below if you also wish to use an image logo -->
-    <!-- <img src="assets/img/logo.png" alt=""> -->
-    <h1 class="sitename">Tracer Study</h1>
+  <a href="index.html" class="logo d-flex align-items-center me-auto text-decoration-none">
+    <!-- Logo di kiri -->
+    <img src="img/Logo_Jti.png" alt="Logo JTI" style="height: 50px; margin-right: 10px;">
+  
+    <!-- Teks di kanan -->
+    <div class="d-flex flex-column">
+      <h1 class="sitename mb-0 text-white fw-bold" style="font-size: 28px;">Tracer Study</h1>
+      <small class="text-light fw-semibold" style="font-size: 13px;">Jurusan Teknologi Informasi</small>
+    </div>
   </a>
 
   <nav id="navmenu" class="navmenu">
     <ul>
       <li><a href="#hero" class="active">Home</a></li>
       <li><a href="#about">About</a></li>
+      <li><a href="#graphics">Graphics</a></li>
       <li><a href="#services">Services</a></li>
-      {{-- <li><a href="#portfolio">Portfolio</a></li> --}}
       <li><a href="#team">Team</a></li>
     </ul>
     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
