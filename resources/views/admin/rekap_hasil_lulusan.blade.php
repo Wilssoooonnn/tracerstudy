@@ -35,7 +35,7 @@
                                                 </div>
                                                 <div class="ml-3">
                                                 <button class="btn btn-success">
-                                                    <i class="fas fa-file-import"></i> Import Data
+                                                    <i class="fas fa-file-export"></i> Export Data
                                                 </button>
                                             </div>
                                         </div>
@@ -67,10 +67,10 @@
                                                     <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
                                                 </div>
                                             </td>
-                                            <td>Nim</td>
-                                            <td>Nama</td>
-                                            <td>Prodi</td>
-                                            <td>Email</td>
+                                            <td>2341760032</td>
+                                            <td>Annisa</td>
+                                            <td>D - II Pengembangan Piranti Lunak Situs</td>
+                                            <td>annisaacan84@gmail.com</td>
                                         </tr>
                                     </table>
                                 </div>
