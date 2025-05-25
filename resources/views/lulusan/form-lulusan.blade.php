@@ -21,10 +21,14 @@
                                         <label>Program Studi</label>
                                         <input type="text" class="form-control" required>
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mb-0">
                                         <label>Tahun Lulus</label>
-                                        <input type="email" class="form-control" required>
-                                    </div>
+                                        <select class="form-control">
+                                            @for ($i = date('Y'); $i >= 2000; $i--)
+                                                <option value="{{ $i }}">{{ $i }}</option>
+                                            @endfor
+                                        </select>
+                                    </div>  
                                     <div class="form-group">
                                         <label>Nama</label>
                                         <input type="text" class="form-control">
@@ -39,11 +43,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Tanggal Pertama Kerja</label>
-                                        <input type="text" class="form-control">
+                                        <input type="date"
+                                            class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Tanggal Mulai Kerja pada Instansi saat ini</label>
-                                        <input type="text" class="form-control">
+                                        <input type="date"
+                                            class="form-control">
                                     </div>
                                     <div class="form-group">
                                         <label>Jenis Instansi</label>
@@ -63,8 +69,12 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Kategori Profesi</label>
-                                        <input type="text" class="form-control">
-                                    </div>
+                                        <select class="form-control" name="kategori_profesi" required>
+                                            <option value="">-- Pilih Kategori --</option>
+                                            <option value="infokom">Infokom</option>
+                                            <option value="non-infokom">Non-Infokom</option>
+                                        </select>
+                                    </div>                                    
                                     <div class="form-group">
                                         <label>Profesi</label>
                                         <input type="text" class="form-control">
