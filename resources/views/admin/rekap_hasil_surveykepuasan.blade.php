@@ -35,7 +35,7 @@
                                                 </div>
                                                 <div class="ml-3">
                                                 <button class="btn btn-success">
-                                                    <i class="fas fa-file-import"></i> Import Data
+                                                    <i class="fas fa-file-export"></i> Export Data
                                                 </button>
                                             </div>
                                         </div>
@@ -60,7 +60,7 @@
                                             <th>Nama Lulusan</th>
                                             <th>Program Studi</th>
                                             <th>Tahun Lulus</th>
-                                            <th>Aksi</th>
+                                            <th>Action</th>
                                         </tr>
                                         <tr>
                                             <td class="p-0 text-center">
