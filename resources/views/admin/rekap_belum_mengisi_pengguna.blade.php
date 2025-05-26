@@ -31,9 +31,9 @@
                                                 <input type="text" class="form-control" placeholder="Search">
                                                 <div class="input-group-append">
                                                     <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                                    </div>
                                                 </div>
-                                                <div class="ml-3">
+                                            </div>
+                                            <div class="ml-3">
                                                 <button class="btn btn-success">
                                                     <i class="fas fa-file-export"></i> Export Data
                                                 </button>
@@ -46,32 +46,20 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
-                                            <th>
-                                                <div class="custom-checkbox custom-control">
-                                                    <input type="checkbox" data-checkboxes="mygroup"
-                                                        data-checkbox-role="dad" class="custom-control-input"
-                                                        id="checkbox-all">
-                                                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
-                                                </div>
-                                            </th>
+                                            <th>No</th>
                                             <th>Nama Atasan</th>
                                             <th>Stakeholder</th>
                                             <th>Nama Lulusan</th>
                                             <th>Program Studi</th>
                                         </tr>
                                         <tr>
-                                            <td class="p-0 text-center">
-                                                <div class="custom-checkbox custom-control">
-                                                    <input type="checkbox" data-checkboxes="mygroup"
-                                                        class="custom-control-input" id="checkbox-1">
-                                                    <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-                                                </div>
-                                            </td>
+                                            <td>1</td>
                                             <td>Nama</td>
                                             <td>Stakeholder</td>
                                             <td>Nama</td>
                                             <td>Prodi</td>
                                         </tr>
+                                        <!-- Tambahkan baris lainnya jika diperlukan -->
                                     </table>
                                 </div>
                             </div>
