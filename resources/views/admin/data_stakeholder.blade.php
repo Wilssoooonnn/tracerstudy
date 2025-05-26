@@ -39,32 +39,20 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
-                                            <th>
-                                                <div class="custom-checkbox custom-control">
-                                                    <input type="checkbox" data-checkboxes="mygroup"
-                                                        data-checkbox-role="dad" class="custom-control-input"
-                                                        id="checkbox-all">
-                                                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
-                                                </div>
-                                            </th>
+                                            <th>No</th>
                                             <th>Nama Atasan</th>
                                             <th>Stakeholder</th>
                                             <th>Nama Lulusan</th>
                                             <th>Program Studi</th>
                                         </tr>
                                         <tr>
-                                            <td class="p-0 text-center">
-                                                <div class="custom-checkbox custom-control">
-                                                    <input type="checkbox" data-checkboxes="mygroup"
-                                                        class="custom-control-input" id="checkbox-1">
-                                                    <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-                                                </div>
-                                            </td>
+                                            <td>1</td>
                                             <td>Nama</td>
                                             <td>Stakeholder</td>
                                             <td>Nama</td>
                                             <td>Prodi</td>
                                         </tr>
+                                        <!-- Tambahkan data berikutnya sesuai kebutuhan -->
                                     </table>
                                 </div>
                             </div>

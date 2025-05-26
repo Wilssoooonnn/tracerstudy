@@ -38,35 +38,26 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
-                                            <th>
-                                                <div class="custom-checkbox custom-control">
-                                                    <input type="checkbox" data-checkboxes="mygroup"
-                                                        data-checkbox-role="dad" class="custom-control-input"
-                                                        id="checkbox-all">
-                                                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
-                                                </div>
-                                            </th>
+                                            <th>No</th>
                                             <th>Nama Lulusan</th>
                                             <th>Email</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                         <tr>
-                                            <td class="p-0 text-center">
-                                                <div class="custom-checkbox custom-control">
-                                                    <input type="checkbox" data-checkboxes="mygroup"
-                                                        class="custom-control-input" id="checkbox-1">
-                                                    <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-                                                </div>
-                                            </td>
+                                            <td>1</td>
                                             <td>Nama</td>
                                             <td>Email</td>
                                             <td>
                                                 <div class="badge badge-secondary">Pending</div>
                                             </td>
-                                            <td><a href="#" class="btn btn-primary"><i class="fa fa-link"></i> Generate</a>
+                                            <td>
+                                                <a href="#" class="btn btn-primary">
+                                                    <i class="fa fa-link"></i> Generate
+                                                </a>
                                             </td>
                                         </tr>
+                                        <!-- Tambahkan baris berikutnya di sini -->
                                     </table>
                                 </div>
                             </div>
