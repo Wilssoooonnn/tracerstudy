@@ -29,7 +29,7 @@
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="input-group w-auto">
                                                 <input type="text" class="form-control" placeholder="Search">
-                                                <div class="input-group-append">
+                                                <div class="input-group-btn">
                                                     <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                                 </div>
                                             </div>
