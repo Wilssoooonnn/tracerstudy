@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\category;
+use Illuminate\Support\Facades\DB;
 
 class categorySeeder extends Seeder
 {
@@ -15,7 +15,7 @@ class categorySeeder extends Seeder
      */
     public function run()
     {
-       category::insert([
+       DB::table('category')->insert([
     [
         'id' => '1',
         'category' => 'Bidang Infokom',
