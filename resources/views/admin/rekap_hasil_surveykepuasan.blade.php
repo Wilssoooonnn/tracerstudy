@@ -46,14 +46,6 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
-                                            <th>
-                                                <div class="custom-checkbox custom-control">
-                                                    <input type="checkbox" data-checkboxes="mygroup"
-                                                        data-checkbox-role="dad" class="custom-control-input"
-                                                        id="checkbox-all">
-                                                    <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
-                                                </div>
-                                            </th>
                                             <th>No</th>
                                             <th>Nama</th>
                                             <th>Instansi</th>
@@ -63,13 +55,6 @@
                                             <th>Action</th>
                                         </tr>
                                         <tr>
-                                            <td class="p-0 text-center">
-                                                <div class="custom-checkbox custom-control">
-                                                    <input type="checkbox" data-checkboxes="mygroup"
-                                                        class="custom-control-input" id="checkbox-1">
-                                                    <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
-                                                </div>
-                                            </td>
                                             <td>1</td>
                                             <td>Annisa</td>
                                             <td>PT. OTSUKA</td>
@@ -79,13 +64,6 @@
                                             <td><a href="#" class="btn btn-primary">Detail</a></td>
                                         </tr>
                                         <tr>
-                                            <td class="p-0 text-center">
-                                                <div class="custom-checkbox custom-control">
-                                                    <input type="checkbox" data-checkboxes="mygroup"
-                                                        class="custom-control-input" id="checkbox-2">
-                                                    <label for="checkbox-2" class="custom-control-label">&nbsp;</label>
-                                                </div>
-                                            </td>
                                             <td>2</td>
                                             <td>Kirana Salsabilla</td>
                                             <td>PT. Jungan 99</td>
@@ -95,13 +73,6 @@
                                             <td><a href="#" class="btn btn-primary">Detail</a></td>
                                         </tr>
                                         <tr>
-                                            <td class="p-0 text-center">
-                                                <div class="custom-checkbox custom-control">
-                                                    <input type="checkbox" data-checkboxes="mygroup"
-                                                        class="custom-control-input" id="checkbox-3">
-                                                    <label for="checkbox-3" class="custom-control-label">&nbsp;</label>
-                                                </div>
-                                            </td>
                                             <td>3</td>
                                             <td>Hezakiel Ahmad</td>
                                             <td>PT. Niko Elektronik</td>
