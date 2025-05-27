@@ -31,7 +31,6 @@
     <!-- Main Content -->
     <div class="main-content">
         <section class="section">
-
             <div class="row">
                 <div class="col-12 col-md-6 col-lg-6">
                     <div class="card">
@@ -416,18 +415,17 @@
     <script src="{{ asset('library/chart.js/dist/Chart.min.js') }}"></script>
     <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+
     <!-- Swiper CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/index.js') }}"></script>
     <script src="{{ asset('js/page/modules-datatables.js') }}"></script>
 
     {{-- js untuk pie chart --}}
-
     <script>
 
     var ctx = document.getElementById("myChart1").getContext('2d');

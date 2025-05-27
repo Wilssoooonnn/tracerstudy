@@ -63,12 +63,7 @@
     <!-- Content Sections -->
     <section id="about" class="about section">@include('landing.about')</section>
     <section id="stats" class="stats section light-background">@include('landing.stats')</section>
-      <section id="charts" class="charts section">
-      <div class="container section-title" data-aos="fade-up">
-        <h2>GRAPHIC</h2>
-        <p>GRAPHIC DATA LULUSAN</p>
-      </div>
-    </section>
+    <section id="charts" class="charts section"> @include('landing.graphic')</section>
     <section id="services" class="services section">
       <div class="container section-title" data-aos="fade-up">
         <h2>Services</h2>
@@ -110,6 +105,7 @@
   <script src="{{ asset('dewi/assets/vendor/isotope-layout/isotope.pkgd.min.js') }}"></script>
   <script src="{{ asset('dewi/assets/js/main.js') }}"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  @stack('scripts')
 </body>
 
 </html>
