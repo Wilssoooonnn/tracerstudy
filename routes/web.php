@@ -1,6 +1,7 @@
 <?php
 // routes/web.php
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LulusanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -39,6 +40,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
 Route::prefix('lulusan')->name('lulusan.')->group(function() {
     Route::get('/form-lulusan', function () {
-                return view('lulusan.form-lulusan');
-    });
+        return view('lulusan.form-lulusan');
+    })->name('form-lulusan');
+    Route::get('/cek-nim', [LulusanController::class, 'cekNim'])->name('cek-nim.form');
+    Route::post('/cek-nim', [LulusanController::class, 'submitCekNim'])->name('cek-nim.submit');
+    // Form lulusan dengan data sudah terisi
+    Route::get('/form-lulusan/{nim}', [LulusanController::class, 'showFormLulusan'])->name('form-lulusan');
 });

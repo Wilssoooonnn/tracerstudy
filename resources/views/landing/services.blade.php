@@ -11,7 +11,7 @@
             <div class="icon">
               <i class="bi bi-person-fill"></i>
             </div>
-            <a href="{{ url('lulusan/form-lulusan') }}" class="stretched-link">
+            <a href="{{ url('lulusan/cek-nim') }}" class="stretched-link">
               <h3>Form Lulusan</h3>
             </a>
             <p>Form ini digunakan oleh lulusan untuk mengisi data terkait pekerjaan, 
