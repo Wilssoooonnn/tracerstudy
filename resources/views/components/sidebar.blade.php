@@ -1,7 +1,6 @@
 <div class="main-sidebar sidebar-style-2">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <img src="{{ asset('img/logo.png') }}" width="30px" height="30px" alt="">
             <a href="index.html">Tracer Study</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
@@ -26,16 +25,16 @@
             </li>
             <li class="menu-header">Stakeholder</li>
             <li class="{{ Request::is('admin/data-stakeholder') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/data-stakeholder') }}"><i class="far fa-user"></i> <span>Data 
-                    Stakeholder</span></a>
+                <a class="nav-link" href="{{ url('admin/data-stakeholder') }}"><i class="far fa-user"></i> <span>Data
+                        Stakeholder</span></a>
             </li>
             <li class="{{ Request::is('admin/generate-link-penggunalulusan') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/generate-link-penggunalulusan') }}"><i 
-                    class="fas fa-link"></i><span>Generate Link</span></a>
+                <a class="nav-link" href="{{ url('admin/generate-link-penggunalulusan') }}"><i
+                        class="fas fa-link"></i><span>Generate Link</span></a>
             </li>
             <li class="{{ Request::is('admin/pertanyaan') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/pertanyaan') }}"><i 
-                    class="fas fa-lightbulb"></i><span>Pertanyaan</span></a>
+                <a class="nav-link" href="{{ url('admin/pertanyaan') }}"><i
+                        class="fas fa-lightbulb"></i><span>Pertanyaan</span></a>
             </li>
             <li class="menu-header">Report</li>
             <li class="nav-item dropdown {{ $type_menu === 'admin/rekap-hasil-lulusan' ? 'active' : '' }}">
@@ -44,7 +43,7 @@
                 <ul class="dropdown-menu">
                     <li class="{{ Request::is('admin/rekap-hasil-lulusan') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('admin/rekap-hasil-lulusan') }}">Tracer Study Lulusan</a>
-                    
+
                     </li>
                     <li class="{{ Request::is('admin/rekap-hasil-surveykepuasan') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ url('admin/rekap-hasil-surveykepuasan') }}">Survey Kepuasan</a>
