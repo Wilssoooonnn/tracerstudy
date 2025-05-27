@@ -48,13 +48,11 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Pertanyaan</th>
-                                            <th>Jawaban</th>
                                             <th>Action</th>
                                         </tr>
                                         <tr>
                                             <td>1</td>
                                             <td>Kerjasama Tim</td>
-                                            <td>Skala</td>
                                             <td>
                                                 <a href="#" class="btn btn-warning">Update</a>
                                                 <a href="#" class="btn btn-danger">Delete</a>
@@ -63,7 +61,6 @@
                                         <tr>
                                             <td>2</td>
                                             <td>Keahlian di Bidang TI</td>
-                                            <td>Skala</td>
                                             <td>
                                                 <a href="#" class="btn btn-warning">Update</a>
                                                 <a href="#" class="btn btn-danger">Delete</a>
@@ -72,7 +69,6 @@
                                         <tr>
                                             <td>3</td>
                                             <td>Kemampuan Berbahasa Asing</td>
-                                            <td>Skala</td>
                                             <td>
                                                 <a href="#" class="btn btn-warning">Update</a>
                                                 <a href="#" class="btn btn-danger">Delete</a>
@@ -81,7 +77,6 @@
                                         <tr>
                                             <td>4</td>
                                             <td>Kemampuan Berkomunikasi</td>
-                                            <td>Skala</td>
                                             <td>
                                                 <a href="#" class="btn btn-warning">Update</a>
                                                 <a href="#" class="btn btn-danger">Delete</a>
@@ -90,7 +85,6 @@
                                         <tr>
                                             <td>5</td>
                                             <td>Pengembangan Diri</td>
-                                            <td>Skala</td>
                                             <td>
                                                 <a href="#" class="btn btn-warning">Update</a>
                                                 <a href="#" class="btn btn-danger">Delete</a>
@@ -99,7 +93,6 @@
                                         <tr>
                                             <td>6</td>
                                             <td>Kepemimpinan</td>
-                                            <td>Skala</td>
                                             <td>
                                                 <a href="#" class="btn btn-warning">Update</a>
                                                 <a href="#" class="btn btn-danger">Delete</a>
@@ -108,7 +101,6 @@
                                         <tr>
                                             <td>7</td>
                                             <td>Etos Kerja</td>
-                                            <td>Skala</td>
                                             <td>
                                                 <a href="#" class="btn btn-warning">Update</a>
                                                 <a href="#" class="btn btn-danger">Delete</a>
