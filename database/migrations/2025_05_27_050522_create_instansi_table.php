@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateInstansiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('instansi', function (Blueprint $table) {
-            $table->id();  // program_id INT AUTO_INCREMENT PRIMARY KEY
-            $table->string('instansi_kode');
-            $table->string('instansi_nama');
-            $table->timestamps();  // created_at and updated_at
+            $table->id();
+            $table->string('nama_instansi')->unique();
+            $table->string('jenis_instansi');
+            $table->string('lokasi_instansi');
+            $table->string('skala'); // Skala instansi (misal: nasional, internasional, lokal)
+            $table->timestamps();
         });
     }
 
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('instansi');
     }
-};
+}

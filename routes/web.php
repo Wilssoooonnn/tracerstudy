@@ -1,8 +1,10 @@
 <?php
-// routes/web.php
+use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\AuthController;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProgramStudiController;
+use App\Http\Controllers\InstansiController;
+use App\Http\Controllers\KategoriProfesiController;
 
 // Public routes
 Route::redirect('/', '/welcome');
@@ -21,24 +23,21 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
         Route::get('profile', [AuthController::class, 'profile'])->name('profile');
-        Route::get('data-lulusan', [AuthController::class, 'data_lulusan'])->name('data-lulusan');
-        Route::get('generate-link-lulusan', [AuthController::class, 'generate_link_lulusan'])->name('generate-link-lulusan');
-        Route::get('data-stakeholder', [AuthController::class, 'data_stakeholder'])->name('data-stakeholder');
-        Route::get('generate-link-penggunalulusan', [AuthController::class, 'generate_link_penggunalulusan'])
-            ->name('generate-link-penggunalulusan');
-        Route::get('pertanyaan', [AuthController::class, 'pertanyaan'])->name('pertanyaan');
-        Route::get('rekap-hasil-lulusan', [AuthController::class, 'rekap_hasil_lulusan'])->name('rekap-hasil-lulusan');
-        Route::get('rekap-hasil-surveykepuasan', [AuthController::class, 'rekap_hasil_surveykepuasan'])
-            ->name('rekap-hasil-surveykepuasan');
-        Route::get('rekap-belum-mengisi-lulusan', [AuthController::class, 'rekap_belum_mengisi_lulusan'])
-            ->name('rekap-belum-mengisi-lulusan');
-        Route::get('rekap-belum-mengisi-pengguna', [AuthController::class, 'rekap_belum_mengisi_pengguna'])
-            ->name('rekap-belum-mengisi-pengguna');        
-    });
-});
 
-Route::prefix('lulusan')->name('lulusan.')->group(function() {
-    Route::get('/form-lulusan', function () {
-                return view('lulusan.form-lulusan');
+        // Alumni routes
+        Route::prefix('alumni')->name('alumni.')->group(function () {
+            Route::get('data', [AlumniController::class, 'index'])->name('data'); // View Alumni Data
+            Route::get('create', [AlumniController::class, 'create'])->name('create'); // Form to Create Alumni
+            Route::post('store', [AlumniController::class, 'store'])->name('store'); // Store new Alumni
+            Route::get('edit/{id}', [AlumniController::class, 'edit'])->name('edit'); // Form to Edit Alumni
+            Route::post('update/{id}', [AlumniController::class, 'update'])->name('update'); // Update Alumni
+            Route::delete('destroy/{id}', [AlumniController::class, 'destroy'])->name('destroy'); // Delete Alumni
+            Route::get('generate-link', [AlumniController::class, 'generateLink'])->name('generate-link'); // Generate Link for Alumni
+        });
+
+        // Other Admin-related routes (e.g., Instansi, Kategori Profesi)
+        Route::resource('program_studi', ProgramStudiController::class);
+        Route::resource('instansi', InstansiController::class);
+        Route::resource('kategori_profesi', KategoriProfesiController::class);
     });
 });

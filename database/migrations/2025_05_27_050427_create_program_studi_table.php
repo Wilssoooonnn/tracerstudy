@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class CreateProgramStudiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('skala', function (Blueprint $table) {
-            $table->id();  // program_id INT AUTO_INCREMENT PRIMARY KEY
-            $table->string('skala_kode');
-            $table->string('skala_nama');
-            $table->timestamps();  // created_at and updated_at
+        Schema::create('program_studi', function (Blueprint $table) {
+            $table->id();
+            $table->string('nama_program_studi')->unique();
+            $table->timestamps();
         });
     }
 
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('program_studi');
     }
-};
+}
