@@ -28,7 +28,7 @@ class LulusanController extends Controller
     }
 
     // Menampilkan form lulusan dengan data sudah terisi
-    
+
     public function showFormLulusan($nim)
     {
         $alumni = LulusanModel::with('program')->where('nim', $nim)->first();
@@ -39,7 +39,7 @@ class LulusanController extends Controller
 
         return view('lulusan.form-lulusan', [
             'alumni' => $alumni,
-            'programs_id' =>$alumni->programs_id,
+            'programs_id' => $alumni->programs_id,
             'nama' => $alumni->nama,
             'tanggal_lulus' => $alumni->tanggal_lulus,
         ]);
