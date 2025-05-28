@@ -9,7 +9,7 @@ class SkalaModel extends Model
     protected $table = 'skala'; // nama tabel di database
     protected $primaryKey = 'id'; // kolom primary key
 
-    public $timestamps = false; // karena kolom created_at dan updated_at tidak digunakan
+    public $timestamps = true; // karena kolom created_at dan updated_at tidak digunakan
 
     protected $fillable = [
         'skala_kode',

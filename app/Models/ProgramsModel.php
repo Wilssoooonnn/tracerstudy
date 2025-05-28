@@ -14,7 +14,7 @@ class ProgramsModel extends Model
         'jurusan',
     ];
 
-    public $timestamps = false; // karena kolom created_at dan updated_at bernilai NULL
+    public $timestamps = true; // karena kolom created_at dan updated_at bernilai NULL
 
     // Relasi ke data alumni (jika satu program memiliki banyak alumni)
     public function lulusan()
