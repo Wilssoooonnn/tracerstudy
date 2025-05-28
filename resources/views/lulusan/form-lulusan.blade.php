@@ -4,6 +4,7 @@
 
 @push('style')
     <!-- CSS Libraries -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 @endpush
 
 @section('main')
@@ -17,26 +18,23 @@
                                 <h4 class="mb-0">Form Tracer Study</h4>
                             </div>
                             <div class="card-body">
-                                {{-- <form method="POST" action="{{ route('simpan-tracer-study') }}"> --}}
-                                    @csrf
-                                
-                                    <div class="form-group">
-                                        <label>Program Studi</label>
-                                        <input type="text" class="form-control" name="programs_id" required
-                                            value="{{ old('programs_id',$programs_id) }}" readonly>
-                                    </div>
-                                
-                                    <div class="form-group">
-                                        <label>Tanggal Lulus</label>
-                                        <input type="text" class="form-control" name="tanggal_lulus"
-                                            value="{{ old('tanggal_lulus', $tanggal_lulus) }}" readonly>
-                                    </div>
-                                
-                                    <div class="form-group">
-                                        <label>Nama</label>
-                                        <input type="text" class="form-control" name="nama"
-                                            value="{{ old('nama', $nama) }}" readonly>
-                                    </div>
+                                @csrf
+                                <div class="form-group">
+                                    <label>Program Studi</label>
+                                    <input type="text" class="form-control" name="program_nama" required
+                                        value="{{ old('program_nama', $program_nama) }}" readonly>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tanggal Lulus</label>
+                                    <input type="text" class="form-control" name="tanggal_lulus"
+                                        value="{{ old('tanggal_lulus', $tanggal_lulus) }}" readonly>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Nama</label>
+                                    <input type="text" class="form-control" name="nama"
+                                        value="{{ old('nama', $nama) }}" readonly>
+                                </div>
                                 <div class="form-group">
                                     <label>No. Hp</label>
                                     <input type="text" class="form-control">
@@ -57,10 +55,12 @@
                                     <label>Jenis Instansi</label>
                                     <select class="form-control" name="jenis_instansi" required>
                                         <option value="">-- Pilih Jenis Instansi --</option>
-                                        <option value="pendidikan-tinggi">Pendidikan Tinggi</option>
-                                        <option value="instansi-pemerintah">Instansi Pemerintah</option>
-                                        <option value="perusahaan-swasta">Perusahaan Swasta</option>
-										<option value="bumn">BUMN</option>
+                                        @foreach ($semuaInstansi as $instansi)
+                                            <option value="{{ $instansi->id }}"
+                                                {{ $alumni->instansi_id == $instansi->id ? 'selected' : '' }}>
+                                                {{ $instansi->instansi_nama }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -69,7 +69,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Skala</label>
-                                    <input type="text" class="form-control">
+                                    <select name="skala_id" class="form-control" required>
+                                        <option value="">-- Pilih Skala --</option>
+                                        @foreach ($semuaSkala as $skala)
+                                            <option value="{{ $skala->id }}"
+                                                {{ $skala_id == $skala->id ? 'selected' : '' }}>
+                                                {{ $skala->skala_nama }}
+                                            </option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Lokasi Instansi</label>
@@ -77,16 +85,20 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Kategori Profesi</label>
-                                    <select class="form-control" name="kategori_profesi" required>
+                                    <select class="form-control" name="kategori_id" required>
                                         <option value="">-- Pilih Kategori --</option>
-                                        <option value="infokom">Infokom</option>
-                                        <option value="non-infokom">Non-Infokom</option>
+                                        @foreach ($semuaKategori as $kategori)
+                                            <option value="{{ $kategori->id }}"
+                                                {{ $alumni->kategori_id == $kategori->id ? 'selected' : '' }}>
+                                                {{ $kategori->category }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Profesi</label>
-                                    <input type="text" class="form-control">
-                                </div>
+                                    <input type="text" class="form-control" name="profesi" id="profesi_input" required autocomplete="off">
+                                </div>                                                        
                                 <div class="form-group">
                                     <label>Nama Atasan Langsung</label>
                                     <input type="text" class="form-control">
@@ -143,4 +155,21 @@
 
 @push('scripts')
     <!-- JS Libraries -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        let profesiList = [
+            @foreach ($daftarProfesi as $profesi)
+                "{{ $profesi->profesi }}",
+            @endforeach
+        ];
+
+        $("#profesi_input").autocomplete({
+            source: profesiList
+        });
+    });
+</script>
+
 @endpush

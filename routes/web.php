@@ -46,4 +46,5 @@ Route::prefix('lulusan')->name('lulusan.')->group(function() {
     Route::post('/cek-nim', [LulusanController::class, 'submitCekNim'])->name('cek-nim.submit');
     // Form lulusan dengan data sudah terisi
     Route::get('/form-lulusan/{nim}', [LulusanController::class, 'showFormLulusan'])->name('form-lulusan');
+    Route::post('/store', [LulusanController::class, 'store'])->name('store');
 });
