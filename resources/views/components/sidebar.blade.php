@@ -14,28 +14,21 @@
                     <span>Dashboard</span></a>
             </li>
             </li>
-            <li class="menu-header">Lulusan</li>
+            <li class="menu-header">Manajemen Data</li>
             <li class="{{ Request::is('admin/data-lulusan') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/data-lulusan') }}"><i class="far fa-user"></i> <span>Data
-                        Lulusan</span></a>
+                <a class="nav-link" href="{{ url('admin/data-lulusan') }}"><i class="far fa-user"></i> <span>Data Lulusan </span></a>
             </li>
-            <li class="{{ Request::is('admin/generate-link-lulusan') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/generate-link-lulusan') }}"><i
-                        class="fas fa-link"></i><span>Generate
-                        Link</span></a>
+            <li class="{{ Request::is('admin/data-stakeholder ') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('admin/data-stakeholder') }}"><i
+                        class="fas fa-user"></i><span>Data Stakeholder</span></a>
             </li>
-            <li class="menu-header">Stakeholder</li>
-            <li class="{{ Request::is('admin/data-stakeholder') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/data-stakeholder') }}"><i class="far fa-user"></i> <span>Data 
-                    Stakeholder</span></a>
+            <li class="menu-header">Survei</li>
+            <li class="{{ Request::is('admin/pertanyaan') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('admin/pertanyaan') }}"><i class="fas fa-lightbulb"></i> <span>Pertanyaan</span></a>
             </li>
             <li class="{{ Request::is('admin/generate-link-penggunalulusan') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/generate-link-penggunalulusan') }}"><i 
-                    class="fas fa-link"></i><span>Generate Link</span></a>
-            </li>
-            <li class="{{ Request::is('admin/pertanyaan') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/pertanyaan') }}"><i 
-                    class="fas fa-lightbulb"></i><span>Pertanyaan</span></a>
+                <a class="nav-link" href="{{ url('admin/generate-link-penggunalulusan') }}">
+                    <i class="fas fa-chart-bar"></i><span>Response Data</span></a>
             </li>
             <li class="menu-header">Report</li>
             <li class="nav-item dropdown {{ $type_menu === 'admin/rekap-hasil-lulusan' ? 'active' : '' }}">
