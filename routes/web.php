@@ -29,6 +29,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('generate-link-penggunalulusan', [AuthController::class, 'generate_link_penggunalulusan'])
             ->name('generate-link-penggunalulusan');
         Route::get('pertanyaan', [AuthController::class, 'pertanyaan'])->name('pertanyaan');
+        Route::get('response-data', [AuthController::class, 'response_data'])->name('response-data');
         Route::get('rekap-hasil-lulusan', [AuthController::class, 'rekap_hasil_lulusan'])->name('rekap-hasil-lulusan');
         Route::get('rekap-hasil-surveykepuasan', [AuthController::class, 'rekap_hasil_surveykepuasan'])
             ->name('rekap-hasil-surveykepuasan');
@@ -48,6 +49,8 @@ Route::prefix('lulusan')->name('lulusan.')->group(function() {
     // Form lulusan dengan data sudah terisi
     Route::get('/form-lulusan/{nim}', [LulusanController::class, 'showFormLulusan'])->name('form-lulusan');
     Route::post('/store', [LulusanController::class, 'store'])->name('store');
+
+    
 });
 
 Route::prefix('pertanyaan')->name('pertanyaan')->group(function() {

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Table')
+@section('title', 'Response Data')
 
 @push('style')
     <!-- CSS Libraries --> 
@@ -13,7 +13,7 @@
                 <h1>Response Data</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Components</a></div>
+                    <div class="breadcrumb-item"><a href="#">Response Data</a></div>
                 </div>
             </div>
 
