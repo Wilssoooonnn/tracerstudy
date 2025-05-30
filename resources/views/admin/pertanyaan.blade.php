@@ -22,21 +22,24 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
+                            @if (session('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('success') }}
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                                </div>
+                            @endif
+                            @if (session('error'))
+                                <div class="alert alert-danger">{{ session('error') }}</div>
+                            @endif
                             <div class="card-header">
                                 <h4>Daftar Pertanyaan</h4>
                                 <div class="card-header-form">
                                     <form>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="input-group w-auto">
-                                                <input type="text" class="form-control" placeholder="Search">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                                    </div>
-                                                </div>
                                                 <div class="ml-3">
-                                                <button class="btn btn-success">
-                                                    <i class="fas fa-plus"></i> Create
-                                                </button>
+                                                    <a class="btn btn-success" class="fas fa-plus" href={{ url('/pertanyaan/create') }}>create</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </form>
@@ -44,68 +47,14 @@
                             </div>
                             <div class="card-body p-0">
                                 <div class="table-responsive">
-                                    <table class="table-striped table">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Pertanyaan</th>
-                                            <th>Action</th>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Kerjasama Tim</td>
-                                            <td>
-                                                <a href="#" class="btn btn-warning">Update</a>
-                                                <a href="#" class="btn btn-danger">Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td>Keahlian di Bidang TI</td>
-                                            <td>
-                                                <a href="#" class="btn btn-warning">Update</a>
-                                                <a href="#" class="btn btn-danger">Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td>Kemampuan Berbahasa Asing</td>
-                                            <td>
-                                                <a href="#" class="btn btn-warning">Update</a>
-                                                <a href="#" class="btn btn-danger">Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td>Kemampuan Berkomunikasi</td>
-                                            <td>
-                                                <a href="#" class="btn btn-warning">Update</a>
-                                                <a href="#" class="btn btn-danger">Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td>Pengembangan Diri</td>
-                                            <td>
-                                                <a href="#" class="btn btn-warning">Update</a>
-                                                <a href="#" class="btn btn-danger">Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>6</td>
-                                            <td>Kepemimpinan</td>
-                                            <td>
-                                                <a href="#" class="btn btn-warning">Update</a>
-                                                <a href="#" class="btn btn-danger">Delete</a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>7</td>
-                                            <td>Etos Kerja</td>
-                                            <td>
-                                                <a href="#" class="btn btn-warning">Update</a>
-                                                <a href="#" class="btn btn-danger">Delete</a>
-                                            </td>
-                                        </tr>
+                                    <table class="table-striped table" id="table_pertanyaan">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Pertanyaan</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
                                     </table>
                                 </div>
                             </div>
@@ -123,4 +72,37 @@
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/components-table.js') }}"></script>
+@endpush
+
+@push('js')
+    <script>
+    $(document).ready(function() {
+        var dataPertanyaan = $('#table_pertanyaan').DataTable({ 
+                // serverSide: true, jika ingin menggunakan server side processing
+                serverSide: true,
+                ajax: {
+                    "url": "{{ url('pertanyaan/list') }}",
+                    "dataType": "json",
+                    "type": "POST"
+                },
+                columns: [{
+                    // nomor urut dari laravel datatable addIndexColumn()
+                    data: "DT_RowIndex",
+                    className: "text-center",
+                    orderable: false,
+                    searchable: false
+                }, {
+                    data: "pertanyaan",
+                    className: "",
+                    orderable: true,
+                    searchable: true, //jika ingin kolom ini bisa dicari
+                },{
+                    data: "action",
+                    className: "",
+                    orderable: false,
+                    searchable: false
+                }]
+            })
+        });
+    </script>
 @endpush

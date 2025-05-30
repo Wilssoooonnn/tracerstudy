@@ -26,8 +26,8 @@
             <li class="{{ Request::is('admin/pertanyaan') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('admin/pertanyaan') }}"><i class="fas fa-lightbulb"></i> <span>Pertanyaan</span></a>
             </li>
-            <li class="{{ Request::is('admin/generate-link-penggunalulusan') ? 'active' : '' }}">
-                <a class="nav-link" href="{{ url('admin/generate-link-penggunalulusan') }}">
+            <li class="{{ Request::is('admin/response-data') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('admin/response-data') }}">
                     <i class="fas fa-chart-bar"></i><span>Response Data</span></a>
             </li>
             <li class="menu-header">Report</li>

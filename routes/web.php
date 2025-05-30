@@ -1,9 +1,10 @@
 <?php
 // routes/web.php
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\LulusanController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LulusanController;
+use App\Http\Controllers\PertanyaanController;
 
 // Public routes
 Route::redirect('/', '/welcome');
@@ -47,4 +48,15 @@ Route::prefix('lulusan')->name('lulusan.')->group(function() {
     // Form lulusan dengan data sudah terisi
     Route::get('/form-lulusan/{nim}', [LulusanController::class, 'showFormLulusan'])->name('form-lulusan');
     Route::post('/store', [LulusanController::class, 'store'])->name('store');
+});
+
+Route::prefix('pertanyaan')->name('pertanyaan')->group(function() {
+    Route::get('/', [PertanyaanController::class, 'index']);          // menampilkan halaman awal pertanyaan
+    Route::post('/list', [PertanyaanController::class, 'list']);      // menampilkan data pertanyaan dalam bentuk json untuk datatables
+    Route::get('/create', [PertanyaanController::class, 'create']);   // menampilkan halaman form tambah pertanyaan
+    Route::post('/', [PertanyaanController::class, 'store']);         // menyimpan data pertanyaan baru
+    Route::get('/{id}', [PertanyaanController::class, 'show']);       // menampilkan detail pertanyaan
+    Route::get('/{id}/edit', [PertanyaanController::class, 'edit']);  // menampilkan halaman form edit pertanyaan
+    Route::put('/{id}', [PertanyaanController::class, 'update']);     // menyimpan perubahan data pertanyaan
+    Route::delete('/{id}', [PertanyaanController::class, 'destroy']); // menghapus data pertanyaan
 });
