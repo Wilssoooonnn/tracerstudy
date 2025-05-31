@@ -66,14 +66,9 @@ Route::prefix('pertanyaan')->name('pertanyaan')->group(function() {
 });
 
 
-// Form untuk input NIM
-Route::get('/instansi/cek-lulusan', [InstansiController::class, 'cekLulusan'])->name('instansi.cek-lulusan');
-
-// Proses pengecekan NIM
-Route::post('/instansi/cek-lulusan', [InstansiController::class, 'submitCekLulusan'])->name('instansi.cek-lulusan.submit');
-
-// Form instansi (menampilkan data berdasarkan NIM)
-Route::get('/instansi/form-instansi/{nim}', [InstansiController::class, 'showFormInstansi'])->name('instansi.form-instansi');
-
-// Simpan data form instansi
-Route::post('/instansi/store', [InstansiController::class, 'store'])->name('instansi.store');
+Route::prefix('instansi')->name('instansi.')->group(function () {
+    Route::get('/cek-lulusan', [InstansiController::class, 'cekLulusan'])->name('cek-lulusan');
+    Route::post('/cek-lulusan', [InstansiController::class, 'submitCekLulusan'])->name('cek-lulusan.submit');
+    Route::get('/form-instansi/{nama}', [InstansiController::class, 'showFormInstansi'])->name('form-instansi');
+    Route::post('/store', [InstansiController::class, 'store'])->name('store');
+});

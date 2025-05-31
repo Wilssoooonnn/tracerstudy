@@ -24,9 +24,9 @@
                             <form action="{{ route('instansi.cek-lulusan.submit') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="nim">Masukkan NIM:</label>
-                                    <input type="text" name="nim" id="nim" class="form-control" required>
-                                    @error('nim')
+                                    <label for="nama">Masukkan Nama:</label>
+                                    <input type="text" name="nama" id="nama" class="form-control" required>
+                                    @error('nama')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
