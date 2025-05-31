@@ -18,4 +18,9 @@ class LulusanModel extends Model
     {
         return $this->belongsTo(ProgramsModel::class, 'programs_id');
     }
+
+    public function stakeholder()
+    {
+        return $this->belongsTo(StakeholderModel::class, 'alumni_id');
+    }
 }
