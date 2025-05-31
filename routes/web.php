@@ -58,6 +58,9 @@ Route::prefix('lulusan')->name('lulusan.')->group(function () {
 
 });
 
+Route::get('data-lulusan/import', [LulusanController::class, 'import_view'])->name('lulusan_import'); // 👉 GET untuk halaman form
+Route::post('data-lulusan/import', [LulusanController::class, 'lulusan_import'])->name('lulusan_import'); // 👉 POST untuk proses
+
 Route::prefix('pertanyaan')->name('pertanyaan')->group(function () {
     Route::get('/', [PertanyaanController::class, 'index']);          // menampilkan halaman awal pertanyaan
     Route::post('/list', [PertanyaanController::class, 'list']);      // menampilkan data pertanyaan dalam bentuk json untuk datatables
