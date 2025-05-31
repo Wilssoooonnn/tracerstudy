@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 use App\Models\LulusanModel;
 use App\Models\SkalaModel;
 use App\Models\InstansiModel;
@@ -99,4 +100,32 @@ class LulusanController extends Controller
 
         return redirect()->back()->with('success', 'Data berhasil disimpan.');
     }
+
+    public function getLulusanData(Request $request)
+    {
+        // Mengambil data lulusan dengan kolom yang sesuai
+        $lulusan = LulusanModel::select(['id', 'nim', 'nama', 'programs_id', 'nohp', 'email'])->get();
+
+        // Menyusun data dalam format yang sesuai untuk DataTables
+        $data = $lulusan->map(function ($item) {
+            return [
+                'id' => $item->id,
+                'nim' => $item->nim,
+                'nama' => $item->nama,
+                'programs_id' => $item->programs_id, // Pastikan ini sesuai dengan kolom di database
+                'nohp' => $item->nohp,
+                'email' => $item->email,
+                'action' => '<button>Edit</button>', // Sesuaikan dengan tombol aksi Anda
+            ];
+        });
+
+        return response()->json([
+            'draw' => $request->draw,
+            'recordsTotal' => $lulusan->count(),
+            'recordsFiltered' => $lulusan->count(),
+            'data' => $data, // Mengembalikan data yang sudah diformat
+        ]);
+    }
+
+
 }
