@@ -17,8 +17,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('programs_id')->index();
             $table->string('NIM')->unique();
             $table->string('nama');
-            $table->string('nohp');
-            $table->string('email')->unique();
+            $table->string('nohp')->nullable();
+            $table->string('email')->nullable();
             $table->date('tanggal_lulus');
             $table->timestamps();  // created_at and updated_at
 

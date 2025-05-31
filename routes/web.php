@@ -37,24 +37,28 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('rekap-belum-mengisi-lulusan', [AuthController::class, 'rekap_belum_mengisi_lulusan'])
             ->name('rekap-belum-mengisi-lulusan');
         Route::get('rekap-belum-mengisi-pengguna', [AuthController::class, 'rekap_belum_mengisi_pengguna'])
-            ->name('rekap-belum-mengisi-pengguna');        
+            ->name('rekap-belum-mengisi-pengguna');
     });
 });
 
-Route::prefix('lulusan')->name('lulusan.')->group(function() {
+Route::prefix('lulusan')->name('lulusan.')->group(function () {
     Route::get('/form-lulusan', function () {
         return view('lulusan.form-lulusan');
     })->name('form-lulusan');
+
+    Route::get('/data', [LulusanController::class, 'getLulusanData'])->name('data');
+
+
     Route::get('/cek-nim', [LulusanController::class, 'cekNim'])->name('cek-nim.form');
     Route::post('/cek-nim', [LulusanController::class, 'submitCekNim'])->name('cek-nim.submit');
     // Form lulusan dengan data sudah terisi
     Route::get('/form-lulusan/{nim}', [LulusanController::class, 'showFormLulusan'])->name('form-lulusan');
     Route::post('/store', [LulusanController::class, 'store'])->name('store');
 
-    
+
 });
 
-Route::prefix('pertanyaan')->name('pertanyaan')->group(function() {
+Route::prefix('pertanyaan')->name('pertanyaan')->group(function () {
     Route::get('/', [PertanyaanController::class, 'index']);          // menampilkan halaman awal pertanyaan
     Route::post('/list', [PertanyaanController::class, 'list']);      // menampilkan data pertanyaan dalam bentuk json untuk datatables
     Route::get('/create', [PertanyaanController::class, 'create']);   // menampilkan halaman form tambah pertanyaan
