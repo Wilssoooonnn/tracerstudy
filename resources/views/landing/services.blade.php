@@ -29,7 +29,7 @@
             <div class="icon">
               <i class="bi bi-person-lines-fill"></i>
             </div>
-            <a href="service-details.html" class="stretched-link">
+            <a href="{{ route('instansi.cek-lulusan') }}" class="stretched-link">
               <h3>Form Instansi </h3>
             </a>
             <p>Form ini diisi oleh pihak perusahaan atau instansi untuk memberikan penilaian dan masukan terhadap lulusan.</p>

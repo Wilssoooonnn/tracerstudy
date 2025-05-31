@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LulusanController;
 use App\Http\Controllers\PertanyaanController;
+use App\Http\Controllers\InstansiController;
 
 // Public routes
 Route::redirect('/', '/welcome');
@@ -63,3 +64,16 @@ Route::prefix('pertanyaan')->name('pertanyaan')->group(function() {
     Route::put('/{id}', [PertanyaanController::class, 'update']);     // menyimpan perubahan data pertanyaan
     Route::delete('/{id}', [PertanyaanController::class, 'destroy']); // menghapus data pertanyaan
 });
+
+
+// Form untuk input NIM
+Route::get('/instansi/cek-lulusan', [InstansiController::class, 'cekLulusan'])->name('instansi.cek-lulusan');
+
+// Proses pengecekan NIM
+Route::post('/instansi/cek-lulusan', [InstansiController::class, 'submitCekLulusan'])->name('instansi.cek-lulusan.submit');
+
+// Form instansi (menampilkan data berdasarkan NIM)
+Route::get('/instansi/form-instansi/{nim}', [InstansiController::class, 'showFormInstansi'])->name('instansi.form-instansi');
+
+// Simpan data form instansi
+Route::post('/instansi/store', [InstansiController::class, 'store'])->name('instansi.store');
