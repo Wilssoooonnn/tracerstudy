@@ -45,7 +45,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="card-body p-0">
+                            <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table-striped table" id="table_pertanyaan">
                                         <thead>
@@ -69,15 +69,18 @@
 @push('scripts')
     <!-- JS Libraies -->
     <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/components-table.js') }}"></script>
+    <script src="{{ asset('js/page/modules-sweetalert.js') }}"></script>
+
 @endpush
 
 @push('js')
     <script>
-    $(document).ready(function() {
-        var dataPertanyaan = $('#table_pertanyaan').DataTable({ 
+        $(document).ready(function () {
+            var dataPertanyaan = $('#table_pertanyaan').DataTable({
                 // serverSide: true, jika ingin menggunakan server side processing
                 serverSide: true,
                 ajax: {
@@ -96,7 +99,7 @@
                     className: "",
                     orderable: true,
                     searchable: true, //jika ingin kolom ini bisa dicari
-                },{
+                }, {
                     data: "action",
                     className: "",
                     orderable: false,

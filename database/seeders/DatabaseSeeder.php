@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
                 // programsSeeder::class
                 // SkalaSeeder::class
                 // categorySeeder::class
-            AdminSeeder::class
+                // AdminSeeder::class
+            instansiSeeder::class
         ]);
         // \App\Models\User::factory(10)->create();
 

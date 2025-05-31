@@ -61,12 +61,13 @@
     <!-- JS Libraries -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
+    <script src="{{ asset('library/sweetalert/dist/sweetalert.min.js') }}"></script>
     <script>
         $(document).ready(function () {
             var table = $('#table-2').DataTable({
                 processing: true,
                 serverSide: true,
+                searchable: true,
                 ajax: '{{ route('lulusan.data') }}', // Menyesuaikan rute yang mengembalikan data JSON
                 columns: [
                     {
@@ -81,7 +82,7 @@
                     { data: 'id', name: 'id' },
                     { data: 'nim', name: 'nim' },
                     { data: 'nama', name: 'nama' },
-                    { data: 'programs_id', name: 'prodi' },  <!-- Pastikan ini sesuai dengan nama kolom di controller -->
+                    { data: 'programs_id', name: 'programs_id' }, // Ini akan menampilkan nama program studi
                     { data: 'nohp', name: 'nohp' },
                     { data: 'email', name: 'email' },
                     { data: 'action', name: 'action', orderable: false, searchable: false }
@@ -95,6 +96,9 @@
                     $(this).prop('checked', isChecked);
                 });
             });
+        });
+        $("#Detail").click(function () {
+            swal('Hello');
         });
     </script>
 @endpush

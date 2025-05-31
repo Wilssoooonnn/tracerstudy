@@ -104,7 +104,7 @@ class LulusanController extends Controller
     public function getLulusanData(Request $request)
     {
         // Mengambil data lulusan dengan kolom yang sesuai
-        $lulusan = LulusanModel::select(['id', 'nim', 'nama', 'programs_id', 'nohp', 'email'])->get();
+        $lulusan = LulusanModel::with('program')->select(['id', 'nim', 'nama', 'programs_id', 'nohp', 'email'])->get();
 
         // Menyusun data dalam format yang sesuai untuk DataTables
         $data = $lulusan->map(function ($item) {
@@ -112,10 +112,10 @@ class LulusanController extends Controller
                 'id' => $item->id,
                 'nim' => $item->nim,
                 'nama' => $item->nama,
-                'programs_id' => $item->programs_id, // Pastikan ini sesuai dengan kolom di database
+                'programs_id' => $item->program->program_studi ?? 'Tidak ada',  // Menampilkan nama program studi
                 'nohp' => $item->nohp,
                 'email' => $item->email,
-                'action' => '<button>Edit</button>', // Sesuaikan dengan tombol aksi Anda
+                'action' => '<button class="btn btn-primary" data-id="' . $item->id . '">Detail</button>', // Tombol aksi
             ];
         });
 

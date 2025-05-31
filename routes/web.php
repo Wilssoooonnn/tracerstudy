@@ -55,7 +55,6 @@ Route::prefix('lulusan')->name('lulusan.')->group(function () {
     Route::get('/form-lulusan/{nim}', [LulusanController::class, 'showFormLulusan'])->name('form-lulusan');
     Route::post('/store', [LulusanController::class, 'store'])->name('store');
 
-
 });
 
 Route::prefix('pertanyaan')->name('pertanyaan')->group(function () {
@@ -68,7 +67,6 @@ Route::prefix('pertanyaan')->name('pertanyaan')->group(function () {
     Route::put('/{id}', [PertanyaanController::class, 'update']);     // menyimpan perubahan data pertanyaan
     Route::delete('/{id}', [PertanyaanController::class, 'destroy']); // menghapus data pertanyaan
 });
-
 
 // Form untuk input NIM
 Route::get('/instansi/cek-lulusan', [InstansiController::class, 'cekLulusan'])->name('instansi.cek-lulusan');
