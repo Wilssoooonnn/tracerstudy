@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\LulusanModel;
 use App\Models\SkalaModel;
+use App\Models\LulusanModel;
+use App\Models\ProfesiModel;
+use Illuminate\Http\Request;
 use App\Models\InstansiModel;
 use App\Models\KategoriModel;
-use App\Models\ProfesiModel;
+use App\Models\StakeholderModel;
+use Yajra\DataTables\Facades\DataTables;
 
 class InstansiController extends Controller
 {
@@ -108,4 +110,38 @@ class InstansiController extends Controller
             ->back()
             ->with('success', 'Data berhasil disimpan.');
     }
+
+    public function index(){
+        return view('admin.data_stakeholder');
+    }
+
+    public function list(Request $request)
+    {
+    $stakeholders = StakeholderModel::with('lulusan');
+
+
+    return DataTables::of($stakeholders)
+    // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
+    ->addIndexColumn()
+    ->addColumn('nama_alumni', function($row) {
+            return $row->data_alumni->nama ?? '-';
+    })
+    ->addColumn('action', function ($stakeholder) { // menambahkan kolom aksi
+        $btn = '';
+        $btn .= '<a href="'.url('/instansi/' . $stakeholder->id).'" class="btn btn-warning btn-sm">Detail</a>';
+
+    return $btn;
+    })
+
+    ->rawColumns(['action']) // memberitahu bahwa kolom aksi adalah html
+    ->make(true);
+    }
+
+    public function show($id)
+    {
+        $stakeholder = StakeholderModel::find($id);
+
+        return view('admin.stakeholder_show', compact('stakeholder'));
+    }
+
 }

@@ -92,7 +92,7 @@
                     orderable: false,
                     searchable: false
                 }, {
-                    data: "Pertanyaan",
+                    data: "pertanyaan",
                     className: "",
                     orderable: true,
                     searchable: true, //jika ingin kolom ini bisa dicari

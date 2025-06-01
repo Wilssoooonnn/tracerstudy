@@ -25,34 +25,28 @@
                             <div class="card-header">
                                 <h4>Data Stakeholder</h4>
                                 <div class="card-header-form">
-                                    <form>
+                                    {{-- <form>
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="Search">
                                             <div class="input-group-btn">
                                                 <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                             </div>
                                         </div>
-                                    </form>
+                                    </form> --}}
                                 </div>
                             </div>
                             <div class="card-body p-0">
                                 <div class="table-responsive">
-                                    <table class="table-striped table">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Atasan</th>
-                                            <th>Stakeholder</th>
-                                            <th>Nama Lulusan</th>
-                                            <th>Program Studi</th>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Nama</td>
-                                            <td>Stakeholder</td>
-                                            <td>Nama</td>
-                                            <td>Prodi</td>
-                                        </tr>
-                                        <!-- Tambahkan data berikutnya sesuai kebutuhan -->
+                                    <table class="table-striped table" id="table_instansi">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nama Atasan</th>
+                                                <th>Stakeholder</th>
+                                                <th>Nama Lulusan</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
                                     </table>
                                 </div>
                             </div>
@@ -70,4 +64,47 @@
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/components-table.js') }}"></script>
+@endpush
+
+@push('js')
+    <script>
+    $(document).ready(function() {
+        var dataInstansi = $('#table_instansi').DataTable({ 
+                // serverSide: true, jika ingin menggunakan server side processing
+                serverSide: true,
+                ajax: {
+                    "url": "{{ url('instansi/list') }}",
+                    "dataType": "json",
+                    "type": "POST"
+                },
+                columns: [{
+                    // nomor urut dari laravel datatable addIndexColumn()
+                    data: "DT_RowIndex",
+                    className: "text-center",
+                    orderable: false,
+                    searchable: false
+                }, {
+                    data: "nama",
+                    className: "",
+                    orderable: true,
+                    searchable: true, //jika ingin kolom ini bisa dicari
+                }, {
+                    data: "instansi",
+                    className: "",
+                    orderable: true,
+                    searchable: true, //jika ingin kolom ini bisa dicari
+                }, {
+                    data: "alumni_id",
+                    className: "",
+                    orderable: true,
+                    searchable: true, //jika ingin kolom ini bisa dicari
+                }, {
+                    data: "action",
+                    className: "",
+                    orderable: false,
+                    searchable: false
+                }]
+            })
+        });
+    </script>
 @endpush
