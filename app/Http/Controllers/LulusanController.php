@@ -130,80 +130,79 @@ class LulusanController extends Controller
         ]);
     }
 
-    public function import_view(){
-         return view('admin.lulusan_import'); 
+    public function import_view()
+    {
+        return view('admin.lulusan_import');
     }
+
 
     public function lulusan_import(Request $request)
     {
-        
-    // Validasi file
-    $rules = [
-        'file_lulusan' => ['required', 'mimes:xlsx', 'max:1024']
-    ];
+        // Validasi file
+        $rules = [
+            'file_lulusan' => ['required', 'mimes:xlsx', 'max:1024']
+        ];
 
-    $validator = Validator::make($request->all(), $rules);
+        $validator = Validator::make($request->all(), $rules);
 
-    if ($validator->fails()) {
-        return redirect()->back()
-            ->withErrors($validator)
-            ->withInput();
-    }
-
-    try {
-        $file = $request->file('file_lulusan');
-        $reader = IOFactory::createReader('Xlsx');
-        $reader->setReadDataOnly(true);
-        $spreadsheet = $reader->load($file->getRealPath());
-        $sheet = $spreadsheet->getActiveSheet();
-        $semuaProdi = DB::table('programs')->pluck('id', 'program_studi')->toArray();
-        $data = $sheet->toArray(null, false, true, true);
-
-        $insert = [];
-
-        if (count($data) > 1) {
-            foreach ($data as $baris => $value) {
-                if ($baris > 1) {
-                    $program_studi = trim($value['A']);
-                    $insert[] = [
-                        'programs_id'=> $semuaProdi[$program_studi],
-                        'nim' => $value['B'],
-                        'nama' => $value['C'],
-                        'tanggal_lulus' => $value['D'],
-                        'created_at'  => now(),
-                    ];
-                }
-            }
-
-            if (count($insert) > 0) {
-                LulusanModel::insertOrIgnore($insert);
-
-                 return response()->json([
-                    'status' => true,
-                    'message' => 'Data berhasil diimport.'
-                ]);
-
-            } else {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Tidak ada data yang diimport.'
-                ]);
-            }
-        } else {
-             return response()->json([
+        if ($validator->fails()) {
+            return response()->json([
                 'status' => false,
-                'message' => 'File tidak berisi data.'
+                'message' => 'File tidak valid!'
             ]);
         }
 
-    } catch (\Exception $e) {
-        return response()->json([
-            'status' => false,
-            'message' => 'Terjadi kesalahan saat memproses file.'
-        ]);
-    }
+        try {
+            $file = $request->file('file_lulusan');
+            $reader = IOFactory::createReader('Xlsx');
+            $reader->setReadDataOnly(true);
+            $spreadsheet = $reader->load($file->getRealPath());
+            $sheet = $spreadsheet->getActiveSheet();
+            $semuaProdi = DB::table('programs')->pluck('id', 'program_studi')->toArray();
+            $data = $sheet->toArray(null, false, true, true);
 
-    }
+            $insert = [];
 
+            if (count($data) > 1) {
+                foreach ($data as $baris => $value) {
+                    if ($baris > 1) {
+                        $program_studi = trim($value['A']);
+                        $insert[] = [
+                            'programs_id' => $semuaProdi[$program_studi],
+                            'nim' => $value['B'],
+                            'nama' => $value['C'],
+                            'tanggal_lulus' => $value['D'],
+                            'created_at' => now(),
+                        ];
+                    }
+                }
+
+                if (count($insert) > 0) {
+                    LulusanModel::insertOrIgnore($insert);
+
+                    return response()->json([
+                        'status' => true,
+                        'message' => 'Data berhasil diimport.',
+                        'data' => $insert
+                    ]);
+                } else {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Tidak ada data yang diimport.'
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'File tidak berisi data.'
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Terjadi kesalahan saat memproses file. ' . $e->getMessage()
+            ]);
+        }
+    }
 
 }
