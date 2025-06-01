@@ -13,12 +13,13 @@
             <div class="row justify-content-center">
                 <div class="col-12">
                     <div class="card shadow">
-                        <form>
+                        <form action="{{ route('lulusan.store') }}" method="POST">
                             <div class="card-header">
                                 <h4 class="mb-0">Form Tracer Study</h4>
                             </div>
                             <div class="card-body">
                                 @csrf
+                                <input type="hidden" name="nim" value="{{ $nim }}">
                                 <div class="form-group">
                                     <label>Program Studi</label>
                                     <input type="text" class="form-control" name="program_nama" required
@@ -37,23 +38,23 @@
                                 </div>
                                 <div class="form-group">
                                     <label>No. Hp</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="no_hp">
                                 </div>
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="email">
                                 </div>
                                 <div class="form-group">
                                     <label>Tanggal Pertama Kerja</label>
-                                    <input type="date" class="form-control">
+                                    <input type="date" class="form-control" name="tanggal_pertama_kerja">
                                 </div>
                                 <div class="form-group">
                                     <label>Tanggal Mulai Kerja pada Instansi saat ini</label>
-                                    <input type="date" class="form-control">
+                                    <input type="date" class="form-control" name="tanggal_mulai_kerja">
                                 </div>
                                 <div class="form-group">
                                     <label>Jenis Instansi</label>
-                                    <select class="form-control" name="jenis_instansi" required>
+                                    <select class="form-control" name="instansi_id" required>
                                         <option value="">-- Pilih Jenis Instansi --</option>
                                         @foreach ($semuaInstansi as $instansi)
                                             <option value="{{ $instansi->id }}"
@@ -65,7 +66,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Nama Instansi</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="nama_instansi">
                                 </div>
                                 <div class="form-group">
                                     <label>Skala</label>
@@ -81,7 +82,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Lokasi Instansi</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="lokasi_instansi">
                                 </div>
                                 <div class="form-group">
                                     <label>Kategori Profesi</label>
@@ -97,23 +98,24 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Profesi</label>
-                                    <input type="text" class="form-control" name="profesi" id="profesi_input" required autocomplete="off">
+                                    <input type="hidden" name="profesi_id" id="profesi_id">
+                                    <input type="text" class="form-control"  name="profesi_input" id="profesi_input" required autocomplete="off">
                                 </div>                                                        
                                 <div class="form-group">
                                     <label>Nama Atasan Langsung</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="nama_atasan">
                                 </div>
                                 <div class="form-group">
                                     <label>Jabatan Atasan Langsung</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="jabatan">
                                 </div>
                                 <div class="form-group">
                                     <label>No. Hp Atasan Langsung</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control"name="noHp_atasan">
                                 </div>
                                 <div class="form-group">
                                     <label>Email Atasan Langsung</label>
-                                    <input type="text" class="form-control">
+                                    <input type="text" class="form-control" name="email_atasan">
                                 </div>
                             </div>
                             <div class="card-footer text-right">
@@ -122,29 +124,29 @@
                                     Submit
                                 </button>
                             </div>
-                        </form>
-                        <!-- Modal Konfirmasi -->
-                        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog"
-                            aria-labelledby="confirmModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Konfirmasi</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        Setelah disimpan, jawaban tidak dapat diubah. Yakin ingin menyimpan?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                                        <button type="button" class="btn btn-primary" id="btnConfirmSubmit">Ya,
-                                            Simpan</button>
+                        
+                            <!-- Modal Konfirmasi -->
+                            <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog"
+                                aria-labelledby="confirmModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Konfirmasi</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Setelah disimpan, jawaban tidak dapat diubah. Yakin ingin menyimpan?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                            <button type="button" class="btn btn-primary" id="btnConfirmSubmit">Ya,Simpan</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -160,6 +162,9 @@
 
 <script>
     $(document).ready(function () {
+        $('#btnConfirmSubmit').on('click', function () {
+            $('form').submit(); // atau $('#formTracer').submit(); jika kamu pakai id
+        });
         let profesiList = [
             @foreach ($daftarProfesi as $profesi)
                 "{{ $profesi->profesi }}",

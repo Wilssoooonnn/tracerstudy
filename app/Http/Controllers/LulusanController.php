@@ -51,6 +51,7 @@ class LulusanController extends Controller
         $daftarProfesi = ProfesiModel::with('category')->get();
 
         return view('lulusan.form-lulusan', [
+            'nim' => $nim,
             'alumni' => $alumni,
             'program_nama' => $alumni->program->program_studi ?? '-', // pakai nama kolom dari tabel programs
             'programs_id' => $alumni->programs_id,

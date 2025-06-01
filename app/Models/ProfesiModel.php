@@ -21,4 +21,11 @@ class ProfesiModel extends Model
     {
         return $this->belongsTo(KategoriModel::class, 'category_id');
     }
+
+    public function formlulusan()
+    {
+        return $this->belongsTo(FormlulusanModel::class, 'profession_id');
+    }
+
+
 }

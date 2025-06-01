@@ -11,5 +11,10 @@ class KategoriModel extends Model
     public $timestamps = true;
 
     protected $fillable = ['category', 'name'];
+
+    public function formlulusan()
+    {
+        return $this->belongsTo(FormlulusanModel::class, 'category_profession');
+    }
     
 }
