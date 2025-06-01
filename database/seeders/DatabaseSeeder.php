@@ -15,11 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-                // dataAlumni::class
-                // programsSeeder::class
-                // SkalaSeeder::class
-                // categorySeeder::class
-            AdminSeeder::class
+            data_stakeholder::class
         ]);
         // \App\Models\User::factory(10)->create();
 
