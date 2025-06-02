@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Table')
+@section('title', 'Table Rekap Belum Isi')
 
 @push('style')
 <!-- CSS Libraries -->
@@ -14,7 +14,7 @@
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Components</a></div>
-                    <div class="breadcrumb-item">Table Lulusan</div>
+                    <div class="breadcrumb-item">Table Rekap Belum Isi Form Lulusan</div>
                 </div>
             </div>
 
@@ -34,9 +34,10 @@
                                                 </div>
                                             </div>
                                             <div class="ml-3">
-                                                <button class="btn btn-success">
-                                                    <i class="fas fa-file-export"></i> Export Data
-                                                </button>
+                                                <a href="{{ url('/rekaplulusan/export_excel') }}" class="btn btn-primary">
+                                                    <i class="fa fa-file-excel"></i> 
+                                                    Export Data
+                                                </a>
                                             </div>
                                         </div>
                                     </form>
@@ -44,22 +45,15 @@
                             </div>
                             <div class="card-body p-0">
                                 <div class="table-responsive">
-                                    <table class="table-striped table">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nim</th>
-                                            <th>Nama Lulusan</th>
-                                            <th>Program Studi</th>
-                                            <th>Email</th>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Nim</td>
-                                            <td>Nama</td>
-                                            <td>Prodi</td>
-                                            <td>Email</td>
-                                        </tr>
-                                        <!-- Tambahkan baris lainnya sesuai kebutuhan -->
+                                    <table class="table-striped table" id="tableRekapLulusan">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>NIM</th>
+                                                <th>Nama</th>
+                                                <th>Prodi</th>
+                                            </tr>
+                                        </thead>
                                     </table>
                                 </div>
                             </div>
@@ -78,3 +72,26 @@
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/components-table.js') }}"></script>
 @endpush
+
+@push('js')
+    <script>
+        $(document).ready(function () {
+            var table1 = $('#tableRekapLulusan').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                    "url": "{{ url('rekaplulusan/list') }}",
+                    "dataType": "json",
+                    "type": "POST"
+                }, // Menyesuaikan rute yang mengembalikan data JSON
+                columns: [
+                    { data: 'id', name: 'id' },
+                    { data: 'nim', name: 'nim' },
+                    { data: 'nama', name: 'nama' },
+                    { data: 'prodi', name: 'prodi' },
+                ]
+            });
+        });
+    </script>
+@endpush
+
