@@ -7,6 +7,7 @@ use App\Http\Controllers\LulusanController;
 use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\FormlulusanController;
+use App\Http\Controllers\RekapLulusanController;
 
 // Public routes
 Route::redirect('/', '/welcome');
@@ -87,4 +88,16 @@ Route::prefix('instansi')->name('instansi.')->group(function () {
     Route::put('/{id}', [InstansiController::class, 'update']);     // menyimpan perubahan data pertanyaan
     Route::delete('/{id}', [InstansiController::class, 'destroy']); // menghapus data pertanyaan
 
+});
+
+Route::prefix('rekaplulusan')->name('rekaplulusan')->group(function () {
+    Route::get('/', [RekapLulusanController::class, 'index']);          // menampilkan halaman awal pertanyaan
+    Route::post('/list', [RekapLulusanController::class, 'list']);      // menampilkan data pertanyaan dalam bentuk json untuk datatables
+    Route::get('/create', [RekapLulusanController::class, 'create']);   // menampilkan halaman form 
+    Route::post('/', [RekapLulusanController::class, 'store']);         // menyimpan data 
+    // Route::get('/{id}', [RekapLulusanController::class, 'show']);       // menampilkan detail 
+    Route::get('/{id}/edit', [RekapLulusanController::class, 'edit']);  // menampilkan halaman form edit 
+    Route::put('/{id}', [RekapLulusanController::class, 'update']);     // menyimpan perubahan 
+    Route::delete('/{id}', [RekapLulusanController::class, 'destroy']); // menghapus 
+    Route::get('/export_excel', [RekapLulusanController::class, 'export_excel']); // export excel 
 });

@@ -16,7 +16,7 @@ class LulusanModel extends Model
     // Contoh relasi ke Program Studi (jika ada tabel relasi program)
     public function program()
     {
-        return $this->belongsTo(ProgramsModel::class, 'programs_id');
+        return $this->belongsTo(ProgramsModel::class, 'programs_id', 'id');
     }
 
     public function stakeholder()

@@ -68,7 +68,7 @@
                     { data: 'id', name: 'id' },
                     { data: 'nim', name: 'nim' },
                     { data: 'nama', name: 'nama' },
-                    { data: 'programs_id', name: 'prodi' },
+                    { data: 'prodi', name: 'prodi' },
                     { data: 'nohp', name: 'nohp' },
                     { data: 'email', name: 'email' },
                     {
@@ -77,9 +77,7 @@
                         orderable: false,
                         searchable: false,
                         render: function (data, type, row) {
-                            return `
-                                            <button class="btn btn-primary btn-sm" onclick="showDetail(${row.id})">Detail</button>
-                                        `;
+                            return `<button class="btn btn-primary btn-sm" onclick="showDetail(${row.id})">Detail</button>`;
                         }
                     }
                 ]
