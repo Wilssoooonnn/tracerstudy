@@ -35,7 +35,7 @@
                                     </form> --}}
                                 </div>
                             </div>
-                            <div class="card-body p-0">
+                            <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table-striped table" id="table_instansi">
                                         <thead>
@@ -68,43 +68,57 @@
 
 @push('js')
     <script>
-    $(document).ready(function() {
-        var dataInstansi = $('#table_instansi').DataTable({ 
-                // serverSide: true, jika ingin menggunakan server side processing
+        $(document).ready(function () {
+            var dataInstansi = $('#table_instansi').DataTable({
+                // Menggunakan server-side processing jika diperlukan
                 serverSide: true,
                 ajax: {
-                    "url": "{{ url('instansi/list') }}",
+                    "url": "{{ url('instansi/list') }}", // URL untuk mengambil data
                     "dataType": "json",
-                    "type": "POST"
+                    "type": "POST",
+                    "headers": {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Menambahkan token CSRF
+                    }
                 },
-                columns: [{
-                    // nomor urut dari laravel datatable addIndexColumn()
-                    data: "DT_RowIndex",
-                    className: "text-center",
-                    orderable: false,
-                    searchable: false
-                }, {
-                    data: "nama",
-                    className: "",
-                    orderable: true,
-                    searchable: true, //jika ingin kolom ini bisa dicari
-                }, {
-                    data: "instansi",
-                    className: "",
-                    orderable: true,
-                    searchable: true, //jika ingin kolom ini bisa dicari
-                }, {
-                    data: "alumni_id",
-                    className: "",
-                    orderable: true,
-                    searchable: true, //jika ingin kolom ini bisa dicari
-                }, {
-                    data: "action",
-                    className: "",
-                    orderable: false,
-                    searchable: false
-                }]
-            })
+                columns: [
+                    {
+                        // Menambahkan nomor urut
+                        data: "DT_RowIndex",
+                        className: "text-center",
+                        orderable: false,
+                        searchable: false
+                    },
+                    {
+                        // Nama instansi
+                        data: "nama",
+                        className: "",
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        // Instansi
+                        data: "instansi",
+                        className: "",
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        // Nama dari lulusan (misalnya)
+                        data: "nama_lulusan", // Gantilah sesuai dengan nama kolom yang sesuai di server
+                        className: "",
+                        orderable: true,
+                        searchable: true
+                    },
+                    {
+                        // Aksi seperti Edit, Hapus dll.
+                        data: "action",
+                        className: "",
+                        orderable: false,
+                        searchable: false
+                    }
+                ]
+            });
         });
+
     </script>
 @endpush

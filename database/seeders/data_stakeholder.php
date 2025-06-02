@@ -15,12 +15,12 @@ class data_stakeholder extends Seeder
      */
     public function run()
     {
-         DB::table('data_stakeholder')->insert([
-            'nama'      => 'Sinta Kamelia',
-            'instansi'  => 'PT. Otsuka',
-            'jabatan'   => 'CEO',
-            'email'     => 'sintakamelia@otsuka.com',
-            'alumni_id' => 1, // pastikan ID 1 ada di tabel data_alumni
+        DB::table('data_stakeholder')->insert([
+            'nama' => 'Sinta Kamelia',
+            'instansi' => 'PT. Otsuka',
+            'jabatan' => 'CEO',
+            'email' => 'sintakamelia@otsuka.com',
+            'alumni_id' => 7, // pastikan ID 1 ada di tabel data_alumni
             'created_at' => now(),
             'updated_at' => now(),
         ]);

@@ -23,4 +23,9 @@ class LulusanModel extends Model
     {
         return $this->belongsTo(StakeholderModel::class, 'alumni_id');
     }
+
+    public function formlulusan()
+    {
+        return $this->belongsTo(FormlulusanModel::class, 'alumni_id');
+    }
 }

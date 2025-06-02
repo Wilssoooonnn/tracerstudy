@@ -4,8 +4,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LulusanController;
-use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\InstansiController;
+use App\Http\Controllers\PertanyaanController;
+use App\Http\Controllers\FormlulusanController;
 
 // Public routes
 Route::redirect('/', '/welcome');
@@ -53,8 +54,7 @@ Route::prefix('lulusan')->name('lulusan.')->group(function () {
     Route::post('/cek-nim', [LulusanController::class, 'submitCekNim'])->name('cek-nim.submit');
     // Form lulusan dengan data sudah terisi
     Route::get('/form-lulusan/{nim}', [LulusanController::class, 'showFormLulusan'])->name('form-lulusan');
-    Route::post('/store', [LulusanController::class, 'store'])->name('store');
-
+    Route::post('/store', [FormlulusanController::class, 'store'])->name('store');
 
 });
 

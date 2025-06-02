@@ -115,27 +115,26 @@ class InstansiController extends Controller
         return view('admin.data_stakeholder');
     }
 
-    public function list(Request $request)
-    {
-    $stakeholders = StakeholderModel::with('lulusan');
+   public function list(Request $request)
+{
+    // Mengambil data stakeholders dengan relasi lulusan
+    $stakeholders = StakeholderModel::with('lulusan')->get(); // Menambahkan 'lulusan' untuk eager loading
 
-
+    // Mengembalikan data dengan DataTables
     return DataTables::of($stakeholders)
-    // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
-    ->addIndexColumn()
-    ->addColumn('nama_alumni', function($row) {
-            return $row->data_alumni->nama ?? '-';
-    })
-    ->addColumn('action', function ($stakeholder) { // menambahkan kolom aksi
-        $btn = '';
-        $btn .= '<a href="'.url('/instansi/' . $stakeholder->id).'" class="btn btn-warning btn-sm">Detail</a>';
+        ->addIndexColumn() // Menambahkan kolom index/no urut
+        ->addColumn('nama_lulusan', function ($row) {
+            // Menampilkan nama lulusan jika ada, jika tidak, tampilkan '-'
+            return $row->lulusan->nama ?? '-'; // Akses nama lulusan dari relasi
+        })
+        ->addColumn('action', function ($stakeholder) {
+            // Menambahkan tombol aksi untuk detail
+            return '<a href="' . url('/instansi/' . $stakeholder->id) . '" class="btn btn-primary btn-sm">Detail</a>';
+        })
+        ->rawColumns(['action']) // Menandai kolom aksi sebagai HTML
+        ->make(true);
+}
 
-    return $btn;
-    })
-
-    ->rawColumns(['action']) // memberitahu bahwa kolom aksi adalah html
-    ->make(true);
-    }
 
     public function show($id)
     {

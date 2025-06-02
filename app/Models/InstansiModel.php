@@ -22,4 +22,9 @@ class InstansiModel extends Model
 
     // Jika menggunakan timestamp created_at dan updated_at
     public $timestamps = true;
+
+    public function formlulusan()
+    {
+        return $this->belongsTo(FormlulusanModel::class, 'instansi_type');
+    }
 }
