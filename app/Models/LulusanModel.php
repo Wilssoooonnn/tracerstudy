@@ -23,4 +23,11 @@ class LulusanModel extends Model
     {
         return $this->belongsTo(StakeholderModel::class, 'alumni_id');
     }
+
+    //relasi ke instansi
+    public function instansi()
+    {
+    return $this->belongsTo(InstansiModel::class, 'instansi_id');
+    }
+
 }

@@ -111,30 +111,27 @@ class InstansiController extends Controller
             ->with('success', 'Data berhasil disimpan.');
     }
 
-    public function index(){
+    public function index()
+    {
         return view('admin.data_stakeholder');
     }
 
     public function list(Request $request)
     {
-    $stakeholders = StakeholderModel::with('lulusan');
+        $stakeholders = StakeholderModel::with('lulusan');
 
-
-    return DataTables::of($stakeholders)
-    // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
-    ->addIndexColumn()
-    ->addColumn('nama_alumni', function($row) {
-            return $row->data_alumni->nama ?? '-';
-    })
-    ->addColumn('action', function ($stakeholder) { // menambahkan kolom aksi
-        $btn = '';
-        $btn .= '<a href="'.url('/instansi/' . $stakeholder->id).'" class="btn btn-warning btn-sm">Detail</a>';
-
-    return $btn;
-    })
-
-    ->rawColumns(['action']) // memberitahu bahwa kolom aksi adalah html
-    ->make(true);
+        return DataTables::of($stakeholders)
+            ->addIndexColumn()
+            ->addColumn('nama_alumni', function ($row) {
+                return $row->lulusan->nama ?? '-';
+            })
+            ->addColumn('action', function ($stakeholder) {
+                $btn = '';
+                $btn .= '<a href="' . url('/instansi/' . $stakeholder->id) . '" class="btn btn-warning btn-sm">Detail</a>';
+                return $btn;
+            })
+            ->rawColumns(['action'])
+            ->make(true);
     }
 
     public function show($id)
@@ -144,4 +141,29 @@ class InstansiController extends Controller
         return view('admin.stakeholder_show', compact('stakeholder'));
     }
 
+    // ✅ Tambahan: API untuk auto-fill data instansi berdasarkan nama alumni
+    public function getInstansiByNama(Request $request)
+    {
+        $nama = $request->input('nama');
+
+        // Cari lulusan berdasarkan nama
+        $alumni = LulusanModel::where('nama', $nama)->first();
+
+        if (! $alumni) {
+            return response()->json(['error' => 'Lulusan tidak ditemukan'], 404);
+        }
+
+        $instansi = InstansiModel::find($alumni->instansi_id);
+
+        if (! $instansi) {
+            return response()->json(['error' => 'Instansi tidak ditemukan'], 404);
+        }
+
+        return response()->json([
+            'instansi' => $instansi->nama ?? '',
+            'jabatan' => $alumni->jabatan ?? '',
+            'no_hp_atasan' => $alumni->no_hp_atasan ?? '',
+            'email_atasan' => $alumni->email_atasan ?? '',
+        ]);
+    }
 }

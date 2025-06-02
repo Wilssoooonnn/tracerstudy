@@ -74,18 +74,22 @@ Route::prefix('pertanyaan')->name('pertanyaan')->group(function () {
 
 
 Route::prefix('instansi')->name('instansi.')->group(function () {
+    // Cek Lulusan
     Route::get('/cek-lulusan', [InstansiController::class, 'cekLulusan'])->name('cek-lulusan');
     Route::post('/cek-lulusan', [InstansiController::class, 'submitCekLulusan'])->name('cek-lulusan.submit');
+    // Form Instansi & Penyimpanan
     Route::get('/form-instansi/{nama}', [InstansiController::class, 'showFormInstansi'])->name('form-instansi');
-    Route::post('/store', [InstansiController::class, 'store'])->name('store');
-
-    Route::get('/', [InstansiController::class, 'index']);          // menampilkan halaman awal pertanyaan
-    Route::post('/list', [InstansiController::class, 'list']);      // menampilkan data pertanyaan dalam bentuk json untuk datatables
-    Route::get('/create', [InstansiController::class, 'create']);   // menampilkan halaman form tambah pertanyaan
-    Route::post('/', [InstansiController::class, 'store']);         // menyimpan data pertanyaan baru
-    Route::get('/{id}', [InstansiController::class, 'show']);       // menampilkan detail pertanyaan
-    Route::get('/{id}/edit', [InstansiController::class, 'edit']);  // menampilkan halaman form edit pertanyaan
-    Route::put('/{id}', [InstansiController::class, 'update']);     // menyimpan perubahan data pertanyaan
-    Route::delete('/{id}', [InstansiController::class, 'destroy']); // menghapus data pertanyaan
-
+    Route::post('/form-instansi/store', [InstansiController::class, 'store'])->name('form-instansi.store');
+    // Route AJAX untuk auto-fetch data instansi berdasarkan nama alumni
+    Route::get('/get-instansi-by-nama', [InstansiController::class, 'getInstansiByNama'])->name('get-instansi-by-nama');
+    // Admin - Stakeholder
+    Route::get('/', [InstansiController::class, 'index'])->name('index');
+    Route::post('/list', [InstansiController::class, 'list'])->name('list');
+    Route::get('/create', [InstansiController::class, 'create'])->name('create');
+    Route::post('/store', [InstansiController::class, 'store'])->name('store'); // Admin store
+    Route::get('/{id}', [InstansiController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [InstansiController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [InstansiController::class, 'update'])->name('update');
+    Route::delete('/{id}', [InstansiController::class, 'destroy'])->name('destroy');
 });
+
