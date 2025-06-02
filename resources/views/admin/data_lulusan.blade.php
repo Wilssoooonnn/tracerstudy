@@ -36,7 +36,6 @@
                                                 <th>Prodi</th>
                                                 <th>Phone</th>
                                                 <th>Email</th>
-                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -71,15 +70,6 @@
                     { data: 'prodi', name: 'prodi' },
                     { data: 'nohp', name: 'nohp' },
                     { data: 'email', name: 'email' },
-                    {
-                        data: 'action',
-                        name: 'action',
-                        orderable: false,
-                        searchable: false,
-                        render: function (data, type, row) {
-                            return `<button class="btn btn-primary btn-sm" onclick="showDetail(${row.id})">Detail</button>`;
-                        }
-                    }
                 ]
             });
 
