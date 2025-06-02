@@ -50,10 +50,10 @@
                         <div class="card-body">
                             {{-- Data Lulusan --}}
                             <div class="form-group">
-                                <label>Nama</label>
+                                <label>Nama Lulusan</label>
                                 <input type="text" class="form-control" name="nama" value="{{ old('nama', $nama) }}" readonly>
                             </div>
-                            
+
                             {{-- Data Instansi --}}
                             <div class="form-group">
                                 <label>Nama Instansi</label>
