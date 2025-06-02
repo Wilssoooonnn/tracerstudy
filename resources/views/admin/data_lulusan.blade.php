@@ -20,13 +20,22 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4>Data Lulusan</h4>
+                                <div class="d-flex justify-content-between align-items-center mb-3">
+                                    <a href={{ url('/data-lulusan/import') }} class="btn btn-info">Import Data</a>
+                                </div>
                             </div>
-                            <div class="card-body">
+                            @if(session('success'))
+                            <div class="alert alert-success">{{ session('success') }}</div>
+                            @endif
+                            @if(session('error'))
+                            <div class="alert alert-danger">{{ session('error') }}</div>
+                            @endif
+                                <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table-striped table" id="table-2">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">
+                                                {{-- <th class="text-center">
                                                     <div class="custom-checkbox custom-control">
                                                         <input type="checkbox" data-checkboxes="mygroup"
                                                             data-checkbox-role="dad" class="custom-control-input"
@@ -34,7 +43,7 @@
                                                         <label for="checkbox-all"
                                                             class="custom-control-label">&nbsp;</label>
                                                     </div>
-                                                </th>
+                                                </th> --}}
                                                 <th>ID</th>
                                                 <th>NIM</th>
                                                 <th>Nama</th>
@@ -69,15 +78,15 @@
                 serverSide: true,
                 ajax: '{{ route('lulusan.data') }}', // Menyesuaikan rute yang mengembalikan data JSON
                 columns: [
-                    {
-                        data: null,
-                        name: 'checkbox',
-                        orderable: false,
-                        searchable: false,
-                        render: function (data, type, row) {
-                            return '<div class="custom-checkbox custom-control"><input type="checkbox" class="custom-control-input" value="' + row.id + '" data-checkboxes="mygroup" name="id[]"><label for="checkbox-' + row.id + '" class="custom-control-label"></label></div>';
-                        }
-                    },
+                    // {
+                    //     data: null,
+                    //     name: 'checkbox',
+                    //     orderable: false,
+                    //     searchable: false,
+                    //     render: function (data, type, row) {
+                    //         return '<div class="custom-checkbox custom-control"><input type="checkbox" class="custom-control-input" value="' + row.id + '" data-checkboxes="mygroup" name="id[]"><label for="checkbox-' + row.id + '" class="custom-control-label"></label></div>';
+                    //     }
+                    // },
                     { data: 'id', name: 'id' },
                     { data: 'nim', name: 'nim' },
                     { data: 'nama', name: 'nama' },
@@ -89,12 +98,14 @@
             });
 
             // Select/Deselect all checkboxes when the header checkbox is clicked
-            $('#checkbox-all').on('change', function () {
-                var isChecked = $(this).prop('checked');
-                $('#table-2').find('tbody input[type="checkbox"]').each(function () {
-                    $(this).prop('checked', isChecked);
-                });
-            });
+            // $('#checkbox-all').on('change', function () {
+            //     var isChecked = $(this).prop('checked');
+            //     $('#table-2').find('tbody input[type="checkbox"]').each(function () {
+            //         $(this).prop('checked', isChecked);
+            //     });
+            // });
+
+            
         });
     </script>
 @endpush
