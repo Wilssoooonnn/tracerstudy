@@ -12,7 +12,7 @@
               <i class="bi bi-person-fill"></i>
             </div>
             <a href="{{ url('lulusan/cek-nim') }}" class="stretched-link">
-              <h3>Form Lulusan</h3>
+              <h3>Form Instansi</h3>
             </a>
             <p>Form ini digunakan oleh lulusan untuk mengisi data terkait pekerjaan, 
             studi lanjut, dan pengalaman setelah lulus sebagai bagian dari tracer study.</p>
