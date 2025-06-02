@@ -19,10 +19,11 @@ class AdminSeeder extends Seeder
         Admin::create([
             'username' => 'admin',  // Set a default username
             'password' => Hash::make('password123'),  // Ensure password is hashed
-            'name' => 'Adam Admin',
-            'remember_token' => null,
-            'created_at' => now(),
-            'updated_at' => now(),
+            'role' => 'admin',  // Role of the user (admin)
+            'first_name' => 'Admin',  // First name of the admin
+            'last_name' => 'User',  // Last name of the admin
+            'email' => 'admin@example.com',  // Email of the admin
+            'phone_number' => '1234567890',  // Phone number of the admin
         ]);
     }
 }

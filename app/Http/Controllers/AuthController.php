@@ -71,27 +71,27 @@ class AuthController extends Controller
         return view('admin.generate_link_lulusan', ['type_menu' => 'sidebar']);
     }
 
-    public function data_stakeholder() 
+    public function data_stakeholder()
     {
         return view('admin.data_stakeholder', ['type_menu' => 'sidebar']);
     }
-    
-    public function generate_link_penggunalulusan()
+
+    public function response_data()
     {
-        return view('admin.generate_link_penggunalulusan', ['type_menu' => 'sidebar']);
+        return view('admin.response_data', ['type_menu' => 'sidebar']);
     }
 
     public function pertanyaan()
     {
         return view('admin.pertanyaan', ['type_menu' => 'sidebar']);
     }
-    
+
     public function rekap_hasil_lulusan()
     {
         return view('admin.rekap_hasil_lulusan', ['type_menu' => 'sidebar']);
     }
 
-    public function rekap_hasil_surveykepuasan() 
+    public function rekap_hasil_surveykepuasan()
     {
         return view('admin.rekap_hasil_surveykepuasan', ['type_menu' => 'sidebar']);
     }
