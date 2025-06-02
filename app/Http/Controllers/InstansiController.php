@@ -28,7 +28,7 @@ class InstansiController extends Controller
 
         $alumni = LulusanModel::whereRaw('LOWER(nama) = ?', [$inputNama])->first();
 
-        if (! $alumni) {
+        if (!$alumni) {
             return back()->with('error', 'Nama lulusan tidak ditemukan atau tidak valid. Input: ' . $request->nama);
         }
 
@@ -41,11 +41,9 @@ class InstansiController extends Controller
     {
         $nama = urldecode($nama);
 
-        $alumni = LulusanModel::with('program')
-            ->where('nama', $nama)
-            ->first();
+        $alumni = LulusanModel::with('program')->where('nama', $nama)->first();
 
-        if (! $alumni) {
+        if (!$alumni) {
             return redirect()
                 ->route('instansi.cek-lulusan')
                 ->withErrors(['nama' => 'Nama tidak ditemukan']);
@@ -61,6 +59,7 @@ class InstansiController extends Controller
             'program_nama'  => $alumni->program->program_studi ?? '-',
             'programs_id'   => $alumni->programs_id,
             'nama'          => $alumni->nama,
+            'nim'           => $alumni->nim,
             'tanggal_lulus' => $alumni->tanggal_lulus,
             'no_hp'         => $alumni->no_hp,
             'email'         => $alumni->email,
@@ -75,30 +74,35 @@ class InstansiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nim'                    => 'required|exists:lulusan,nim',
-            'no_hp'                  => 'required|max:20',
-            'email'                  => 'required|email',
-            'tanggal_pertama_kerja'  => 'required|date',
-            'instansi_id'            => 'required|exists:instansi,id',
-            'skala_id'               => 'required|exists:skala,id',
-            'kategori_id'            => 'required|exists:category,id',
-            'profesi_id'             => 'required',
-            'profesi_baru'           => 'required_if:profesi_id,lainnya|max:255',
+            'nim'                   => 'required|exists:lulusan,nim',
+            'no_hp'                 => 'required|max:20',
+            'email'                 => 'required|email',
+            'tanggal_pertama_kerja' => 'required|date',
+            'instansi_id'           => 'required|exists:instansi,id',
+            'skala_id'              => 'required|exists:skala,id',
+            'kategori_id'           => 'required|exists:category,id',
+            'profesi_id'            => 'required',
+            'profesi_baru'          => 'required_if:profesi_id,lainnya|max:255',
+            'nama_instansi'         => 'required|string|max:255',
+            'nama_atasan'           => 'required|string|max:255',
+            'no_hp_atasan'          => 'required|max:20',
+            'email_atasan'          => 'required|email',
         ]);
 
         if ($request->profesi_id === 'lainnya') {
             $profesiBaru = ProfesiModel::create([
                 'profesi'     => $request->profesi_baru,
-                'category_id' => 1,
+                'category_id' => 1, // Sesuaikan dengan kategori default jika diperlukan
             ]);
             $profesi_id = $profesiBaru->id;
         } else {
             $profesi_id = $request->profesi_id;
         }
 
+        // Simpan ke data lulusan
         $alumni = LulusanModel::where('nim', $request->nim)->first();
-        $alumni->no_hp                 = $request->no_hp;
-        $alumni->email                 = $request->email;
+        $alumni->no_hp                  = $request->no_hp;
+        $alumni->email                  = $request->email;
         $alumni->tanggal_pertama_kerja = $request->tanggal_pertama_kerja;
         $alumni->instansi_id           = $request->instansi_id;
         $alumni->skala_id              = $request->skala_id;
@@ -106,41 +110,44 @@ class InstansiController extends Controller
         $alumni->profesi_id            = $profesi_id;
         $alumni->save();
 
+        // Simpan data stakeholder (pengguna lulusan)
+        StakeholderModel::create([
+            'nim'           => $request->nim,
+            'nama_instansi' => $request->nama_instansi,
+            'nama_atasan'   => $request->nama_atasan,
+            'no_hp_atasan'  => $request->no_hp_atasan,
+            'email_atasan'  => $request->email_atasan,
+        ]);
+
         return redirect()
             ->back()
             ->with('success', 'Data berhasil disimpan.');
     }
 
-    public function index(){
+    public function index()
+    {
         return view('admin.data_stakeholder');
     }
 
-   public function list(Request $request)
-{
-    // Mengambil data stakeholders dengan relasi lulusan
-    $stakeholders = StakeholderModel::with('lulusan')->get(); // Menambahkan 'lulusan' untuk eager loading
+    public function list(Request $request)
+    {
+        $stakeholders = StakeholderModel::with('lulusan')->get();
 
-    // Mengembalikan data dengan DataTables
-    return DataTables::of($stakeholders)
-        ->addIndexColumn() // Menambahkan kolom index/no urut
-        ->addColumn('nama_lulusan', function ($row) {
-            // Menampilkan nama lulusan jika ada, jika tidak, tampilkan '-'
-            return $row->lulusan->nama ?? '-'; // Akses nama lulusan dari relasi
-        })
-        ->addColumn('action', function ($stakeholder) {
-            // Menambahkan tombol aksi untuk detail
-            return '<a href="' . url('/instansi/' . $stakeholder->id) . '" class="btn btn-primary btn-sm">Detail</a>';
-        })
-        ->rawColumns(['action']) // Menandai kolom aksi sebagai HTML
-        ->make(true);
-}
-
+        return DataTables::of($stakeholders)
+            ->addIndexColumn()
+            ->addColumn('nama_lulusan', function ($row) {
+                return $row->lulusan->nama ?? '-';
+            })
+            ->addColumn('action', function ($stakeholder) {
+                return '<a href="' . url('/instansi/' . $stakeholder->id) . '" class="btn btn-primary btn-sm">Detail</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
 
     public function show($id)
     {
-        $stakeholder = StakeholderModel::find($id);
-
+        $stakeholder = StakeholderModel::with('lulusan')->findOrFail($id);
         return view('admin.stakeholder_show', compact('stakeholder'));
     }
-
 }

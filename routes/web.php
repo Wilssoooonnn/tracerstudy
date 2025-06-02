@@ -77,14 +77,7 @@ Route::prefix('instansi')->name('instansi.')->group(function () {
     Route::post('/cek-lulusan', [InstansiController::class, 'submitCekLulusan'])->name('cek-lulusan.submit');
     Route::get('/form-instansi/{nama}', [InstansiController::class, 'showFormInstansi'])->name('form-instansi');
     Route::post('/store', [InstansiController::class, 'store'])->name('store');
-
-    Route::get('/', [InstansiController::class, 'index']);          // menampilkan halaman awal pertanyaan
-    Route::post('/list', [InstansiController::class, 'list']);      // menampilkan data pertanyaan dalam bentuk json untuk datatables
-    Route::get('/create', [InstansiController::class, 'create']);   // menampilkan halaman form tambah pertanyaan
-    Route::post('/', [InstansiController::class, 'store']);         // menyimpan data pertanyaan baru
-    Route::get('/{id}', [InstansiController::class, 'show']);       // menampilkan detail pertanyaan
-    Route::get('/{id}/edit', [InstansiController::class, 'edit']);  // menampilkan halaman form edit pertanyaan
-    Route::put('/{id}', [InstansiController::class, 'update']);     // menyimpan perubahan data pertanyaan
-    Route::delete('/{id}', [InstansiController::class, 'destroy']); // menghapus data pertanyaan
-
+    Route::get('/data-stakeholder', [InstansiController::class, 'index'])->name('index');
+    Route::get('/list', [InstansiController::class, 'list'])->name('list');
+    Route::get('/{id}', [InstansiController::class, 'show'])->name('show');
 });
