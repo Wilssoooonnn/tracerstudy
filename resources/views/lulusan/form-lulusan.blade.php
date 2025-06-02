@@ -1,9 +1,9 @@
 @extends('layouts.form')
 
-@section('title', 'Form Kepuasan Pengguna Lulusan')
+@section('title', 'Form Lulusan')
 
 @push('style')
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <!-- CSS Libraries -->
 @endpush
 
 @section('main')
@@ -150,13 +150,13 @@
                     </div>
 =======
 <div class="py-5">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12">
+    <div class="container"> {{-- Gunakan container agar ada padding samping --}}
+        <div class="row justify-content-center"> {{-- Tengah --}}
+            <div class="col-12"> {{-- Lebar maksimal --}}
                 <div class="card shadow">
-                    <form action="{{ route('instansi.store') }}" method="POST">
+                    <form>
                         <div class="card-header">
-                            <h4 class="mb-0">Form Survei Pengguna Lulusan</h4>
+                            <h4 class="mb-0">Form Tracer Study</h4>
                         </div>
                         <div class="card-body">
                             @csrf
@@ -242,7 +242,6 @@
                             <button type="submit" class="btn btn-primary">Kirim</button>
                         </div>
                     </form>
->>>>>>> 2f06ecd2c1a0a88757842d16c6c9895883e1c34d
                 </div>
             </div>
         </div>
@@ -276,3 +275,7 @@
 @endpush
 =======
 >>>>>>> 2f06ecd2c1a0a88757842d16c6c9895883e1c34d
+
+@push('scripts')
+    <!-- JS Libraries -->
+@endpush
