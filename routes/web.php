@@ -55,7 +55,6 @@ Route::prefix('lulusan')->name('lulusan.')->group(function () {
     // Form lulusan dengan data sudah terisi
     Route::get('/form-lulusan/{nim}', [LulusanController::class, 'showFormLulusan'])->name('form-lulusan');
     Route::post('/store', [FormlulusanController::class, 'store'])->name('store');
-
 });
 
 Route::get('data-lulusan/import', [LulusanController::class, 'import_view'])->name('lulusan_import'); // 👉 GET untuk halaman form
