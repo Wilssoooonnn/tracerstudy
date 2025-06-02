@@ -90,7 +90,7 @@
                     { data: 'id', name: 'id' },
                     { data: 'nim', name: 'nim' },
                     { data: 'nama', name: 'nama' },
-                    { data: 'programs_id', name: 'prodi' },  <!-- Pastikan ini sesuai dengan nama kolom di controller -->
+                    { data: 'programs_id', name: 'prodi' },  //Pastikan ini sesuai dengan nama kolom di controller
                     { data: 'nohp', name: 'nohp' },
                     { data: 'email', name: 'email' },
                     { data: 'action', name: 'action', orderable: false, searchable: false }

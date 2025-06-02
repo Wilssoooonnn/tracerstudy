@@ -1,4 +1,3 @@
-
 <div class="container" data-aos="fade-up" data-aos-delay="100">
   <div class="row gy-5 justify-content-center">
     <div class="col-xl-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
@@ -12,7 +11,7 @@
               <i class="bi bi-person-fill"></i>
             </div>
             <a href="{{ url('lulusan/cek-nim') }}" class="stretched-link">
-              <h3>Form Instansi</h3>
+              <h3>Form Lulusan</h3>
             </a>
             <p>Form ini digunakan oleh lulusan untuk mengisi data terkait pekerjaan, 
             studi lanjut, dan pengalaman setelah lulus sebagai bagian dari tracer study.</p>

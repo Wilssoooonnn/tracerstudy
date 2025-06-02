@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Table')
+@section('title', 'Pertanyaan')
 
 @push('style')
     <!-- CSS Libraries -->
@@ -92,7 +92,7 @@
                     orderable: false,
                     searchable: false
                 }, {
-                    data: "pertanyaan",
+                    data: "Pertanyaan",
                     className: "",
                     orderable: true,
                     searchable: true, //jika ingin kolom ini bisa dicari
