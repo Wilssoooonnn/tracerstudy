@@ -1,14 +1,16 @@
 @extends('layouts.app')
 
+@section('title', 'Create Question')
+
 @section('main')
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Tambah Pertanyaan</h1>
+                <h1>Create a New Question</h1>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
                     <div class="breadcrumb-item"><a href="#">Components</a></div>
-                    <div class="breadcrumb-item">Table Pertanyaan</div>
+                    <div class="breadcrumb-item">Create Question</div>
                 </div>
             </div>
 
@@ -16,30 +18,38 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-header">
-                                <h4>Tambah Pertanyaan</h4>
-                            </div>
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Tambah Pertanyaan</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
+                            @if (session('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    {{ session('success') }}
+                                    <button type="button" class="close" data-dismiss="alert">&times;</button>
                                 </div>
-                                <form method="POST" action="{{ url('/pertanyaan') }}" class="form-horizontal">
+                            @endif
+                            @if (session('error'))
+                                <div class="alert alert-danger">{{ session('error') }}</div>
+                            @endif
+                            <div class="card-header">
+                                <h4>Create a New Question</h4>
+                            </div>
+                            <div class="card-body">
+                                <form action="{{ url('/pertanyaan') }}" method="POST">
                                     @csrf
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="pertanyaan">Pertanyaan</label>
-                                            <input type="text" name="pertanyaan" id="pertanyaan" class="form-control"
-                                                required>
-                                            <small id="error-pertanyaan" class="error-text form-text text-danger"></small>
-                                        </div>
+
+                                    <!-- Question Text -->
+                                    <div class="form-group">
+                                        <label for="pertanyaan">Question</label>
+                                        <textarea class="form-control" name="pertanyaan" rows="3" required></textarea>
                                     </div>
-                                    <div class="modal-footer">
-                                        <a class="btn btn-warning" href="{{ url('pertanyaan')}}">Batal</a>
-                                        <button type="submit" class="btn btn-primary">Simpan</button>
+
+                                    <!-- Question Type (Scale or Text) -->
+                                    <div class="form-group">
+                                        <label for="question_type">Question Type</label>
+                                        <select name="question_type" class="form-control" required>
+                                            <option value="" disabled>Select Question Type</option>
+                                            <option value="scale">Scale (1-5)</option>
+                                            <option value="text">Text (Open-ended)</option>
+                                        </select>
                                     </div>
+                                    <button type="submit" class="btn btn-primary">Save Question</button>
                                 </form>
                             </div>
                         </div>

@@ -1,29 +1,38 @@
 <?php
-
+// database/seeders/PertanyaanSeeder.php
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\PertanyaanModel;
 
-class pertanyaanSeeder extends Seeder
+class PertanyaanSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
-    DB::table('pertanyaan')->insert([
-        ['pertanyaan' => 'Kerjasama Tim'],
-        ['pertanyaan' => 'Keahlian di Bidang TI'],
-        ['pertanyaan' => 'Kemampuan Berbahasa Asing'],
-        ['pertanyaan' => 'Kemampuan Berkomunikasi'],
-        ['pertanyaan' => 'Pengembangan Diri'],
-        ['pertanyaan' => 'Kepemimpinan'],
-        ['pertanyaan' => 'Etos Kerja'],
-    ]);
+        // Add questions here
+        PertanyaanModel::create([
+            'pertanyaan' => 'How satisfied are you with the quality of education provided by our institution?',
+            'question_type' => 'scale',
+        ]);
 
+        PertanyaanModel::create([
+            'pertanyaan' => 'How would you rate the teamwork skills of our alumni?',
+            'question_type' => 'scale',
+        ]);
+
+        PertanyaanModel::create([
+            'pertanyaan' => 'What are the key areas that alumni could improve upon?',
+            'question_type' => 'text',
+        ]);
+
+        PertanyaanModel::create([
+            'pertanyaan' => 'How do you assess the communication skills of our alumni in the workplace?',
+            'question_type' => 'scale',
+        ]);
+
+        PertanyaanModel::create([
+            'pertanyaan' => 'Please provide any suggestions for improving the curriculum of the program.',
+            'question_type' => 'text',
+        ]);
     }
 }
