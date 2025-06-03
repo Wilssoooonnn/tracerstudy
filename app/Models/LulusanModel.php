@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -11,9 +10,11 @@ class LulusanModel extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
 
-    protected $fillable = ['NIM', 'nama', 'tanggal_lulus', 'programs_id'];
+    protected $fillable = [
+        'NIM', 'nama', 'tanggal_lulus', 'programs_id', 'nohp', 'email',
+        'tanggal_pertama_kerja', 'instansi_id', 'skala_id', 'kategori_id', 'profesi_id'
+    ];
 
-    // Contoh relasi ke Program Studi (jika ada tabel relasi program)
     public function program()
     {
         return $this->belongsTo(ProgramsModel::class, 'programs_id', 'id');

@@ -47,22 +47,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 });
 
+// lulusan
 Route::prefix('lulusan')->name('lulusan.')->group(function () {
-    Route::get('/form-lulusan', function () {
-        return view('lulusan.form-lulusan');
-    })->name('form-lulusan');
     Route::get('/data', [LulusanController::class, 'getLulusanData'])->name('data');
     Route::get('/cek-nim', [LulusanController::class, 'cekNim'])->name('cek-nim.form');
     Route::post('/cek-nim', [LulusanController::class, 'submitCekNim'])->name('cek-nim.submit');
-    Route::get('/form-lulusan/{nim}', [LulusanController::class, 'showFormLulusan'])->name('lulusan.form-lulusan');
-    Route::post('/store', [FormlulusanController::class, 'store'])->name('lulusan.store');
-
+    Route::get('/form-lulusan/{nim}', [LulusanController::class, 'showFormLulusan'])->name('form-lulusan');
+    Route::post('/store', [LulusanController::class, 'store'])->name('store');
 });
 
 Route::get('data-lulusan/import', [LulusanController::class, 'import_view'])->name('lulusan_import_view');
 Route::post('data-lulusan/import', [LulusanController::class, 'lulusan_import'])->name('lulusan_import_post');
 
-
+//pertanyaan
 Route::prefix('pertanyaan')->name('pertanyaan.')->group(function () {
     Route::get('/', [PertanyaanController::class, 'index'])->name('index');
     Route::post('/list', [PertanyaanController::class, 'list'])->name('list');
@@ -74,6 +71,7 @@ Route::prefix('pertanyaan')->name('pertanyaan.')->group(function () {
     Route::delete('/{id}', [PertanyaanController::class, 'destroy'])->name('destroy');
 });
 
+//instansi
 Route::prefix('instansi')->name('instansi.')->group(function () {
     Route::get('/cek-lulusan', [InstansiController::class, 'cekLulusan'])->name('cek-lulusan');
     Route::post('/cek-lulusan', [InstansiController::class, 'submitCekLulusan'])->name('cek-lulusan.submit');

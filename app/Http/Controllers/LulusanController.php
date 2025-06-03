@@ -35,8 +35,6 @@ class LulusanController extends Controller
         return redirect()->route('lulusan.form-lulusan', ['nim' => $request->nim]);
     }
 
-    // Menampilkan form lulusan dengan data sudah terisi
-
     public function showFormLulusan($nim)
     {
         $alumni = LulusanModel::with('program')->where('nim', $nim)->first();
@@ -45,21 +43,21 @@ class LulusanController extends Controller
             return redirect()->route('cari-nim.form')->withErrors(['nim' => 'NIM tidak ditemukan']);
         }
 
-        $semuaSkala = SkalaModel::all(); // ambil semua data skala
-        $semuaInstansi = InstansiModel::all(); // ambil semua data instansi
+        $semuaSkala = SkalaModel::all();
+        $semuaInstansi = InstansiModel::all();
         $semuaKategori = KategoriModel::all();
         $daftarProfesi = ProfesiModel::with('category')->get();
 
         return view('lulusan.form-lulusan', [
             'nim' => $nim,
             'alumni' => $alumni,
-            'program_nama' => $alumni->program->program_studi ?? '-', // pakai nama kolom dari tabel programs
+            'program_nama' => $alumni->program->program_studi ?? '-',
             'programs_id' => $alumni->programs_id,
             'nama' => $alumni->nama,
             'tanggal_lulus' => $alumni->tanggal_lulus,
             'skala_id' => $alumni->skala_id,
-            'semuaSkala' => $semuaSkala, // kirim ke view
-            'semuaInstansi' => $semuaInstansi, // kirim ke view
+            'semuaSkala' => $semuaSkala,
+            'semuaInstansi' => $semuaInstansi,
             'semuaKategori' => $semuaKategori,
             'daftarProfesi' => $daftarProfesi,
         ]);
@@ -67,50 +65,34 @@ class LulusanController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nim' => 'required|exists:lulusan,nim',
-            'no_hp' => 'required|max:20',
-            'email' => 'required|email',
-            'tanggal_pertama_kerja' => 'required|date',
-            'instansi_id' => 'required|exists:instansi,id',
-            'skala_id' => 'required|exists:skala,id',
-            'kategori_id' => 'required|exists:kategori,id',
-            'profesi_id' => 'required',
-            'profesi_baru' => 'required_if:profesi_id,lainnya|max:255',
-            // validasi lain sesuai form
-        ]);
-
-        if ($request->profesi_id === 'lainnya') {
-            $profesiBaru = ProfesiModel::create([
-                'profesi' => $request->profesi_baru,
-                'category_id' => 1 // sesuaikan
+        try {
+            $request->validate([
+                'nim' => 'required|exists:data_alumni,NIM',
+                'no_hp' => 'required|max:20',
+                'email' => 'required|email',
             ]);
-            $profesi_id = $profesiBaru->id;
-        } else {
-            $profesi_id = $request->profesi_id;
+
+            // Perbarui data alumni di tabel data_alumni
+            $alumni = LulusanModel::where('NIM', $request->nim)->first();
+            if (!$alumni) {
+                return redirect()->back()->with('error', 'Alumni tidak ditemukan.');
+            }
+
+            $alumni->nohp = $request->no_hp;
+            $alumni->email = $request->email;
+            $alumni->save();
+
+            return redirect()->route('lulusan.form-lulusan', ['nim' => $request->nim])
+                ->with('success', 'Data berhasil disimpan.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menyimpan data: ' . $e->getMessage());
         }
-
-        $alumni = LulusanModel::where('nim', $request->nim)->first();
-        $alumni->no_hp = $request->no_hp;
-        $alumni->email = $request->email;
-        $alumni->tanggal_pertama_kerja = $request->tanggal_pertama_kerja;
-        $alumni->instansi_id = $request->instansi_id;
-        $alumni->skala_id = $request->skala_id;
-        $alumni->kategori_id = $request->kategori_id;
-        $alumni->profesi_id = $profesi_id;
-        // Simpan field lain sesuai form
-
-        $alumni->save();
-
-        return redirect()->back()->with('success', 'Data berhasil disimpan.');
     }
 
     public function getLulusanData(Request $request)
     {
-        // Mengambil data lulusan dengan kolom yang sesuai
         $lulusan = LulusanModel::select(['id', 'nim', 'nama', 'programs_id', 'nohp', 'email'])->get();
 
-        // Menyusun data dalam format yang sesuai untuk DataTables
         $data = $lulusan->map(function ($item) {
             return [
                 'id' => $item->id,
@@ -119,7 +101,7 @@ class LulusanController extends Controller
                 'prodi' => $item->program->program_studi ?? '-',
                 'nohp' => $item->nohp,
                 'email' => $item->email,
-                'action' => '<button>Edit</button>', // Sesuaikan dengan tombol aksi Anda
+                'action' => '<button>Edit</button>',
             ];
         });
 
@@ -127,7 +109,7 @@ class LulusanController extends Controller
             'draw' => $request->draw,
             'recordsTotal' => $lulusan->count(),
             'recordsFiltered' => $lulusan->count(),
-            'data' => $data, // Mengembalikan data yang sudah diformat
+            'data' => $data,
         ]);
     }
 
@@ -136,10 +118,8 @@ class LulusanController extends Controller
         return view('admin.lulusan_import');
     }
 
-
     public function lulusan_import(Request $request)
     {
-        // Validasi file
         $rules = [
             'file_lulusan' => ['required', 'mimes:xlsx', 'max:1024']
         ];
@@ -205,5 +185,4 @@ class LulusanController extends Controller
             ]);
         }
     }
-
 }

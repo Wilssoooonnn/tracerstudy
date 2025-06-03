@@ -5,13 +5,14 @@
 @push('style')
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.css">
 @endpush
 
 @section('main')
     <div class="py-5">
-        <div class="container"> {{-- Gunakan container agar ada padding samping --}}
-            <div class="row justify-content-center"> {{-- Tengah --}}
-                <div class="col-12"> {{-- Lebar maksimal --}}
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12">
                     <div class="card shadow">
                         <form action="{{ route('lulusan.store') }}" method="POST">
                             <div class="card-header">
@@ -69,7 +70,7 @@
                                 <!-- Jenis Instansi -->
                                 <div class="form-group">
                                     <label>Jenis Instansi</label>
-                                    <select class="form-control" name="instansi_id" required>
+                                    <select class="form-control" name="instansi_id">
                                         <option value="">-- Pilih Jenis Instansi --</option>
                                         @foreach ($semuaInstansi as $instansi)
                                             <option value="{{ $instansi->id }}"
@@ -89,7 +90,7 @@
                                 <!-- Skala -->
                                 <div class="form-group">
                                     <label>Skala</label>
-                                    <select name="skala_id" class="form-control" required>
+                                    <select name="skala_id" class="form-control">
                                         <option value="">-- Pilih Skala --</option>
                                         @foreach ($semuaSkala as $skala)
                                             <option value="{{ $skala->id }}"
@@ -109,7 +110,7 @@
                                 <!-- Kategori Profesi -->
                                 <div class="form-group">
                                     <label>Kategori Profesi</label>
-                                    <select class="form-control" name="kategori_id" required>
+                                    <select class="form-control" name="kategori_id">
                                         <option value="">-- Pilih Kategori --</option>
                                         @foreach ($semuaKategori as $kategori)
                                             <option value="{{ $kategori->id }}"
@@ -124,7 +125,7 @@
                                 <div class="form-group">
                                     <label>Profesi</label>
                                     <input type="hidden" name="profesi_id" id="profesi_id">
-                                    <input type="text" class="form-control" name="profesi_input" id="profesi_input" required autocomplete="off">
+                                    <input type="text" class="form-control" name="profesi_input" id="profesi_input" autocomplete="off">
                                 </div>
 
                                 <!-- Nama Atasan Langsung -->
@@ -168,7 +169,7 @@
                                     <div class="modal-header">
                                         <h5 class="modal-title">Konfirmasi</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Tutup">
-                                            <span aria-hidden="true">&times;</span>
+                                            <span aria-hidden="true">×</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
@@ -191,6 +192,7 @@
 @push('scripts')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -205,8 +207,27 @@
             });
 
             $('#btnConfirmSubmit').on('click', function () {
-                $('form').submit(); // Submit the form
+                $('form').submit();
             });
+
+            // Tampilkan SweetAlert untuk pesan sukses atau error
+            @if (session('success'))
+                swal({
+                    title: "Sukses!",
+                    text: "{{ session('success') }}",
+                    icon: "success",
+                    button: "OK",
+                });
+            @endif
+
+            @if (session('error'))
+                swal({
+                    title: "Error!",
+                    text: "{{ session('error') }}",
+                    icon: "error",
+                    button: "OK",
+                });
+            @endif
         });
     </script>
 @endpush
