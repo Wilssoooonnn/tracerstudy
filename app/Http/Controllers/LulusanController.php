@@ -116,7 +116,7 @@ class LulusanController extends Controller
                 'id' => $item->id,
                 'nim' => $item->nim,
                 'nama' => $item->nama,
-                'programs_id' => $item->programs_id, // Pastikan ini sesuai dengan kolom di database
+                'prodi' => $item->program->program_studi ?? '-',
                 'nohp' => $item->nohp,
                 'email' => $item->email,
                 'action' => '<button>Edit</button>', // Sesuaikan dengan tombol aksi Anda

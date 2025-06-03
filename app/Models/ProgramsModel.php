@@ -19,6 +19,6 @@ class ProgramsModel extends Model
     // Relasi ke data alumni (jika satu program memiliki banyak alumni)
     public function lulusan()
     {
-        return $this->hasMany(LulusanModel::class, 'programs_id');
+        return $this->hasMany(LulusanModel::class, 'programs_id', 'id');
     }
 }

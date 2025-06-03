@@ -7,6 +7,7 @@ use App\Http\Controllers\LulusanController;
 use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\FormlulusanController;
+use App\Http\Controllers\RekapLulusanController;
 
 // Public routes
 Route::redirect('/', '/welcome');
@@ -77,14 +78,19 @@ Route::prefix('instansi')->name('instansi.')->group(function () {
     Route::post('/cek-lulusan', [InstansiController::class, 'submitCekLulusan'])->name('cek-lulusan.submit');
     Route::get('/form-instansi/{nama}', [InstansiController::class, 'showFormInstansi'])->name('form-instansi');
     Route::post('/store', [InstansiController::class, 'store'])->name('store');
+    Route::get('/data-stakeholder', [InstansiController::class, 'index'])->name('index');
+    Route::get('/list', [InstansiController::class, 'list'])->name('list');
+    Route::get('/{id}', [InstansiController::class, 'show'])->name('show');
+});
 
-    Route::get('/', [InstansiController::class, 'index']);          // menampilkan halaman awal pertanyaan
-    Route::post('/list', [InstansiController::class, 'list']);      // menampilkan data pertanyaan dalam bentuk json untuk datatables
-    Route::get('/create', [InstansiController::class, 'create']);   // menampilkan halaman form tambah pertanyaan
-    Route::post('/', [InstansiController::class, 'store']);         // menyimpan data pertanyaan baru
-    Route::get('/{id}', [InstansiController::class, 'show']);       // menampilkan detail pertanyaan
-    Route::get('/{id}/edit', [InstansiController::class, 'edit']);  // menampilkan halaman form edit pertanyaan
-    Route::put('/{id}', [InstansiController::class, 'update']);     // menyimpan perubahan data pertanyaan
-    Route::delete('/{id}', [InstansiController::class, 'destroy']); // menghapus data pertanyaan
-
+Route::prefix('rekaplulusan')->name('rekaplulusan')->group(function () {
+    Route::get('/', [RekapLulusanController::class, 'index']);          // menampilkan halaman awal pertanyaan
+    Route::post('/list', [RekapLulusanController::class, 'list']);      // menampilkan data pertanyaan dalam bentuk json untuk datatables
+    Route::get('/create', [RekapLulusanController::class, 'create']);   // menampilkan halaman form 
+    Route::post('/', [RekapLulusanController::class, 'store']);         // menyimpan data 
+    // Route::get('/{id}', [RekapLulusanController::class, 'show']);       // menampilkan detail 
+    Route::get('/{id}/edit', [RekapLulusanController::class, 'edit']);  // menampilkan halaman form edit 
+    Route::put('/{id}', [RekapLulusanController::class, 'update']);     // menyimpan perubahan 
+    Route::delete('/{id}', [RekapLulusanController::class, 'destroy']); // menghapus 
+    Route::get('/export_excel', [RekapLulusanController::class, 'export_excel']); // export excel 
 });
