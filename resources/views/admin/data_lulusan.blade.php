@@ -22,7 +22,7 @@
                             <div class="card-header">
                                 <h4>Data Lulusan</h4>
                                 <div class="card-header-action">
-                                    <a href="{{ route('lulusan_import') }}" class="btn btn-primary">Import Data</a>
+                                    <a href="{{ route('lulusan_import_post') }}" class="btn btn-primary">Import Data</a>
                                 </div>
                             </div>
                             <div class="card-body">
