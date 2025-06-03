@@ -4,16 +4,19 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LulusanController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\FormlulusanController;
 use App\Http\Controllers\RekapLulusanController;
 
 // Public routes
-Route::redirect('/', '/welcome');
-Route::get('/welcome', function () {
-    return view('welcome');
-})->name('welcome');
+// Route::redirect('/', '/welcome');
+// Route::get('/welcome', function () {
+//     return view('welcome');
+// })->name('welcome');
+
+Route::get('/welcome', [WelcomeController::class, 'index'])->name('welcome');
 
 // Admin routes
 Route::prefix('admin')->name('admin.')->group(function () {
