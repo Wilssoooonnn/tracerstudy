@@ -10,6 +10,8 @@ use Illuminate\Http\Request;
 use App\Models\InstansiModel;
 use App\Models\KategoriModel;
 use App\Models\StakeholderModel;
+use App\Models\Respon;
+use App\Models\pertanyaanModel;
 use Yajra\DataTables\Facades\DataTables;
 
 class InstansiController extends Controller
@@ -57,6 +59,7 @@ class InstansiController extends Controller
         $daftarProfesi = ProfesiModel::with('category')->get();
         $atasan = StakeholderModel::all()->where('alumni_id', $record->id)->first();
 
+        $pertanyaan = PertanyaanModel::all(); // Fetch all the questions
 
         return view('instansi.form-instansi', [
             'alumni' => $alumni,
@@ -64,70 +67,66 @@ class InstansiController extends Controller
             'programs_id' => $alumni->programs_id,
             'nama' => $alumni->nama,
             'nim' => $alumni->NIM,
-            'tanggal_lulus' => $alumni->tanggal_lulus,
             'nama_instansi' => $record->instansi_name ?? '-',
             'email' => $atasan->email,
-            'skala_id' => $record->instansi_scale ?? '-',
             'nama_atasan' => $atasan->nama ?? '-',
             'jabatan' => $atasan->jabatan ?? '-',
-            'semuaSkala' => $semuaSkala,
-            'semuaInstansi' => $semuaInstansi,
-            'semuaKategori' => $semuaKategori,
-            'daftarProfesi' => $daftarProfesi,
+            'pertanyaan' => $pertanyaan, // Correct way to pass the questions data to view
         ]);
     }
 
     public function store(Request $request)
     {
+        // Validate the request
         $request->validate([
-            'nim' => 'required|exists:lulusan,nim',
-            'no_hp' => 'required|max:20',
-            'email' => 'required|email',
-            'tanggal_pertama_kerja' => 'required|date',
-            'instansi_id' => 'required|exists:instansi,id',
-            'skala_id' => 'required|exists:skala,id',
-            'kategori_id' => 'required|exists:category,id',
-            'profesi_id' => 'required',
-            'profesi_baru' => 'required_if:profesi_id,lainnya|max:255',
-            'nama_instansi' => 'required|string|max:255',
-            'nama_atasan' => 'required|string|max:255',
-            'no_hp_atasan' => 'required|max:20',
-            'email_atasan' => 'required|email',
+            'alumni' => 'required|string',
+            'question' => 'required|array', // Ensure questions are provided as an array
+            'question.*' => 'required', // Each question response must be provided
         ]);
 
-        if ($request->profesi_id === 'lainnya') {
-            $profesiBaru = ProfesiModel::create([
-                'profesi' => $request->profesi_baru,
-                'category_id' => 1, // Sesuaikan dengan kategori default jika diperlukan
-            ]);
-            $profesi_id = $profesiBaru->id;
-        } else {
-            $profesi_id = $request->profesi_id;
+        // Extract the alumni NIM from the input (assuming format: "nama - NIM - program")
+        $alumniInput = explode(' - ', $request->input('alumni'));
+        $nim = $alumniInput[1] ?? null;
+
+        if (!$nim) {
+            return back()->with('error', 'Invalid alumni data provided.');
         }
 
-        // Simpan ke data lulusan
-        $alumni = LulusanModel::where('nim', $request->nim)->first();
-        $alumni->no_hp = $request->no_hp;
-        $alumni->email = $request->email;
-        $alumni->tanggal_pertama_kerja = $request->tanggal_pertama_kerja;
-        $alumni->instansi_id = $request->instansi_id;
-        $alumni->skala_id = $request->skala_id;
-        $alumni->kategori_id = $request->kategori_id;
-        $alumni->profesi_id = $profesi_id;
-        $alumni->save();
+        // Find the alumni by NIM
+        $alumni = LulusanModel::where('NIM', $nim)->first();
+        if (!$alumni) {
+            return back()->with('error', 'Alumni not found.');
+        }
 
-        // Simpan data stakeholder (pengguna lulusan)
-        StakeholderModel::create([
-            'nim' => $request->nim,
-            'nama_instansi' => $request->nama_instansi,
-            'nama_atasan' => $request->nama_atasan,
-            'no_hp_atasan' => $request->no_hp_atasan,
-            'email_atasan' => $request->email_atasan,
-        ]);
+        // Find the formlulusan record for the alumni
+        $formLulusan = FormlulusanModel::where('alumni_id', $alumni->id)->first();
+        if (!$formLulusan) {
+            return back()->with('error', 'Form lulusan record not found.');
+        }
 
-        return redirect()
-            ->back()
-            ->with('success', 'Data berhasil disimpan.');
+        // Find the stakeholder associated with the formlulusan
+        $stakeholder = StakeholderModel::where('alumni_id', $formLulusan->id)->first();
+        if (!$stakeholder) {
+            return back()->with('error', 'Stakeholder not found.');
+        }
+
+        // Process each question response
+        foreach ($request->input('question') as $pertanyaan_id => $respon) {
+            // Ensure the pertanyaan_id exists
+            if (!PertanyaanModel::find($pertanyaan_id)) {
+                continue; // Skip if the question ID is invalid
+            }
+
+            // Save the response to the respon table
+            Respon::create([
+                'pertanyaan_id' => $pertanyaan_id,
+                'respon' => $respon,
+                'stakeholder_id' => $stakeholder->id,
+            ]);
+        }
+
+        // Redirect back with a success message
+        return redirect()->route('instansi.cek-lulusan')->with('success', 'Responses successfully saved.');
     }
 
     public function index()
@@ -156,4 +155,5 @@ class InstansiController extends Controller
         $stakeholder = StakeholderModel::with('lulusan')->findOrFail($id);
         return view('admin.stakeholder_show', compact('stakeholder'));
     }
+
 }
