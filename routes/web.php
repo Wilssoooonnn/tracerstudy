@@ -9,6 +9,7 @@ use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\FormlulusanController;
 use App\Http\Controllers\RekapLulusanController;
+use App\Http\Controllers\TracerStudyController;
 
 // Public routes
 // Route::redirect('/', '/welcome');
@@ -92,4 +93,11 @@ Route::prefix('rekaplulusan')->name('rekaplulusan.')->group(function () {
     Route::put('/{id}', [RekapLulusanController::class, 'update'])->name('update');
     Route::delete('/{id}', [RekapLulusanController::class, 'destroy'])->name('destroy');
     Route::get('/export_excel', [RekapLulusanController::class, 'export_excel'])->name('export_excel');
+});
+
+Route::prefix('rekaphasil')->name('rekaphasil')->group(function () {
+    Route::get('/', [TracerStudyController::class, 'index']);
+    Route::post('/list', [TracerStudyController::class, 'list']);
+    Route::get('/export-rekap-tracer-study', [TracerStudyController::class, 'export_rekap_tracer_study']);
+    Route::get('/{id}', [TracerStudyController::class, 'show']);
 });

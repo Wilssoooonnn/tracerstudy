@@ -28,4 +28,9 @@ class LulusanModel extends Model
     {
         return $this->belongsTo(FormlulusanModel::class, 'alumni_id');
     }
+
+    public function tracerRecord()
+    {
+        return $this->hasOne(TracerRecordModel::class, 'alumni_id', 'id');
+    }
 }
