@@ -8,9 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class PertanyaanModel extends Model
 {
     use HasFactory;
+
     protected $table = 'pertanyaan';
+
     protected $primaryKey = 'id';
-    protected $fillable = ['pertanyaan'];
+
+    protected $fillable = ['pertanyaan', 'question_type']; // Added question_type
 
     public $timestamps = false;
+
 }
