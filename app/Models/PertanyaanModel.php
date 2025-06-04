@@ -13,4 +13,9 @@ class PertanyaanModel extends Model
     protected $fillable = ['pertanyaan'];
 
     public $timestamps = false;
+
+     public function respon()
+    {
+        return $this->hasMany(ResponsModel::class, 'pertanyaan_id', 'id');
+    }
 }

@@ -23,41 +23,18 @@
                         <div class="card">
                             <div class="card-header">
                                 <h4>Data Response Stakeholder Terhadap Alumni</h4>
-                                <div class="card-header-form">
-                                    <form>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search">
-                                            <div class="input-group-btn">
-                                                <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
                             </div>
-                            <div class="card-body p-0">
+                            <div class="card-body ">
                                 <div class="table-responsive">
-                                    <table class="table-striped table">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama Stakeholder</th>
-                                            <th>Nama Instansi</th>
-                                            <th>Nama Lulusan</th>
-                                            <th>Program Studi</th>
-                                            <th>Action</th>
-                                        </tr>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Nama Stakeholder</td>
-                                            <td>Nama Instansi</td>
-                                            <th>Nama Lulusan</th>
-                                            <th>Program Studi</th>
-                                            <td>
-                                                <a href="#" class="btn btn-primary">
-                                                    <i class="fa fa-link"></i> Detail
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <!-- Tambahkan baris berikutnya di sini -->
+                                    <table class="table-striped table" id="tableRespon">
+                                        <thead>
+                                            <tr>
+                                                <th>No</th>
+                                                <th>Nama Stakeholder</th>
+                                                <th>Nama Instansi</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
                                     </table>
                                 </div>
                             </div>
@@ -75,4 +52,40 @@
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/components-table.js') }}"></script>
+@endpush
+
+@push('js')
+<script>
+    $(document).ready(function() {
+        var dataRespon = $('#tableRespon').DataTable({
+            serverSide: true, // Enable server-side processing
+            ajax: {
+                "url": "{{ url('response/list') }}",
+                "dataType": "json",
+                "type": "POST"
+            },
+            columns: [{
+                data: "DT_RowIndex",
+                className: "text-center",
+                orderable: false, // Disable ordering for this column
+                searchable: false // Disable searching for this column
+            }, {
+                data: "nama_stakeholder",
+                className: "",
+                orderable: true, // Enable ordering for this column
+                searchable: true // Enable searching for this column
+            },{
+                data: "nama_instansi",
+                className: "",
+                orderable: true, // Enable ordering for this column
+                searchable: true // Enable searching for this column
+            },{
+                data: "action",
+                className: "",
+                orderable: false,
+                searchable: false
+            }]
+        });
+    });
+</script>
 @endpush

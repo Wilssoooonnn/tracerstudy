@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LulusanController;
 use App\Http\Controllers\InstansiController;
+use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\FormlulusanController;
 use App\Http\Controllers\RekapLulusanController;
@@ -93,4 +94,15 @@ Route::prefix('rekaplulusan')->name('rekaplulusan')->group(function () {
     Route::put('/{id}', [RekapLulusanController::class, 'update']);     // menyimpan perubahan 
     Route::delete('/{id}', [RekapLulusanController::class, 'destroy']); // menghapus 
     Route::get('/export_excel', [RekapLulusanController::class, 'export_excel']); // export excel 
+});
+
+Route::prefix('response')->name('response.')->group(function () {
+    Route::get('/', [ResponseController::class, 'index'])->name('index');
+    Route::post('/list', [ResponseController::class, 'list'])->name('list');
+    Route::get('/{id}', [ResponseController::class, 'show']);
+    Route::get('/create', [ResponseController::class, 'create'])->name('create');
+    Route::post('/', [ResponseController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [ResponseController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [ResponseController::class, 'update'])->name('update');
+    Route::delete('/{id}', [ResponseController::class, 'destroy'])->name('destroy');
 });

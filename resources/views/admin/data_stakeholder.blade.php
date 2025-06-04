@@ -75,7 +75,7 @@
                 ajax: {
                     "url": "{{ url('instansi/list') }}", // URL untuk mengambil data
                     "dataType": "json",
-                    "type": "POST",
+                    "type": "GET",
                     "headers": {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Menambahkan token CSRF
                     }
