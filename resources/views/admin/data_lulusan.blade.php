@@ -36,6 +36,7 @@
                                                 <th>Prodi</th>
                                                 <th>Phone</th>
                                                 <th>Email</th>
+                                                <th>Tahun Lulus</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -70,6 +71,7 @@
                     { data: 'prodi', name: 'prodi' },
                     { data: 'nohp', name: 'nohp' },
                     { data: 'email', name: 'email' },
+                    { data: 'tanggal_lulus', name: 'tanggal_lulus' }
                 ]
             });
 

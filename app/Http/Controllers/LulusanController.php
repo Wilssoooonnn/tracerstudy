@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\Collection;
+use App\Models\FormlulusanModel;
+use App\Models\StakeholderModel;
 
 class LulusanController extends Controller
 {
@@ -67,48 +69,98 @@ class LulusanController extends Controller
 
     public function store(Request $request)
     {
+        // Validation rules
         $request->validate([
-            'nim' => 'required|exists:lulusan,nim',
+            'nim' => 'required|exists:data_alumni,nim',
             'no_hp' => 'required|max:20',
             'email' => 'required|email',
             'tanggal_pertama_kerja' => 'required|date',
+            'tanggal_mulai_kerja' => 'required|date',
             'instansi_id' => 'required|exists:instansi,id',
+            'nama_instansi' => 'required',
             'skala_id' => 'required|exists:skala,id',
-            'kategori_id' => 'required|exists:kategori,id',
-            'profesi_id' => 'required',
-            'profesi_baru' => 'required_if:profesi_id,lainnya|max:255',
-            // validasi lain sesuai form
+            'lokasi_instansi' => 'required',
+            'kategori_id' => 'required|exists:category,id',
+            'profesi_id' => 'nullable',
+            'profesi_input' => 'required_without:profesi_id|string|max:255',
+            'nama_atasan' => 'required',
+            'jabatan' => 'required',
+            'noHp_atasan' => 'required',
+            'email_atasan' => 'required|email',
         ]);
 
-        if ($request->profesi_id === 'lainnya') {
-            $profesiBaru = ProfesiModel::create([
-                'profesi' => $request->profesi_baru,
-                'category_id' => 1 // sesuaikan
-            ]);
-            $profesi_id = $profesiBaru->id;
-        } else {
-            $profesi_id = $request->profesi_id;
+        // Resolve the profession (profesi) based on input or ID
+        $profesi = $this->resolveProfesi($request->profesi_input, $request->profesi_id, $request->kategori_id);
+
+        if (!$profesi) {
+            return back()->withErrors(['profesi_text' => 'Profesi tidak valid']);
         }
 
+        // Fetch alumni by nim
         $alumni = LulusanModel::where('nim', $request->nim)->first();
-        $alumni->no_hp = $request->no_hp;
-        $alumni->email = $request->email;
-        $alumni->tanggal_pertama_kerja = $request->tanggal_pertama_kerja;
-        $alumni->instansi_id = $request->instansi_id;
-        $alumni->skala_id = $request->skala_id;
-        $alumni->kategori_id = $request->kategori_id;
-        $alumni->profesi_id = $profesi_id;
-        // Simpan field lain sesuai form
+        if (!$alumni) {
+            return back()->withErrors(['nim' => 'Alumni tidak ditemukan']);
+        }
 
+        // Update alumni data
+        $alumni->nohp = $request->no_hp;
+        $alumni->email = $request->email;
         $alumni->save();
 
+        // Insert into FormlulusanModel
+        FormlulusanModel::create([
+            'alumni_id' => $alumni->id,
+            'first_job_date' => $request->tanggal_pertama_kerja,
+            'current_instansi_start_date' => $request->tanggal_mulai_kerja,
+            'instansi_type' => $request->instansi_id,
+            'instansi_name' => $request->nama_instansi,
+            'instansi_scale' => $request->skala_id,
+            'instansi_location' => $request->lokasi_instansi,
+            'category_profession' => $request->kategori_id,
+            'profession_id' => $profesi->id,
+            'nama_atasan' => $request->nama_atasan,
+            'jabatan' => $request->jabatan,
+            'no_hp' => $request->noHp_atasan,
+            'email' => $request->email_atasan,
+        ]);
+
+        // Insert into StakeholderModel
+        StakeholderModel::create([
+            'nama' => $request->nama_atasan,
+            'instansi' => $request->nama_instansi,
+            'jabatan' => $request->jabatan,
+            'email' => $request->email_atasan,
+            'alumni_id' => $alumni->id
+        ]);
+
+        // Return success response
         return redirect()->back()->with('success', 'Data berhasil disimpan.');
+    }
+
+    /**
+     * Resolve the profession (profesi) based on input or ID.
+     *
+     * @param string|null $profesiNama
+     * @param string|null $profesiId
+     * @param string $kategoriId
+     * @return ProfesiModel|null
+     */
+    private function resolveProfesi($profesiNama, $profesiId, $kategoriId)
+    {
+        if ($profesiId && is_numeric($profesiId)) {
+            return ProfesiModel::findOrFail($profesiId);
+        }
+
+        return ProfesiModel::firstOrCreate(
+            ['profesi' => $profesiNama],
+            ['category_id' => $kategoriId]
+        );
     }
 
     public function getLulusanData(Request $request)
     {
         // Mengambil data lulusan dengan kolom yang sesuai
-        $lulusan = LulusanModel::select(['id', 'nim', 'nama', 'programs_id', 'nohp', 'email'])->get();
+        $lulusan = LulusanModel::select(['id', 'nim', 'nama', 'programs_id', 'nohp', 'email', 'tanggal_lulus'])->get();
 
         // Menyusun data dalam format yang sesuai untuk DataTables
         $data = $lulusan->map(function ($item) {
@@ -119,7 +171,7 @@ class LulusanController extends Controller
                 'prodi' => $item->program->program_studi ?? '-',
                 'nohp' => $item->nohp,
                 'email' => $item->email,
-                'action' => '<button>Edit</button>', // Sesuaikan dengan tombol aksi Anda
+                'tanggal_lulus' => $item->tanggal_lulus
             ];
         });
 
@@ -168,11 +220,13 @@ class LulusanController extends Controller
                 foreach ($data as $baris => $value) {
                     if ($baris > 1) {
                         $program_studi = trim($value['A']);
+                        $tanggal_lulus = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($value['D'])->format('Y-m-d'); // Convert Excel date to PHP DateTime object
+
                         $insert[] = [
                             'programs_id' => $semuaProdi[$program_studi],
                             'nim' => $value['B'],
                             'nama' => $value['C'],
-                            'tanggal_lulus' => $value['D'],
+                            'tanggal_lulus' => $tanggal_lulus, // Correctly formatted date
                             'created_at' => now(),
                         ];
                     }
@@ -205,5 +259,6 @@ class LulusanController extends Controller
             ]);
         }
     }
+
 
 }
