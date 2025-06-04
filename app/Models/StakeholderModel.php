@@ -23,4 +23,8 @@ class StakeholderModel extends Model
          return $this->belongsTo(LulusanModel::class, 'alumni_id', 'id');
     }
 
+        public function respon()
+    {
+        return $this->hasMany(ResponsModel::class, 'stakeholder_id', 'id');
+    }
 }

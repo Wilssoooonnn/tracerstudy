@@ -103,6 +103,23 @@
                         searchable: false
                     }
                 ]
+                columns: [{
+                    // nomor urut dari laravel datatable addIndexColumn()
+                    data: "DT_RowIndex",
+                    className: "text-center",
+                    orderable: false,
+                    searchable: false
+                }, {
+                    data: "pertanyaan",
+                    className: "",
+                    orderable: true,
+                    searchable: true, //jika ingin kolom ini bisa dicari
+                }, {
+                    data: "action",
+                    className: "",
+                    orderable: false,
+                    searchable: false
+                }]
             })
         });
     </script>

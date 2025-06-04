@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LulusanController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\InstansiController;
+use App\Http\Controllers\ResponseController;
 use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\FormlulusanController;
 use App\Http\Controllers\RekapLulusanController;
@@ -105,4 +106,15 @@ Route::prefix('rekaphasil')->name('rekaphasil')->group(function () {
     Route::post('/list', [TracerStudyController::class, 'list']);
     Route::get('/export-rekap-tracer-study', [TracerStudyController::class, 'export_rekap_tracer_study']);
     Route::get('/{id}', [TracerStudyController::class, 'show']);
+});
+
+Route::prefix('response')->name('response.')->group(function () {
+    Route::get('/', [ResponseController::class, 'index'])->name('index');
+    Route::post('/list', [ResponseController::class, 'list'])->name('list');
+    Route::get('/{id}', [ResponseController::class, 'show']);
+    Route::get('/create', [ResponseController::class, 'create'])->name('create');
+    Route::post('/', [ResponseController::class, 'store'])->name('store');
+    Route::get('/{id}/edit', [ResponseController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [ResponseController::class, 'update'])->name('update');
+    Route::delete('/{id}', [ResponseController::class, 'destroy'])->name('destroy');
 });
