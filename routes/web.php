@@ -19,7 +19,7 @@ use App\Http\Controllers\ChartController;
 //     return view('welcome');
 // })->name('welcome');
 
-Route::get('/welcome', [WelcomeController::class, 'index'])->name('welcome');
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
 // Admin routes
 Route::prefix('admin')->name('admin.')->group(function () {
@@ -53,16 +53,13 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
 });
 
+// lulusan
 Route::prefix('lulusan')->name('lulusan.')->group(function () {
-    Route::get('/form-lulusan', function () {
-        return view('lulusan.form-lulusan');
-    })->name('form-lulusan');
     Route::get('/data', [LulusanController::class, 'getLulusanData'])->name('data');
     Route::get('/cek-nim', [LulusanController::class, 'cekNim'])->name('cek-nim.form');
     Route::post('/cek-nim', [LulusanController::class, 'submitCekNim'])->name('cek-nim.submit');
-    Route::get('/form-lulusan/{nim}', [LulusanController::class, 'showFormLulusan'])->name('lulusan.form-lulusan');
-    Route::post('/store', [FormlulusanController::class, 'store'])->name('lulusan.store');
-
+    Route::get('/form-lulusan/{nim}', [LulusanController::class, 'showFormLulusan'])->name('form-lulusan');
+    Route::post('/store', [LulusanController::class, 'store'])->name('store');
 });
 
 Route::get('data-lulusan/import', [LulusanController::class, 'import_view'])->name('lulusan_import_view');
