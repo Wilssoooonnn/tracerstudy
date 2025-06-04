@@ -14,8 +14,8 @@ return new class extends Migration {
     {
         Schema::create('respon', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pertanyaan_id')->constrained()->onDelete('cascade');
-            $table->foreignId('stakeholder_id')->constrained()->onDelete('cascade');
+            $table->foreignId('pertanyaan_id')->constrained('pertanyaan')->onDelete('cascade');
+            $table->foreignId('stakeholder_id')->constrained('data_stakeholder')->onDelete('cascade');
             $table->string('respon');
             $table->timestamps();
         });
