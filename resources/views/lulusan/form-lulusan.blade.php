@@ -21,17 +21,6 @@
                                 @csrf
                                 <input type="hidden" name="nim" value="{{ $nim }}">
 
-                                <!-- Validation Errors -->
-                                @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                    </div>
-                                @endif
-
                                 <!-- Program Studi -->
                                 <div class="form-group">
                                     <label>Program Studi</label>
@@ -80,7 +69,7 @@
                                 <!-- Jenis Instansi -->
                                 <div class="form-group">
                                     <label>Jenis Instansi</label>
-                                    <select class="form-control" name="instansi_id" id="instansi_id" required>
+                                    <select class="form-control" name="instansi_id" required>
                                         <option value="">-- Pilih Jenis Instansi --</option>
                                         @foreach ($semuaInstansi as $instansi)
                                             <option value="{{ $instansi->id }}"
@@ -94,7 +83,7 @@
                                 <!-- Nama Instansi -->
                                 <div class="form-group">
                                     <label>Nama Instansi</label>
-                                    <input type="text" class="form-control" name="nama_instansi" required>
+                                    <input type="text" class="form-control" name="nama_instansi">
                                 </div>
 
                                 <!-- Skala -->
@@ -217,15 +206,6 @@
 
             $('#btnConfirmSubmit').on('click', function () {
                 $('form').submit(); // Submit the form
-            });
-
-            // Handle instansi select change for nama_instansi required field
-            $("#instansi_id").on('change', function() {
-                if ($(this).val() === '') {
-                    $("input[name='nama_instansi']").prop('required', true);
-                } else {
-                    $("input[name='nama_instansi']").prop('required', false);
-                }
             });
         });
     </script>
