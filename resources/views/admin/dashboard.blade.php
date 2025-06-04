@@ -427,43 +427,42 @@
 
     {{-- js untuk pie chart --}}
     <script>
-
-    var ctx = document.getElementById("myChart1").getContext('2d');
-    var myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        datasets: [{
-        data: [
-            80,
-            50,
-            40,
-            30,
-            20,
-        ],
-        backgroundColor: [
-            '#191d21',
-            '#63ed7a',
-            '#ffa426',
-            '#fc544b',
-            '#6777ef',
-        ],
-        label: 'Dataset 1'
-        }],
-        labels: [
-        'Black',
-        'Green',
-        'Yellow',
-        'Red',
-        'Blue'
-        ],
-    },
-    options: {
-        responsive: true,
-        legend: {
-        position: 'bottom',
-        },
-    }
-    });
+        document.addEventListener("DOMContentLoaded", function () {
+            fetch("{{ route('admin.chart.topProfesi') }}")
+                .then(response => response.json())
+                .then(data => {
+                    const labels = data.map(item => item.profesi);
+                    const values = data.map(item => item.jumlah);
+        
+                    const backgroundColors = [
+                        '#60A9A6', '#AF7AB3', '#9BB0C1', '#88AB8E', '#6096B4',
+                        '#A5B68D', '#EEC759', '#AB886D', '#CD5656', '#B0DB9C',
+                        '#B4E4FF'
+                    ];
+        
+                    var ctx = document.getElementById("myChart1").getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Jumlah Lulusan',
+                                data: values,
+                                backgroundColor: backgroundColors.slice(0, labels.length),
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Gagal mengambil data chart:', error);
+                });
+        });
 
     var ctx = document.getElementById("myChart2").getContext('2d');
     var myChart = new Chart(ctx, {

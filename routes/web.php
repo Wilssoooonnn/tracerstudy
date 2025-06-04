@@ -10,6 +10,7 @@ use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\FormlulusanController;
 use App\Http\Controllers\RekapLulusanController;
 use App\Http\Controllers\TracerStudyController;
+use App\Http\Controllers\ChartController;
 
 // Public routes
 // Route::redirect('/', '/welcome');
@@ -29,6 +30,10 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('auth:admin')->group(function () {
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
+
+        // routes chart
+        Route::get('/chart/top-profesi', [ChartController::class, 'topProfesi'])->name('chart.topProfesi');
+
         Route::get('profile', [AuthController::class, 'profile'])->name('profile');
         Route::get('data-lulusan', [AuthController::class, 'data_lulusan'])->name('data-lulusan');
         Route::get('generate-link-lulusan', [AuthController::class, 'generate_link_lulusan'])->name('generate-link-lulusan');
