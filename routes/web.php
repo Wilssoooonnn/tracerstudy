@@ -31,10 +31,6 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::middleware('auth:admin')->group(function () {
         Route::post('logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('dashboard', [AuthController::class, 'dashboard'])->name('dashboard');
-
-        // routes chart
-        Route::get('/chart/top-profesi', [ChartController::class, 'topProfesi'])->name('chart.topProfesi');
-
         Route::get('profile', [AuthController::class, 'profile'])->name('profile');
         Route::get('data-lulusan', [AuthController::class, 'data_lulusan'])->name('data-lulusan');
         Route::get('generate-link-lulusan', [AuthController::class, 'generate_link_lulusan'])->name('generate-link-lulusan');
@@ -65,6 +61,9 @@ Route::prefix('lulusan')->name('lulusan.')->group(function () {
 Route::get('data-lulusan/import', [LulusanController::class, 'import_view'])->name('lulusan_import_view');
 Route::post('data-lulusan/import', [LulusanController::class, 'lulusan_import'])->name('lulusan_import_post');
 
+// routes chart
+Route::get('/chart/top-profesi', [ChartController::class, 'topProfesi'])->name('chart.topProfesi');          // Route grafik profesi lulusan
+Route::get('/chart/jenis-instansi', [ChartController::class, 'jenisInstansi'])->name('chart.jenisInstansi'); // Route grafik jenis instansi
 
 Route::prefix('pertanyaan')->name('pertanyaan.')->group(function () {
     Route::get('/', [PertanyaanController::class, 'index'])->name('index');
