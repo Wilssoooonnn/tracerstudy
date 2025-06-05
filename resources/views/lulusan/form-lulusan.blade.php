@@ -19,8 +19,8 @@
                             </div>
                             <div class="card-body">
                                 @csrf
+                                <input type="hidden" name="token" value="{{ $token }}">
                                 <input type="hidden" name="nim" value="{{ $nim }}">
-
                                 <!-- Program Studi -->
                                 <div class="form-group">
                                     <label>Program Studi</label>
@@ -51,7 +51,8 @@
                                 <!-- Email -->
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="email" class="form-control" name="email">
+                                    <input type="text" class="form-control" name="nama"
+                                           value="{{ old('email', $email) }}" readonly>
                                 </div>
 
                                 <!-- Tanggal Pertama Kerja -->
