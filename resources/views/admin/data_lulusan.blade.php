@@ -22,12 +22,12 @@
                             <div class="card-header">
                                 <h4>Data Lulusan</h4>
                                 <div class="card-header-action">
-                                    <a href="{{ route('lulusan_import_post') }}" class="btn btn-primary">Import Data</a>
+                                    <a href="{{ route('lulusan_import_view') }}" class="btn btn-primary">Import Data</a>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table-striped table" id="table-2">
+                                    <table class="table table-striped" id="table-2">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -40,6 +40,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            <!-- Data Lulusan akan diisi oleh DataTables -->
                                         </tbody>
                                     </table>
                                 </div>
@@ -63,7 +64,18 @@
             var table = $('#table-2').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('lulusan.data') }}', // Menyesuaikan rute yang mengembalikan data JSON
+                ajax: {
+                    url: '{{ route('lulusan.data') }}',
+                    type: 'GET',
+                    error: function (xhr, error, thrown) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'Failed to load data: ' + (xhr.responseJSON?.message || thrown),
+                            confirmButtonText: 'OK'
+                        });
+                    }
+                },
                 columns: [
                     { data: 'id', name: 'id' },
                     { data: 'nim', name: 'nim' },
@@ -72,18 +84,60 @@
                     { data: 'nohp', name: 'nohp' },
                     { data: 'email', name: 'email' },
                     { data: 'tanggal_lulus', name: 'tanggal_lulus' }
-                ]
+                ],
+                language: {
+                    emptyTable: "No data available in table",
+                    processing: "Loading..."
+                }
             });
 
-            // Menampilkan detail lulusan menggunakan SweetAlert
-            function showDetail(id) {
+            // Function to send the token
+            window.kirimToken = function (id) {
                 Swal.fire({
-                    title: 'Detail Lulusan',
-                    text: `Lulusan dengan ID: ${id}`,  // Sesuaikan dengan data yang lebih lengkap
-                    icon: 'info'
+                    title: 'Kirim Token?',
+                    text: "Apakah Anda yakin ingin mengirimkan token ke alumni ini?",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, Kirim',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '{{ route('admin.generate-token', ':id') }}'.replace(':id', id),
+                            method: 'POST',
+                            data: {
+                                _token: '{{ csrf_token() }}'
+                            },
+                            success: function (response) {
+                                if (response.status) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Success',
+                                        text: response.message,
+                                        confirmButtonText: 'OK'
+                                    });
+                                    table.ajax.reload();
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Error',
+                                        text: response.message || 'Failed to send token.',
+                                        confirmButtonText: 'OK'
+                                    });
+                                }
+                            },
+                            error: function (xhr) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Error',
+                                    text: xhr.responseJSON?.message || 'An error occurred while sending the token.',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        });
+                    }
                 });
-            }
-
+            };
         });
     </script>
 @endpush

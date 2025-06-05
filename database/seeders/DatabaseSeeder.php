@@ -15,10 +15,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-                // AdminSeeder::class,
-                // programsSeeder::class,
-                // instansiSeeder::class,
-                // SkalaSeeder::class,
+            AdminSeeder::class,
+            programsSeeder::class,
+            instansiSeeder::class,
+            SkalaSeeder::class,
             categorySeeder::class,
             // data_stakeholder::class
             // PertanyaanSeeder::class
