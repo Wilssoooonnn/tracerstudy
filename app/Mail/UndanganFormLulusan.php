@@ -24,7 +24,7 @@ class UndanganFormLulusan extends Mailable
         return $this->view('emails.undangan_lulusan')
             ->with([
                 'alumni' => $this->alumni,
-                'url' => route('form.lulusan', ['token' => $this->token]),
+                'url' => route('lulusan.form-lulusan', ['token' => $this->token]),
             ]);
     }
 }

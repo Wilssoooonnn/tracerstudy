@@ -60,7 +60,7 @@ Route::prefix('lulusan')->name('lulusan.')->group(function () {
     Route::get('/data', [LulusanController::class, 'getLulusanData'])->name('data');
     Route::get('/cek-nim', [LulusanController::class, 'cekNim'])->name('cek-nim.form');
     Route::post('/cek-nim', [LulusanController::class, 'submitCekNim'])->name('cek-nim.submit');
-    Route::get('/form-lulusan/{token}', [LulusanController::class, 'showFormLulusan'])->name('form.lulusan');
+    Route::get('/form-lulusan/{token}', [LulusanController::class, 'showFormLulusan'])->name('form-lulusan');
     Route::post('/store', [LulusanController::class, 'store'])->name('store');
 });
 

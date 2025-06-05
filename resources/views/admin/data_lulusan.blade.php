@@ -3,7 +3,6 @@
 @section('title', 'Data Lulusan')
 
 @push('style')
-    <!-- CSS Libraries -->
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.min.css">
 @endpush
@@ -14,7 +13,6 @@
             <div class="section-header">
                 <h1>Data Lulusan</h1>
             </div>
-
             <div class="section-body">
                 <div class="row">
                     <div class="col-12">
@@ -37,11 +35,10 @@
                                                 <th>Phone</th>
                                                 <th>Email</th>
                                                 <th>Tahun Lulus</th>
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <!-- Data Lulusan akan diisi oleh DataTables -->
-                                        </tbody>
+                                        <tbody></tbody>
                                     </table>
                                 </div>
                             </div>
@@ -54,11 +51,9 @@
 @endsection
 
 @push('scripts')
-    <!-- JS Libraries -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.all.min.js"></script>
-
     <script>
         $(document).ready(function () {
             var table = $('#table-2').DataTable({
@@ -83,7 +78,14 @@
                     { data: 'prodi', name: 'prodi' },
                     { data: 'nohp', name: 'nohp' },
                     { data: 'email', name: 'email' },
-                    { data: 'tanggal_lulus', name: 'tanggal_lulus' }
+                    { data: 'tanggal_lulus', name: 'tanggal_lulus' },
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: false,
+                        searchable: false,
+                        defaultContent: '<button class="btn btn-primary btn-sm" disabled>Kirim Token</button>'
+                    }
                 ],
                 language: {
                     emptyTable: "No data available in table",
@@ -91,7 +93,6 @@
                 }
             });
 
-            // Function to send the token
             window.kirimToken = function (id) {
                 Swal.fire({
                     title: 'Kirim Token?',
@@ -105,9 +106,7 @@
                         $.ajax({
                             url: '{{ route('admin.generate-token', ':id') }}'.replace(':id', id),
                             method: 'POST',
-                            data: {
-                                _token: '{{ csrf_token() }}'
-                            },
+                            data: { _token: '{{ csrf_token() }}' },
                             success: function (response) {
                                 if (response.status) {
                                     Swal.fire({

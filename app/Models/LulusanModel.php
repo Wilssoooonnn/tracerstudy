@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ProgramsModel;
+use App\Models\StakeholderModel;
+use App\Models\FormlulusanModel;
+use App\Models\TracerRecordModel;
 
 class LulusanModel extends Model
 {
@@ -11,9 +14,17 @@ class LulusanModel extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
 
-    protected $fillable = ['NIM', 'nama', 'tanggal_lulus', 'programs_id'];
+    protected $fillable = [
+        'NIM',
+        'nama',
+        'tanggal_lulus',
+        'programs_id',
+        'nohp',
+        'email',
+        'token',
+        'token_expires_at'
+    ];
 
-    // Contoh relasi ke Program Studi (jika ada tabel relasi program)
     public function program()
     {
         return $this->belongsTo(ProgramsModel::class, 'programs_id', 'id');
@@ -21,12 +32,12 @@ class LulusanModel extends Model
 
     public function stakeholder()
     {
-        return $this->belongsTo(StakeholderModel::class, 'alumni_id');
+        return $this->hasOne(StakeholderModel::class, 'alumni_id', 'id');
     }
 
     public function formlulusan()
     {
-        return $this->belongsTo(FormlulusanModel::class, 'alumni_id');
+        return $this->hasOne(FormlulusanModel::class, 'alumni_id', 'id');
     }
 
     public function tracerRecord()
