@@ -448,8 +448,8 @@
                     const values = data.map(item => item.jumlah);
 
                     const backgroundColors = [
-                        '#FFAB91', '#81D4FA', '#9BB0C1', '#88AB8E', '#6096B4',
-                        '#A5B68D', '#EEC759', '#AB886D', '#CD5656', '#B0DB9C',
+                        '#FFD5E5', '#AD88C6', '#B4E4FF', '#A5D6A7', '#F7B5CA',
+                        '#F5E8C7', '#EEC759', '#AB886D', '#CD5656', '#B0DB9C',
                         '#B4E4FF'
                     ];
 

@@ -11,27 +11,44 @@ class ChartController extends Controller
 
     public function topProfesi()
     {
-        // Ambil jumlah lulusan per profesi
+        // Ambil data profesi dan jumlah lulusan
         $allData = DB::table('tracer_record')
             ->join('profesi', 'tracer_record.profession_id', '=', 'profesi.id')
             ->select('profesi.profesi', DB::raw('COUNT(*) as jumlah'))
             ->groupBy('profesi.profesi')
             ->orderByDesc('jumlah')
             ->get();
-
-        // Ambil 10 profesi teratas
-        $top10 = $allData->take(10);
-        $lainnyaTotal = $allData->skip(10)->sum('jumlah');
-
-        $result = $top10->toArray();
-
+    
+        // Hitung total keseluruhan lulusan
+        $total = $allData->sum('jumlah');
+    
+        // Hitung persentase dan tambahkan ke setiap item dalam format string dengan '%'
+        $allData = $allData->map(function ($item) use ($total) {
+            $persentase = ($item->jumlah / $total) * 100;
+            $item->persentase = round($persentase, 1) . '%';
+            return $item;
+        });
+    
+        // Ambil 5 besar berdasarkan jumlah terbanyak
+        $top5 = $allData->take(5);
+    
+        // Sisanya masuk ke dalam kategori "Lainnya"
+        $lainnya = $allData->skip(5);
+    
+        $lainnyaTotal = $lainnya->sum('jumlah');
+        $lainnyaPersentase = ($lainnyaTotal / $total) * 100;
+    
+        $result = $top5->toArray();
+    
+        // Tambahkan data "Lainnya" jika ada
         if ($lainnyaTotal > 0) {
             $result[] = (object)[
                 'profesi' => 'Lainnya',
-                'jumlah' => $lainnyaTotal
+                'jumlah' => $lainnyaTotal,
+                'persentase' => round($lainnyaPersentase, 1) . '%'
             ];
         }
-
+    
         return response()->json($result);
     }
 
