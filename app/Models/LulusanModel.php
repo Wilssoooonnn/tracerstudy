@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -6,6 +7,7 @@ use App\Models\ProgramsModel;
 use App\Models\StakeholderModel;
 use App\Models\FormlulusanModel;
 use App\Models\TracerRecordModel;
+use App\Models\ResponsModel;
 
 class LulusanModel extends Model
 {
@@ -47,5 +49,10 @@ class LulusanModel extends Model
     public function tracerRecord()
     {
         return $this->hasOne(TracerRecordModel::class, 'alumni_id', 'id');
+    }
+
+    public function respon()
+    {
+        return $this->belongsTo(ResponsModel::class, 'alumni_id', 'id');
     }
 }

@@ -10,7 +10,7 @@ class ResponsModel extends Model
     use HasFactory;
 
     protected $table = 'respon';
-    
+
     protected $fillable = [
         'pertanyaan_id',
         'stakeholder_id',
@@ -26,4 +26,15 @@ class ResponsModel extends Model
     {
         return $this->belongsTo(StakeholderModel::class, 'stakeholder_id', 'id');
     }
+
+    public function instansi()
+    {
+        return $this->belongsTo(InstansiModel::class, 'id');
+    }
+
+    public function data_alumni()
+    {
+        return $this->belongsTo(LulusanModel::class, 'alumni_id', 'id');
+    }
+
 }
