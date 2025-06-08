@@ -56,14 +56,22 @@ class LulusanController extends Controller
 
             // Map data untuk DataTables
             $data = $lulusan->map(function ($item) {
+                $keterangan = '';
+                if (empty($item->nohp) && empty($item->email)) {
+                    $keterangan = 'Belum Mengisi';
+                } else {
+                    $keterangan = 'Sudah Mengisi';
+                }
+                
                 return [
                     'id' => $item->id,
                     'nim' => $item->nim,
                     'nama' => $item->nama,
                     'prodi' => $item->program ? $item->program->program_studi : '-',
-                    'nohp' => $item->nohp ?? '-',
-                    'email' => $item->email ?? '-',
+                    // 'nohp' => $item->nohp ?? '-',
+                    // 'email' => $item->email ?? '-',
                     'tanggal_lulus' => $item->tanggal_lulus ?? '-',
+                    'keterangan' => $keterangan,
                     'action' => '<button class="btn btn-primary btn-sm" onclick="kirimToken(' . $item->id . ')">Kirim Token</button>'
                 ];
             })->toArray();

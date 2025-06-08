@@ -13,11 +13,6 @@ use App\Http\Controllers\TracerStudyController;
 use App\Http\Controllers\ChartController;
 
 // Public routes
-// Route::redirect('/', '/welcome');
-// Route::get('/welcome', function () {
-//     return view('welcome');
-// })->name('welcome');
-
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
 // Admin routes
@@ -34,24 +29,19 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('data-lulusan', [AuthController::class, 'data_lulusan'])->name('data-lulusan');
         Route::get('generate-link-lulusan', [AuthController::class, 'generate_link_lulusan'])->name('generate-link-lulusan');
         Route::get('data-stakeholder', [AuthController::class, 'data_stakeholder'])->name('data-stakeholder');
-        Route::get('generate-link-penggunalulusan', [AuthController::class, 'generate_link_penggunalulusan'])
-            ->name('generate-link-penggunalulusan');
+        Route::get('generate-link-penggunalulusan', [AuthController::class, 'generate_link_penggunalulusan'])->name('generate-link-penggunalulusan');
         Route::get('pertanyaan', [AuthController::class, 'pertanyaan'])->name('pertanyaan');
         Route::get('response-data', [AuthController::class, 'response_data'])->name('response-data');
         Route::get('rekap-hasil-lulusan', [AuthController::class, 'rekap_hasil_lulusan'])->name('rekap-hasil-lulusan');
-        Route::get('rekap-hasil-surveykepuasan', [AuthController::class, 'rekap_hasil_surveykepuasan'])
-            ->name('rekap-hasil-surveykepuasan');
-        Route::get('rekap-belum-mengisi-lulusan', [AuthController::class, 'rekap_belum_mengisi_lulusan'])
-            ->name('rekap-belum-mengisi-lulusan');
-        Route::get('rekap-belum-mengisi-pengguna', [AuthController::class, 'rekap_belum_mengisi_pengguna'])
-            ->name('rekap-belum-mengisi-pengguna');
+        Route::get('rekap-hasil-surveykepuasan', [AuthController::class, 'rekap_hasil_surveykepuasan'])->name('rekap-hasil-surveykepuasan');
+        Route::get('rekap-belum-mengisi-lulusan', [AuthController::class, 'rekap_belum_mengisi_lulusan'])->name('rekap-belum-mengisi-lulusan');
+        Route::get('rekap-belum-mengisi-pengguna', [AuthController::class, 'rekap_belum_mengisi_pengguna'])->name('rekap-belum-mengisi-pengguna');
 
         Route::post('generate-token/{id}', [LulusanController::class, 'generateToken'])->name('generate-token');
-
     });
 });
 
-// lulusan
+// Lulusan routes
 Route::prefix('lulusan')->name('lulusan.')->group(function () {
     Route::get('/data', [LulusanController::class, 'getLulusanData'])->name('data');
     Route::get('/cek-nim', [LulusanController::class, 'cekNim'])->name('cek-nim.form');
@@ -60,13 +50,15 @@ Route::prefix('lulusan')->name('lulusan.')->group(function () {
     Route::post('/store', [LulusanController::class, 'store'])->name('store');
 });
 
+// Import routes for lulusan
 Route::get('data-lulusan/import', [LulusanController::class, 'import_view'])->name('lulusan_import_view');
 Route::post('data-lulusan/import', [LulusanController::class, 'lulusan_import'])->name('lulusan_import_post');
 
-// routes chart
-Route::get('/chart/top-profesi', [ChartController::class, 'topProfesi'])->name('chart.topProfesi');          // Route grafik profesi lulusan
+// Chart routes
+Route::get('/chart/top-profesi', [ChartController::class, 'topProfesi'])->name('chart.topProfesi'); // Route grafik profesi lulusan
 Route::get('/chart/jenis-instansi', [ChartController::class, 'jenisInstansi'])->name('chart.jenisInstansi'); // Route grafik jenis instansi
 
+// Pertanyaan routes
 Route::prefix('pertanyaan')->name('pertanyaan.')->group(function () {
     Route::get('/', [PertanyaanController::class, 'index'])->name('index');
     Route::post('/list', [PertanyaanController::class, 'list'])->name('list');
@@ -78,6 +70,7 @@ Route::prefix('pertanyaan')->name('pertanyaan.')->group(function () {
     Route::delete('/{id}', [PertanyaanController::class, 'destroy'])->name('destroy');
 });
 
+// Instansi routes
 Route::prefix('instansi')->name('instansi.')->group(function () {
     Route::get('/cek-lulusan', [InstansiController::class, 'cekLulusan'])->name('cek-lulusan');
     Route::post('/cek-lulusan', [InstansiController::class, 'submitCekLulusan'])->name('cek-lulusan.submit');
@@ -88,6 +81,7 @@ Route::prefix('instansi')->name('instansi.')->group(function () {
     Route::get('/{id}', [InstansiController::class, 'show'])->name('show');
 });
 
+// Rekap lulusan routes
 Route::prefix('rekaplulusan')->name('rekaplulusan.')->group(function () {
     Route::get('/', [RekapLulusanController::class, 'index'])->name('index');
     Route::post('/list', [RekapLulusanController::class, 'list'])->name('list');
@@ -97,8 +91,10 @@ Route::prefix('rekaplulusan')->name('rekaplulusan.')->group(function () {
     Route::put('/{id}', [RekapLulusanController::class, 'update'])->name('update');
     Route::delete('/{id}', [RekapLulusanController::class, 'destroy'])->name('destroy');
     Route::get('/export_excel', [RekapLulusanController::class, 'export_excel'])->name('export_excel');
+    Route::get('/export_excel_pengguna', [RekapLulusanController::class, 'export_excel_pengguna'])->name('export_excel_pengguna');
 });
 
+// Rekap hasil routes
 Route::prefix('rekaphasil')->name('rekaphasil.')->group(function () {
     Route::get('/', [TracerStudyController::class, 'index'])->name('index');
     Route::post('/list', [TracerStudyController::class, 'list'])->name('list');
@@ -106,7 +102,7 @@ Route::prefix('rekaphasil')->name('rekaphasil.')->group(function () {
     Route::get('/{id}', [TracerStudyController::class, 'show'])->name('show');
 });
 
-
+// Response routes
 Route::prefix('response')->name('response.')->group(function () {
     Route::get('/', [ResponseController::class, 'index'])->name('index');
     Route::post('/list', [ResponseController::class, 'list'])->name('list');
@@ -116,4 +112,11 @@ Route::prefix('response')->name('response.')->group(function () {
     Route::get('/{id}/edit', [ResponseController::class, 'edit'])->name('edit');
     Route::put('/{id}', [ResponseController::class, 'update'])->name('update');
     Route::delete('/{id}', [ResponseController::class, 'destroy'])->name('destroy');
+});
+
+// Rekap pengguna lulusan routes
+Route::prefix('rekapbelummengisipenggunalulusan')->name('rekapbelummengisipenggunalulusan.')->group(function () {
+    Route::get('/', [RekapLulusanController::class, 'index'])->name('index');
+    Route::post('/list', [RekapLulusanController::class, 'list'])->name('list');
+    Route::get('/export_excel', [RekapLulusanController::class, 'export_excel_pengguna'])->name('export_excel'); // Export route
 });

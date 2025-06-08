@@ -32,9 +32,8 @@
                                                 <th>NIM</th>
                                                 <th>Nama</th>
                                                 <th>Prodi</th>
-                                                <th>Phone</th>
-                                                <th>Email</th>
                                                 <th>Tahun Lulus</th>
+                                                <th>Keterangan</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
@@ -76,9 +75,10 @@
                     { data: 'nim', name: 'nim' },
                     { data: 'nama', name: 'nama' },
                     { data: 'prodi', name: 'prodi' },
-                    { data: 'nohp', name: 'nohp' },
-                    { data: 'email', name: 'email' },
+                    // { data: 'nohp', name: 'nohp' },
+                    // { data: 'email', name: 'email' },
                     { data: 'tanggal_lulus', name: 'tanggal_lulus' },
+                    { data: 'keterangan', name: 'keterangan' },
                     {
                         data: 'action',
                         name: 'action',
