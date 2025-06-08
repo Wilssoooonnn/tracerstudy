@@ -11,6 +11,7 @@ use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\RekapLulusanController;
 use App\Http\Controllers\TracerStudyController;
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\BelumMengisiPengguna;
 
 // Public route
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
@@ -79,6 +80,7 @@ Route::prefix('instansi')->name('instansi.')->group(function () {
     Route::get('/data-stakeholder', [InstansiController::class, 'index'])->name('index');
     Route::get('/list', [InstansiController::class, 'list'])->name('list');
     Route::get('/{id}', [InstansiController::class, 'show'])->name('show');
+    
 });
 
 // Rekap lulusan routes
@@ -116,7 +118,7 @@ Route::prefix('response')->name('response.')->group(function () {
 
 // Rekap pengguna lulusan yang belum mengisi
 Route::prefix('rekapbelummengisipenggunalulusan')->name('rekapbelummengisipenggunalulusan.')->group(function () {
-    Route::get('/', [RekapLulusanController::class, 'index'])->name('index');
-    Route::post('/list', [RekapLulusanController::class, 'list'])->name('list');
-    Route::get('/export_excel', [RekapLulusanController::class, 'export_excel_pengguna'])->name('export_excel');
+    Route::get('/', [BelumMengisiPengguna::class, 'index'])->name('index');
+    Route::post('/list', [BelumMengisiPengguna::class, 'list'])->name('list');
+    Route::get('/export_excel', [BelumMengisiPengguna::class, 'export_excel_pengguna'])->name('export_excel');
 });
