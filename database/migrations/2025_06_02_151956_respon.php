@@ -14,11 +14,16 @@ return new class extends Migration {
     {
         Schema::create('respon', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pertanyaan_id')->constrained()->onDelete('cascade');
-            $table->foreignId('stakeholder_id')->constrained()->onDelete('cascade');
-            $table->string('respon');
+            $table->unsignedBigInteger('pertanyaan_id');
+            $table->text('respon');
+            $table->unsignedBigInteger('stakeholder_id');
             $table->timestamps();
+
+            // Adding foreign key constraints if necessary
+            $table->foreign('pertanyaan_id')->references('id')->on('pertanyaan')->onDelete('cascade');
+            $table->foreign('stakeholder_id')->references('id')->on('data_stakeholder')->onDelete('cascade');
         });
+
     }
 
     public function down()

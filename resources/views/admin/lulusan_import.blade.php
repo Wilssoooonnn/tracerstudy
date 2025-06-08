@@ -12,7 +12,7 @@
                 </div>
             </div>
 
-            <form action="{{ route('lulusan_import') }}" method="POST" id="form-import" enctype="multipart/form-data">
+            <form action="{{ route('lulusan_import_post') }}" method="POST" id="form-import" enctype="multipart/form-data">
                 @csrf
                 <div class="card">
                     <div class="card-header">
@@ -56,7 +56,7 @@
 
             // Ajax request untuk mengirim data form ke server
             $.ajax({
-                url: '{{ route('lulusan_import') }}',
+                url: '{{ route('lulusan_import_post') }}',
                 method: 'POST',
                 data: formData,
                 processData: false,

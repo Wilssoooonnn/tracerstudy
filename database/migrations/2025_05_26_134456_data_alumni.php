@@ -9,6 +9,7 @@ return new class extends Migration
 {
     public function up()
     {
+<<<<<<< HEAD
         Schema::table('data_alumni', function (Blueprint $table) {
             $table->date('tanggal_pertama_kerja')->nullable()->after('email');
             $table->unsignedBigInteger('instansi_id')->nullable()->after('tanggal_pertama_kerja');
@@ -20,11 +21,27 @@ return new class extends Migration
             $table->foreign('skala_id')->references('id')->on('skala')->onDelete('set null');
             $table->foreign('kategori_id')->references('id')->on('kategori')->onDelete('set null');
             $table->foreign('profesi_id')->references('id')->on('profesi')->onDelete('set null');
+=======
+        Schema::create('data_alumni', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('programs_id')->index();
+            $table->string('NIM')->unique();
+            $table->string('nama');
+            $table->string('nohp')->nullable();
+            $table->string('email')->nullable();
+            $table->date('tanggal_lulus');
+            $table->string('token')->nullable();
+            $table->timestamp('token_expires_at')->nullable();
+            $table->timestamps();
+
+            $table->foreign('programs_id')->references('id')->on('programs')->onDelete('restrict');
+>>>>>>> main
         });
     }
 
     public function down()
     {
+<<<<<<< HEAD
         Schema::table('data_alumni', function (Blueprint $table) {
             $table->dropForeign(['instansi_id']);
             $table->dropForeign(['skala_id']);
@@ -32,5 +49,8 @@ return new class extends Migration
             $table->dropForeign(['profesi_id']);
             $table->dropColumn(['tanggal_pertama_kerja', 'instansi_id', 'skala_id', 'kategori_id', 'profesi_id']);
         });
+=======
+        Schema::dropIfExists('data_alumni');
+>>>>>>> main
     }
 };

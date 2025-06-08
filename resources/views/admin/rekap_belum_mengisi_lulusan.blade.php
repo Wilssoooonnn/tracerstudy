@@ -43,7 +43,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="card-body p-0">
+                            <div class="card-body ">
                                 <div class="table-responsive">
                                     <table class="table-striped table" id="tableRekapLulusan">
                                         <thead>

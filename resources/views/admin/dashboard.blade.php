@@ -12,19 +12,20 @@
     <link rel="stylesheet" href="{{ asset('library/datatables/media/css/jquery.dataTables.min.css') }}">
 
     <style>
-    thead th {
-        text-align: center !important;
-        vertical-align: middle !important;
-        background-color: #dbeafe !important; /* warna biru lembut */
-        color: #1e3a8a; /* teks biru gelap */
-    }
+        thead th {
+            text-align: center !important;
+            vertical-align: middle !important;
+            background-color: #dbeafe !important;
+            /* warna biru lembut */
+            color: #1e3a8a;
+            /* teks biru gelap */
+        }
 
-    td {
-        text-align: center;
-        vertical-align: middle;
-    }
+        td {
+            text-align: center;
+            vertical-align: middle;
+        }
     </style>
-
 @endpush
 
 @section('main')
@@ -65,7 +66,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">
-                                            No
+                                                No
                                             </th>
                                             <th>Tahun </th>
                                             <th>Jumlah Lulusan </th>
@@ -177,7 +178,7 @@
                                             <td>2021</td>
                                             <td>213</td>
                                             <td>64</td>
-                                            <td>46</td>                                            
+                                            <td>46</td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -187,7 +188,7 @@
                                             <td>188</td>
                                             <td>34</td>
                                             <td>27</td>
-                                        </tr >
+                                        </tr>
                                         <tr>
                                             <td>
                                                 3
@@ -206,7 +207,7 @@
                                             <td>61</td>
                                             <td>16</td>
                                         </tr>
-                                            <tr>
+                                        <tr>
                                             <td></td>
                                             <td>Jumlah</td>
                                             <td>212</td>
@@ -250,7 +251,7 @@
                                             <td>213</td>
                                             <td>64</td>
                                             <td>46</td>
-                                            <td>46</td>                                            
+                                            <td>46</td>
                                         </tr>
                                         <tr>
                                             <td>
@@ -261,7 +262,7 @@
                                             <td>34</td>
                                             <td>27</td>
                                             <td>46</td>
-                                        </tr >
+                                        </tr>
                                         <tr>
                                             <td>
                                                 3
@@ -282,7 +283,7 @@
                                             <td>16</td>
                                             <td>46</td>
                                         </tr>
-                                         <tr>
+                                        <tr>
                                             <td>
                                                 5
                                             </td>
@@ -304,7 +305,7 @@
                                         </tr>
                                         <tr>
                                             <td>
-                                                
+
                                             </td>
                                             <td>Jumlah</td>
                                             <td>212</td>
@@ -342,18 +343,22 @@
                     <div class="swiper-slide">
                         <div class="container" data-aos="fade-up" data-aos-delay="100">
                             <div class="row">
-                            <div class="col-md-6">
-                                <div class="card">
-                                <div class="card-header"><h4>Kerja Sama Tim</h4></div>
-                                <div class="card-body"><canvas id="Kerja"></canvas></div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>Kerja Sama Tim</h4>
+                                        </div>
+                                        <div class="card-body"><canvas id="Kerja"></canvas></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card">
-                                <div class="card-header"><h4>Keahlian Bidang TI</h4></div>
-                                <div class="card-body"><canvas id="Keahlian"></canvas></div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>Keahlian Bidang TI</h4>
+                                        </div>
+                                        <div class="card-body"><canvas id="Keahlian"></canvas></div>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                     </div>
@@ -362,18 +367,22 @@
                     <div class="swiper-slide">
                         <div class="container" data-aos="fade-up" data-aos-delay="100">
                             <div class="row">
-                            <div class="col-md-6">
-                                <div class="card">
-                                <div class="card-header"><h4>Kemampuan Berbahasa Asing</h4></div>
-                                <div class="card-body"><canvas id="Kemampuan"></canvas></div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>Kemampuan Berbahasa Asing</h4>
+                                        </div>
+                                        <div class="card-body"><canvas id="Kemampuan"></canvas></div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card">
-                                <div class="card-header"><h4>Kemampuan Berkomunikasi</h4></div>
-                                <div class="card-body"><canvas id="Berkomunikasi"></canvas></div>
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h4>Kemampuan Berkomunikasi</h4>
+                                        </div>
+                                        <div class="card-body"><canvas id="Berkomunikasi"></canvas></div>
+                                    </div>
                                 </div>
-                            </div>
                             </div>
                         </div>
                     </div>
@@ -384,14 +393,18 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="card">
-                                    <div class="card-header"><h4>Pengembangan Diri</h4></div>
-                                    <div class="card-body"><canvas id="Pengembangan"></canvas></div>
+                                        <div class="card-header">
+                                            <h4>Pengembangan Diri</h4>
+                                        </div>
+                                        <div class="card-body"><canvas id="Pengembangan"></canvas></div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="card">
-                                    <div class="card-header"><h4>Etos Kerja</h4></div>
-                                    <div class="card-body"><canvas id="Etos"></canvas></div>
+                                        <div class="card-header">
+                                            <h4>Etos Kerja</h4>
+                                        </div>
+                                        <div class="card-body"><canvas id="Etos"></canvas></div>
                                     </div>
                                 </div>
                             </div>
@@ -401,9 +414,8 @@
                 <!-- pagination -->
                 <div class="swiper-pagination mt-3"></div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 @endsection
 
 @push('scripts')
@@ -427,356 +439,315 @@
 
     {{-- js untuk pie chart --}}
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Chart untuk Data Pekerjaan Alumni (myChart1)
+            fetch("{{ route('chart.topProfesi') }}")
+                .then(response => response.json())
+                .then(data => {
+                    const labels = data.map(item => item.profesi);
+                    const values = data.map(item => item.jumlah);
 
-    var ctx = document.getElementById("myChart1").getContext('2d');
-    var myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        datasets: [{
-        data: [
-            80,
-            50,
-            40,
-            30,
-            20,
-        ],
-        backgroundColor: [
-            '#191d21',
-            '#63ed7a',
-            '#ffa426',
-            '#fc544b',
-            '#6777ef',
-        ],
-        label: 'Dataset 1'
-        }],
-        labels: [
-        'Black',
-        'Green',
-        'Yellow',
-        'Red',
-        'Blue'
-        ],
-    },
-    options: {
-        responsive: true,
-        legend: {
-        position: 'bottom',
-        },
-    }
-    });
+                    const backgroundColors = [
+                        '#FFD5E5', '#AD88C6', '#B4E4FF', '#A5D6A7', '#F7B5CA',
+                        '#F5E8C7', '#EEC759', '#AB886D', '#CD5656', '#B0DB9C',
+                        '#B4E4FF'
+                    ];
 
-    var ctx = document.getElementById("myChart2").getContext('2d');
-    var myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        datasets: [{
-        data: [
-            80,
-            50,
-            40,
-            30,
-            20,
-        ],
-        backgroundColor: [
-            '#191d21',
-            '#63ed7a',
-            '#ffa426',
-            '#fc544b',
-            '#6777ef',
-        ],
-        label: 'Dataset 1'
-        }],
-        labels: [
-        'Black',
-        'Green',
-        'Yellow',
-        'Red',
-        'Blue'
-        ],
-    },
-    options: {
-        responsive: true,
-        legend: {
-        position: 'bottom',
-        },
-    }
-    });
+                    var ctx = document.getElementById("myChart1").getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Jumlah Lulusan',
+                                data: values,
+                                backgroundColor: backgroundColors.slice(0, labels.length),
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Gagal mengambil data chart untuk profesi:', error);
+                });
 
-    //pie chart  Kerja Tim
-    var ctx = document.getElementById("Kerja").getContext('2d');
-    var myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        datasets: [{
-        data: [
-            80,
-            50,
-            40,
-            30,
-            100,
-        ],
-        backgroundColor: [
-            '#191d21',
-            '#63ed7a',
-            '#ffa426',
-            '#fc544b',
-            '#6777ef',
-        ],
-        label: 'Dataset 1'
-        }],
-        labels: [
-        'Black',
-        'Green',
-        'Yellow',
-        'Red',
-        'Blue'
-        ],
-    },
-    options: {
-        responsive: true,
-        legend: {
-        position: 'bottom',
-        },
-    }
-    });
+            // Chart untuk Data Jenis Instansi (myChart2)
+            fetch("{{ route('chart.jenisInstansi') }}")
+                .then(response => response.json())
+                .then(data => {
+                    const labels = data.map(item => item.instansi_nama);
+                    const values = data.map(item => item.jumlah);
 
-    // pie chart Keeahlian bidang ti
-    var ctx = document.getElementById("Keahlian").getContext('2d');
-    var myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        datasets: [{
-        data: [
-            80,
-            50,
-            40,
-            30,
-            100,
-        ],
-        backgroundColor: [
-            '#191d21',
-            '#63ed7a',
-            '#ffa426',
-            '#fc544b',
-            '#6777ef',
-        ],
-        label: 'Dataset 1'
-        }],
-        labels: [
-        'Black',
-        'Green',
-        'Yellow',
-        'Red',
-        'Blue'
-        ],
-    },
-    options: {
-        responsive: true,
-        legend: {
-        position: 'bottom',
-        },
-    }
-    });
+                    const backgroundColors = [
+                        '#FF8A80', // Perguruan Tinggi
+                        '#FFD180', // Instansi Pemerintah
+                        '#A5D6A7', // Perusahaan Swasta
+                        '#B39DDB' // BUMN
+                    ];
 
-        // pie chart Keeahlian bidang ti
-    var ctx = document.getElementById("Keahlian").getContext('2d');
-    var myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        datasets: [{
-        data: [
-            80,
-            50,
-            40,
-            30,
-            100,
-        ],
-        backgroundColor: [
-            '#191d21',
-            '#63ed7a',
-            '#ffa426',
-            '#fc544b',
-            '#6777ef',
-        ],
-        label: 'Dataset 1'
-        }],
-        labels: [
-        'Black',
-        'Green',
-        'Yellow',
-        'Red',
-        'Blue'
-        ],
-    },
-    options: {
-        responsive: true,
-        legend: {
-        position: 'bottom',
-        },
-    }
-    });
-
-        // pie chart Keeahlian bidang ti
-    var ctx = document.getElementById("Kemampuan").getContext('2d');
-    var myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        datasets: [{
-        data: [
-            80,
-            50,
-            40,
-            30,
-            100,
-        ],
-        backgroundColor: [
-            '#191d21',
-            '#63ed7a',
-            '#ffa426',
-            '#fc544b',
-            '#6777ef',
-        ],
-        label: 'Dataset 1'
-        }],
-        labels: [
-        'Black',
-        'Green',
-        'Yellow',
-        'Red',
-        'Blue'
-        ],
-    },
-    options: {
-        responsive: true,
-        legend: {
-        position: 'bottom',
-        },
-    }
-    });
-
-        // pie chart Keeahlian bidang ti
-    var ctx = document.getElementById("Berkomunikasi").getContext('2d');
-    var myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        datasets: [{
-        data: [
-            80,
-            50,
-            40,
-            30,
-            100,
-        ],
-        backgroundColor: [
-            '#191d21',
-            '#63ed7a',
-            '#ffa426',
-            '#fc544b',
-            '#6777ef',
-        ],
-        label: 'Dataset 1'
-        }],
-        labels: [
-        'Black',
-        'Green',
-        'Yellow',
-        'Red',
-        'Blue'
-        ],
-    },
-    options: {
-        responsive: true,
-        legend: {
-        position: 'bottom',
-        },
-    }
-    });
-
-        // pie chart Keeahlian bidang ti
-    var ctx = document.getElementById("Pengembangan").getContext('2d');
-    var myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        datasets: [{
-        data: [
-            80,
-            50,
-            40,
-            30,
-            100,
-        ],
-        backgroundColor: [
-            '#191d21',
-            '#63ed7a',
-            '#ffa426',
-            '#fc544b',
-            '#6777ef',
-        ],
-        label: 'Dataset 1'
-        }],
-        labels: [
-        'Black',
-        'Green',
-        'Yellow',
-        'Red',
-        'Blue'
-        ],
-    },
-    options: {
-        responsive: true,
-        legend: {
-        position: 'bottom',
-        },
-    }
-    });
-
-        // pie chart Keeahlian bidang ti
-    var ctx = document.getElementById("Etos").getContext('2d');
-    var myChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-        datasets: [{
-        data: [
-            80,
-            50,
-            40,
-            30,
-            100,
-        ],
-        backgroundColor: [
-            '#191d21',
-            '#63ed7a',
-            '#ffa426',
-            '#fc544b',
-            '#6777ef',
-        ],
-        label: 'Dataset 1'
-        }],
-        labels: [
-        'Black',
-        'Green',
-        'Yellow',
-        'Red',
-        'Blue'
-        ],
-    },
-    options: {
-        responsive: true,
-        legend: {
-        position: 'bottom',
-        },
-    }
-    });
-
-
-    // swipper
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll('.init-swiper').forEach((el) => {
-        const config = JSON.parse(el.querySelector('.swiper-config').textContent);
-        new Swiper(el, config);
+                    var ctx = document.getElementById("myChart2").getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Jenis Instansi',
+                                data: values,
+                                backgroundColor: backgroundColors.slice(0, labels.length),
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            legend: {
+                                position: 'bottom'
+                            }
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Gagal mengambil data chart untuk Jenis Instansi:', error);
+                });
         });
-    });
 
+        //pie chart Kerja Tim
+        var ctx = document.getElementById("Kerja").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [
+                        80,
+                        50,
+                        40,
+                        30,
+                        100,
+                    ],
+                    backgroundColor: [
+                        '#191d21',
+                        '#63ed7a',
+                        '#ffa426',
+                        '#fc544b',
+                        '#6777ef',
+                    ],
+                    label: 'Dataset 1'
+                }],
+                labels: [
+                    'Black',
+                    'Green',
+                    'Yellow',
+                    'Red',
+                    'Blue'
+                ],
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'bottom',
+                },
+            }
+        });
 
-</script>
+        // pie chart Keahlian bidang TI
+        var ctx = document.getElementById("Keahlian").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [
+                        80,
+                        50,
+                        40,
+                        30,
+                        100,
+                    ],
+                    backgroundColor: [
+                        '#191d21',
+                        '#63ed7a',
+                        '#ffa426',
+                        '#fc544b',
+                        '#6777ef',
+                    ],
+                    label: 'Dataset 1'
+                }],
+                labels: [
+                    'Black',
+                    'Green',
+                    'Yellow',
+                    'Red',
+                    'Blue'
+                ],
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'bottom',
+                },
+            }
+        });
+
+        // pie chart Kemampuan Berbahasa Asing
+        var ctx = document.getElementById("Kemampuan").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [
+                        80,
+                        50,
+                        40,
+                        30,
+                        100,
+                    ],
+                    backgroundColor: [
+                        '#191d21',
+                        '#63ed7a',
+                        '#ffa426',
+                        '#fc544b',
+                        '#6777ef',
+                    ],
+                    label: 'Dataset 1'
+                }],
+                labels: [
+                    'Black',
+                    'Green',
+                    'Yellow',
+                    'Red',
+                    'Blue'
+                ],
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'bottom',
+                },
+            }
+        });
+
+        // pie chart Kemampuan Berkomunikasi
+        var ctx = document.getElementById("Berkomunikasi").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [
+                        80,
+                        50,
+                        40,
+                        30,
+                        100,
+                    ],
+                    backgroundColor: [
+                        '#191d21',
+                        '#63ed7a',
+                        '#ffa426',
+                        '#fc544b',
+                        '#6777ef',
+                    ],
+                    label: 'Dataset 1'
+                }],
+                labels: [
+                    'Black',
+                    'Green',
+                    'Yellow',
+                    'Red',
+                    'Blue'
+                ],
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'bottom',
+                },
+            }
+        });
+
+        // pie chart Pengembangan Diri
+        var ctx = document.getElementById("Pengembangan").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [
+                        80,
+                        50,
+                        40,
+                        30,
+                        100,
+                    ],
+                    backgroundColor: [
+                        '#191d21',
+                        '#63ed7a',
+                        '#ffa426',
+                        '#fc544b',
+                        '#6777ef',
+                    ],
+                    label: 'Dataset 1'
+                }],
+                labels: [
+                    'Black',
+                    'Green',
+                    'Yellow',
+                    'Red',
+                    'Blue'
+                ],
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'bottom',
+                },
+            }
+        });
+
+        // pie chart Etos Kerja
+        var ctx = document.getElementById("Etos").getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                datasets: [{
+                    data: [
+                        80,
+                        50,
+                        40,
+                        30,
+                        100,
+                    ],
+                    backgroundColor: [
+                        '#191d21',
+                        '#63ed7a',
+                        '#ffa426',
+                        '#fc544b',
+                        '#6777ef',
+                    ],
+                    label: 'Dataset 1'
+                }],
+                labels: [
+                    'Black',
+                    'Green',
+                    'Yellow',
+                    'Red',
+                    'Blue'
+                ],
+            },
+            options: {
+                responsive: true,
+                legend: {
+                    position: 'bottom',
+                },
+            }
+        });
+
+        // swiper
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.init-swiper').forEach((el) => {
+                const config = JSON.parse(el.querySelector('.swiper-config').textContent);
+                new Swiper(el, config);
+            });
+        });
+    </script>
 @endpush

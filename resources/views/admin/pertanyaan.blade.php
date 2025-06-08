@@ -70,19 +70,25 @@
 @push('scripts')
     <!-- Include JS Libraries -->
     <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <script>
         $(document).ready(function () {
             var dataPertanyaan = $('#table_pertanyaan').DataTable({
                 serverSide: true,
+                processing: true,
                 ajax: {
                     url: "{{ url('pertanyaan/list') }}",
-                    dataType: "json",
-                    type: "POST"
+                    type: 'POST',
+                    data: {
+                        _token: "{{ csrf_token() }}"  // Include CSRF token
+                    },
+                    dataType: 'json',
+                    // Ensure the server is sending the data in the correct format for DataTables
                 },
                 columns: [
                     {
-                        data: "DT_RowIndex",
+                        data: "DT_RowIndex",   // This is for the row index
                         className: "text-center",
                         orderable: false,
                         searchable: false
@@ -102,8 +108,9 @@
                         orderable: false,
                         searchable: false
                     }
-                ]
-            })
+                ],
+                order: [[0, 'asc']] // Optional: order by row index
+            });
         });
     </script>
 @endpush
