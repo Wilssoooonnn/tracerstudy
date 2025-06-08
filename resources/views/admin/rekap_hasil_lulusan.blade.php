@@ -27,12 +27,6 @@
                                 <div class="card-header-form">
                                     <form>
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <div class="input-group w-auto">
-                                                <input type="text" class="form-control" placeholder="Search">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                                </div>
-                                            </div>
                                             <div class="ml-3">
                                                 <a href="{{ url('/rekaphasil/export-rekap-tracer-study') }}"
                                                     class="btn btn-primary">
@@ -44,7 +38,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="card-body p-0">
+                            <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table-striped table" id="tableRekapHasilTS">
                                         <thead>

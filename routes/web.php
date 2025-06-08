@@ -11,6 +11,7 @@ use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\RekapLulusanController;
 use App\Http\Controllers\TracerStudyController;
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\RekapSurveyController;
 
 // Public routes
 // Route::redirect('/', '/welcome');
@@ -106,7 +107,6 @@ Route::prefix('rekaphasil')->name('rekaphasil.')->group(function () {
     Route::get('/{id}', [TracerStudyController::class, 'show'])->name('show');
 });
 
-
 Route::prefix('response')->name('response.')->group(function () {
     Route::get('/', [ResponseController::class, 'index'])->name('index');
     Route::post('/list', [ResponseController::class, 'list'])->name('list');
@@ -116,4 +116,11 @@ Route::prefix('response')->name('response.')->group(function () {
     Route::get('/{id}/edit', [ResponseController::class, 'edit'])->name('edit');
     Route::put('/{id}', [ResponseController::class, 'update'])->name('update');
     Route::delete('/{id}', [ResponseController::class, 'destroy'])->name('destroy');
+});
+
+Route::prefix('rekaphasilsurvey')->name('rekaphasilsurvey.')->group(function () {
+    Route::get('/', [RekapSurveyController::class, 'index'])->name('index');
+    Route::post('/list', [RekapSurveyController::class, 'list'])->name('list');
+    Route::get('/export-rekap-survey', [RekapSurveyController::class, 'export_rekap_hasil_survey'])->name('export');
+    Route::get('/{id}', [RekapSurveyController::class, 'show'])->name('show');
 });
