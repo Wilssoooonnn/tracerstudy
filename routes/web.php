@@ -76,7 +76,7 @@ Route::prefix('pertanyaan')->name('pertanyaan.')->group(function () {
 Route::prefix('instansi')->name('instansi.')->group(function () {
     Route::get('/cek-lulusan', [InstansiController::class, 'cekLulusan'])->name('cek-lulusan');
     Route::post('/cek-lulusan', [InstansiController::class, 'submitCekLulusan'])->name('cek-lulusan.submit');
-    Route::get('/form-instansi/{nama}', [InstansiController::class, 'showFormInstansi'])->name('form-instansi');
+    Route::get('/form-instansi/{token}', [InstansiController::class, 'showFormInstansi'])->name('form-instansi');
     Route::post('/store', [InstansiController::class, 'store'])->name('store');
     Route::get('/data-stakeholder', [InstansiController::class, 'index'])->name('index');
     Route::get('/list', [InstansiController::class, 'list'])->name('list');

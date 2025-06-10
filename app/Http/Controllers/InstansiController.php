@@ -42,25 +42,44 @@ class InstansiController extends Controller
 
     public function showFormInstansi($nama)
     {
-        $nama = urldecode($nama);
+        // Decode the token (if necessary, though not needed for a random token)
+        $token = urldecode($nama);
 
-        $alumni = LulusanModel::with('program')->where('nama', $nama)->first();
+        // Find stakeholder by token
+        $stakeholder = StakeholderModel::where('token', $token)
+            ->where('is_used', false)
+            ->where(function ($query) {
+                $query->whereNull('token_expires_at')
+                    ->orWhere('token_expires_at', '>=', now());
+            })
+            ->first();
+
+        if (!$stakeholder) {
+            return redirect()
+                ->route('instansi.cek-lulusan')
+                ->withErrors(['token' => 'Token tidak valid, telah digunakan, atau telah kedaluwarsa']);
+        }
+
+        // Load related alumni data
+        $alumni = LulusanModel::with('program')
+            ->where('id', $stakeholder->alumni_id)
+            ->first();
 
         if (!$alumni) {
             return redirect()
                 ->route('instansi.cek-lulusan')
-                ->withErrors(['nama' => 'Nama tidak ditemukan']);
+                ->withErrors(['alumni' => 'Data alumni tidak ditemukan']);
         }
 
-        // $semuaSkala = SkalaModel::all();
-        $record = FormlulusanModel::all()->where('alumni_id', $alumni->id)->first();
-        // $semuaInstansi = InstansiModel::all();
-        // $semuaKategori = KategoriModel::all();
-        // $daftarProfesi = ProfesiModel::with('category')->get();
-        $atasan = StakeholderModel::all()->where('alumni_id', $record->alumni_id)->first();
+        // Load form data for the alumni
+        $record = FormlulusanModel::where('alumni_id', $alumni->id)->first();
 
+        // Fetch questions
+        $pertanyaan = PertanyaanModel::all();
 
-        $pertanyaan = PertanyaanModel::all(); // Fetch all the questions
+        // Mark token as used (optional, depending on your requirements)
+        $stakeholder->update(['is_used' => true]);
+
         return view('instansi.form-instansi', [
             'alumni' => $alumni,
             'program_nama' => $alumni->program->program_studi ?? '-',
@@ -68,10 +87,11 @@ class InstansiController extends Controller
             'nama' => $alumni->nama,
             'nim' => $alumni->NIM,
             'nama_instansi' => $record->instansi_name ?? '-',
-            'email' => $atasan->email,
-            'nama_atasan' => $atasan->nama ?? '-',
-            'jabatan' => $atasan->jabatan ?? '-',
-            'pertanyaan' => $pertanyaan, // Correct way to pass the questions data to view
+            'email' => $stakeholder->email,
+            'nama_atasan' => $stakeholder->nama ?? '-',
+            'jabatan' => $stakeholder->jabatan ?? '-',
+            'pertanyaan' => $pertanyaan,
+            'stakeholder' => $stakeholder, // Pass stakeholder for additional context if needed
         ]);
     }
     public function store(Request $request)

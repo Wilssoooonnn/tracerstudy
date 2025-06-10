@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\Mail\UndanganFormLulusan;
 use Illuminate\Support\Facades\Log;
+use App\Mail\StakeholderInvitation;
 
 class LulusanController extends Controller
 {
