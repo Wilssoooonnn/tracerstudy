@@ -31,29 +31,31 @@
                                     <th>No</th>
                                     <th>Pertanyaan</th>
                                     <th>Respon (Skala)</th>
+                                    <th>Keterangan</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($responses as $i => $respon)
+                                @forelse ($penilaian as $i => $item)
                                     <tr>
                                         <td>{{ $i + 1 }}</td>
-                                        <td>{{ $respon->pertanyaan->pertanyaan ?? '-' }}</td>
-                                        <td>{{ $respon->respon }}</td>
+                                        <td>{{ $item['pertanyaan'] }}</td>
+                                        <td>{{ $item['nilai'] }}</td>
+                                        <td>{{ $item['keterangan'] }}</td>
                                     </tr>
-                                @endforeach
-                                @if ($responses->isEmpty())
+                                @empty
                                     <tr>
-                                        <td colspan="3" class="text-center">Tidak ada data respon.</td>
+                                        <td colspan="4" class="text-center">Tidak ada data respon.</td>
                                     </tr>
-                                @endif
-                            </tbody>
+                                @endforelse
+                            </tbody>                            
                         </table>
                     </div>
 
-                    <a href="{{ route('response.index') }}" class="btn btn-warning">Kembali</a>
+                    <a href="{{ route('response.index') }}" class="btn btn-danger">Kembali</a>
                 </div>
             </div>
         </div>
     </section>
 </div>
 @endsection
+
