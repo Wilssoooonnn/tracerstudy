@@ -122,7 +122,7 @@ class LulusanController extends Controller
         $alumni = LulusanModel::where('token', $token)
             ->where(function ($query) {
                 $query->whereNull('token_expires_at')
-                      ->orWhere('token_expires_at', '>=', now());
+                    ->orWhere('token_expires_at', '>=', now());
             })
             ->first();
 
@@ -174,11 +174,12 @@ class LulusanController extends Controller
             'token' => 'required|string'
         ]);
 
+        // Verify alumni token
         $alumni = LulusanModel::where('nim', $request->nim)
             ->where('token', $request->token)
             ->where(function ($query) {
                 $query->whereNull('token_expires_at')
-                      ->orWhere('token_expires_at', '>=', now());
+                    ->orWhere('token_expires_at', '>=', now());
             })
             ->first();
 
@@ -186,17 +187,20 @@ class LulusanController extends Controller
             return redirect('/')->withErrors(['token' => 'Token tidak valid atau telah kedaluwarsa']);
         }
 
+        // Resolve profession
         $profesi = $this->resolveProfesi($request->profesi_input, $request->profesi_id, $request->kategori_id);
         if (!$profesi) {
             return back()->withErrors(['profesi_input' => 'Profesi tidak valid']);
         }
 
+        // Update alumni data
         $alumni->nohp = $request->no_hp;
         $alumni->email = $request->email;
         $alumni->token = null;
         $alumni->token_expires_at = null;
         $alumni->save();
 
+        // Create Formlulusan record
         FormlulusanModel::create([
             'alumni_id' => $alumni->id,
             'first_job_date' => $request->tanggal_pertama_kerja,
@@ -213,15 +217,33 @@ class LulusanController extends Controller
             'email' => $request->email_atasan,
         ]);
 
-        StakeholderModel::create([
+        // Generate unique token for stakeholder
+        $stakeholderToken = Str::random(40);
+
+        // Create Stakeholder record
+        $stakeholder = StakeholderModel::create([
             'nama' => $request->nama_atasan,
             'instansi' => $request->nama_instansi,
             'jabatan' => $request->jabatan,
             'email' => $request->email_atasan,
-            'alumni_id' => $alumni->id
+            'alumni_id' => $alumni->id,
+            'token' => $stakeholderToken,
+            'is_used' => false, // Track if the link is used
+            'token_expires_at' => now()->addDays(7), // Optional: Set expiration (e.g., 7 days)
         ]);
 
-        return redirect('/')->with('success', 'Data berhasil disimpan.');
+        // Generate invitation link
+        $invitationLink = route('instansi.form-instansi', ['nama' => $stakeholderToken]);
+
+        // Send invitation email (optional)
+        try {
+            Mail::to($request->email_atasan)->send(new StakeholderInvitation($invitationLink));
+        } catch (\Exception $e) {
+            \Log::error('Failed to send stakeholder invitation email: ' . $e->getMessage());
+            // Optionally, notify admin or user of email failure
+        }
+
+        return redirect('/')->with('success', 'Data berhasil disimpan. Invitation link: ' . $invitationLink);
     }
 
     private function resolveProfesi($profesiNama, $profesiId, $kategoriId)
