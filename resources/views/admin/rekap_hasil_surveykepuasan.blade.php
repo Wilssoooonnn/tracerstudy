@@ -30,6 +30,7 @@
                                         </i> Export Data</a>
                                 </div>
                             </div>
+                            <meta name="csrf-token" content="{{ csrf_token() }}">
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table id="tableRekapHasilSurvey" class="table table-bordered">
@@ -67,6 +68,12 @@
 
 @push('js')
 <script>
+    $.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    });
+
     $(document).ready(function () {
         var dataSurvey = $('#tableRekapHasilSurvey').DataTable({
             processing: true,
