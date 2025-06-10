@@ -54,95 +54,56 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4>Tabel Rata Rata Masa Tunggu</h4>
+                            <h4>Sebaran Lingkup Tempat Kerja dan Kesesuaian Profesi dengan Infokom</h4>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table-striped table" id="table-1">
+                                <table class="table-striped table" id="sebaran">
                                     <thead>
                                         <tr>
-                                            <th class="text-center">
-                                                No
-                                            </th>
-                                            <th>Tahun </th>
-                                            <th>Jumlah Lulusan </th>
-                                            <th>Jumlah Lulusan yang Terlacak</th>
-                                            <th>Profesi Kerja Bidang Infokom</th>
-                                            <th>Profesi Kerja Bidang Non Infokom</th>
-                                            <th>Multinasional / Internasional</th>
+                                            <th>No</th>
+                                            <th>Tahun Lulus</th>
+                                            <th>Jumlah Lulusan</th>
+                                            <th>Jumlah Terlacak</th>
+                                            <th>Kerja Infokom</th>
+                                            <th>Kerja Non Infokom</th>
+                                            <th>Multinasional</th>
                                             <th>Nasional</th>
                                             <th>Wirausaha</th>
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        @foreach ($result as $index => $row)
                                         <tr>
-                                            <td>
-                                                1
-                                            </td>
-                                            <td>2021</td>
-                                            <td>213</td>
-                                            <td>64</td>
-                                            <td>46</td>
-                                            <td>18</td>
-                                            <td>0</td>
-                                            <td>63</td>
-                                            <td>1</td>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>{{ $row->tahun_lulus }}</td>
+                                            <td>{{ $row->jumlah_lulusan }}</td>
+                                            <td>{{ $row->jumlah_terlacak }}</td>
+                                            <td>{{ $row->kerja_infokom }}</td>
+                                            <td>{{ $row->kerja_non_infokom }}</td>
+                                            <td>{{ $row->multinasional }}</td>
+                                            <td>{{ $row->nasional }}</td>
+                                            <td>{{ $row->wirausaha }}</td>
                                         </tr>
-                                        <tr>
-                                            <td>
-                                                2
-                                            </td>
-                                            <td>2022</td>
-                                            <td>188</td>
-                                            <td>34</td>
-                                            <td>27</td>
-                                            <td>89</td>
-                                            <td>1</td>
-                                            <td>36</td>
-                                            <td>3</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                3
-                                            </td>
-                                            <td>2023</td>
-                                            <td>200</td>
-                                            <td>34</td>
-                                            <td>76</td>
-                                            <td>28</td>
-                                            <td>5</td>
-                                            <td>13</td>
-                                            <td>5</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                4
-                                            </td>
-                                            <td>2024</td>
-                                            <td>212</td>
-                                            <td>61</td>
-                                            <td>16</td>
-                                            <td>58</td>
-                                            <td>3</td>
-                                            <td>23</td>
-                                            <td>9</td>
-                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot class="fw-bold">
                                         <tr>
                                             <td></td>
                                             <td>Jumlah</td>
-                                            <td>212</td>
-                                            <td>61</td>
-                                            <td>16</td>
-                                            <td>46</td>
-                                            <td>61</td>
-                                            <td>16</td>
-                                            <td>46</td>
+                                            <td>{{ $result->sum('jumlah_lulusan') }}</td>
+                                            <td>{{ $result->sum('jumlah_terlacak') }}</td>
+                                            <td>{{ $result->sum('kerja_infokom') }}</td>
+                                            <td>{{ $result->sum('kerja_non_infokom') }}</td>
+                                            <td>{{ $result->sum('multinasional') }}</td>
+                                            <td>{{ $result->sum('nasional') }}</td>
+                                            <td>{{ $result->sum('wirausaha') }}</td>
                                         </tr>
-                                    </tbody>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -150,7 +111,7 @@
                 </div>
             </div>
 
-            <div class="row">
+           <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
@@ -158,63 +119,36 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table-striped table" id="table-2">
-                                    <thead>
+                                <table class="table-striped table" id="masaTunggu">
+                                    <thead class="bg-primary text-white">
                                         <tr>
-                                            <th class="text-center">
-                                                No
-                                            </th>
-                                            <th>Tahun </th>
-                                            <th>Jumlah Lulusan </th>
+                                            <th>No</th>
+                                            <th>Tahun</th>
+                                            <th>Jumlah Lulusan</th>
                                             <th>Jumlah Lulusan yang Terlacak</th>
                                             <th>Rata Rata Waktu Masa Tunggu (bulan)</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>
-                                                1
-                                            </td>
-                                            <td>2021</td>
-                                            <td>213</td>
-                                            <td>64</td>
-                                            <td>46</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                2
-                                            </td>
-                                            <td>2022</td>
-                                            <td>188</td>
-                                            <td>34</td>
-                                            <td>27</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                3
-                                            </td>
-                                            <td>2023</td>
-                                            <td>200</td>
-                                            <td>34</td>
-                                            <td>76</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                4
-                                            </td>
-                                            <td>2024</td>
-                                            <td>212</td>
-                                            <td>61</td>
-                                            <td>16</td>
-                                        </tr>
+                                        @foreach ($tunggu_result as $i => $row)
+                                            <tr>
+                                                <td>{{ $i + 1 }}</td>
+                                                <td>{{ $row->tahun }}</td>
+                                                <td>{{ $row->jumlah_lulusan }}</td>
+                                                <td>{{ $row->jumlah_terlacak }}</td>
+                                                <td>{{ $row->rata_tunggu }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot class="fw-bold">
                                         <tr>
                                             <td></td>
                                             <td>Jumlah</td>
-                                            <td>212</td>
-                                            <td>61</td>
-                                            <td>16</td>
+                                            <td>{{ $result->sum('jumlah_lulusan') }}</td>
+                                            <td>{{ $result->sum('jumlah_terlacak') }}</td>
+                                            <td>{{ round($result->avg('rata_tunggu')) }}</td>
                                         </tr>
-                                    </tbody>
+                                    </tfoot>
                                 </table>
                             </div>
                         </div>
@@ -230,90 +164,55 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table-striped table" id="table-3">
-                                    <tr>
-                                        <th class="text-center">
-                                            No
-                                        </th>
-                                        <th>Jenis Kemampuan </th>
-                                        <th>Sangat Baik</th>
-                                        <th>Baik</th>
-                                        <th>Cukup</th>
-                                        <th>Kurang</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                                1
-                                            </td>
-                                            <td>Kerja Sama Tim</td>
-                                            <td>213</td>
-                                            <td>64</td>
-                                            <td>46</td>
-                                            <td>46</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                2
-                                            </td>
-                                            <td>Keahlian Bidang IT</td>
-                                            <td>188</td>
-                                            <td>34</td>
-                                            <td>27</td>
-                                            <td>46</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                3
-                                            </td>
-                                            <td>Kemampuan Berbahasa Asing (Inggris) </td>
-                                            <td>200</td>
-                                            <td>34</td>
-                                            <td>76</td>
-                                            <td>46</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                4
-                                            </td>
-                                            <td>Kemampuan Berkomunikasi</td>
-                                            <td>212</td>
-                                            <td>61</td>
-                                            <td>16</td>
-                                            <td>46</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                5
-                                            </td>
-                                            <td>Pengembangan Diri</td>
-                                            <td>212</td>
-                                            <td>61</td>
-                                            <td>16</td>
-                                            <td>46</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                6
-                                            </td>
-                                            <td>Etos Kerja</td>
-                                            <td>212</td>
-                                            <td>61</td>
-                                            <td>16</td>
-                                            <td>46</td>
-                                        </tr>
-                                        <tr>
-                                            <td>
+                                <table class="table-striped table" id="data">
+                                    @php
+                                        $total_sangat_kurang = 0;
+                                        $total_kurang = 0;
+                                        $total_cukup = 0;
+                                        $total_baik = 0;
+                                        $total_sangat_baik = 0;
+                                    @endphp
 
-                                            </td>
-                                            <td>Jumlah</td>
-                                            <td>212</td>
-                                            <td>61</td>
-                                            <td>16</td>
-                                            <td>46</td>
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Pertanyaan</th>
+                                            <th>Sangat Kurang</th>
+                                            <th>Kurang</th>
+                                            <th>Cukup</th>
+                                            <th>Baik</th>
+                                            <th>Sangat Baik</th>
                                         </tr>
-                                    </tbody>
+                                    </thead>
+
+                                    @foreach ($survei as $i => $row)
+                                        <tr>
+                                            <td>{{ $i + 1 }}</td>
+                                            <td>{{ $row->pertanyaan }}</td>
+                                            <td>{{ $row->sangat_kurang }}</td>
+                                            <td>{{ $row->kurang }}</td>
+                                            <td>{{ $row->cukup }}</td>
+                                            <td>{{ $row->baik }}</td>
+                                            <td>{{ $row->sangat_baik }}</td>
+                                        </tr>
+                                        @php
+                                            $total_sangat_kurang += $row->sangat_kurang;
+                                            $total_kurang += $row->kurang;
+                                            $total_cukup += $row->cukup;
+                                            $total_baik += $row->baik;
+                                            $total_sangat_baik += $row->sangat_baik;
+                                        @endphp
+                                    @endforeach
+
+                                    <tr class="fw-bold">
+                                        <td></td>
+                                        <td>Jumlah</td>
+                                        <td>{{ $total_sangat_kurang }}</td>
+                                        <td>{{ $total_kurang }}</td>
+                                        <td>{{ $total_cukup }}</td>
+                                        <td>{{ $total_baik }}</td>
+                                        <td>{{ $total_sangat_baik }}</td>
+                                    </tr>
                                 </table>
                             </div>
                         </div>
