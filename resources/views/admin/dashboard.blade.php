@@ -402,6 +402,22 @@
                                 <div class="col-md-6">
                                     <div class="card">
                                         <div class="card-header">
+                                            <h4>Kepemimpinan</h4>
+                                        </div>
+                                        <div class="card-body"><canvas id="Kepemimpinan"></canvas></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- slide 4 --}}
+                    <div class="swiper-slide">
+                        <div class="container" data-aos="fade-up" data-aos-delay="100">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <div class="card-header">
                                             <h4>Etos Kerja</h4>
                                         </div>
                                         <div class="card-body"><canvas id="Etos"></canvas></div>
@@ -410,10 +426,9 @@
                             </div>
                         </div>
                     </div>
+                    <!-- pagination -->
+                    <div class="swiper-pagination mt-3"></div>
                 </div>
-                <!-- pagination -->
-                <div class="swiper-pagination mt-3"></div>
-            </div>
         </section>
     </div>
 @endsection
@@ -514,240 +529,94 @@
                 });
         });
 
-        //pie chart Kerja Tim
-        var ctx = document.getElementById("Kerja").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                datasets: [{
-                    data: [
-                        80,
-                        50,
-                        40,
-                        30,
-                        100,
-                    ],
-                    backgroundColor: [
-                        '#191d21',
-                        '#63ed7a',
-                        '#ffa426',
-                        '#fc544b',
-                        '#6777ef',
-                    ],
-                    label: 'Dataset 1'
-                }],
-                labels: [
-                    'Black',
-                    'Green',
-                    'Yellow',
-                    'Red',
-                    'Blue'
-                ],
-            },
-            options: {
-                responsive: true,
-                legend: {
-                    position: 'bottom',
-                },
-            }
-        });
-
-        // pie chart Keahlian bidang TI
-        var ctx = document.getElementById("Keahlian").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                datasets: [{
-                    data: [
-                        80,
-                        50,
-                        40,
-                        30,
-                        100,
-                    ],
-                    backgroundColor: [
-                        '#191d21',
-                        '#63ed7a',
-                        '#ffa426',
-                        '#fc544b',
-                        '#6777ef',
-                    ],
-                    label: 'Dataset 1'
-                }],
-                labels: [
-                    'Black',
-                    'Green',
-                    'Yellow',
-                    'Red',
-                    'Blue'
-                ],
-            },
-            options: {
-                responsive: true,
-                legend: {
-                    position: 'bottom',
-                },
-            }
-        });
-
-        // pie chart Kemampuan Berbahasa Asing
-        var ctx = document.getElementById("Kemampuan").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                datasets: [{
-                    data: [
-                        80,
-                        50,
-                        40,
-                        30,
-                        100,
-                    ],
-                    backgroundColor: [
-                        '#191d21',
-                        '#63ed7a',
-                        '#ffa426',
-                        '#fc544b',
-                        '#6777ef',
-                    ],
-                    label: 'Dataset 1'
-                }],
-                labels: [
-                    'Black',
-                    'Green',
-                    'Yellow',
-                    'Red',
-                    'Blue'
-                ],
-            },
-            options: {
-                responsive: true,
-                legend: {
-                    position: 'bottom',
-                },
-            }
-        });
-
-        // pie chart Kemampuan Berkomunikasi
-        var ctx = document.getElementById("Berkomunikasi").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                datasets: [{
-                    data: [
-                        80,
-                        50,
-                        40,
-                        30,
-                        100,
-                    ],
-                    backgroundColor: [
-                        '#191d21',
-                        '#63ed7a',
-                        '#ffa426',
-                        '#fc544b',
-                        '#6777ef',
-                    ],
-                    label: 'Dataset 1'
-                }],
-                labels: [
-                    'Black',
-                    'Green',
-                    'Yellow',
-                    'Red',
-                    'Blue'
-                ],
-            },
-            options: {
-                responsive: true,
-                legend: {
-                    position: 'bottom',
-                },
-            }
-        });
-
-        // pie chart Pengembangan Diri
-        var ctx = document.getElementById("Pengembangan").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                datasets: [{
-                    data: [
-                        80,
-                        50,
-                        40,
-                        30,
-                        100,
-                    ],
-                    backgroundColor: [
-                        '#191d21',
-                        '#63ed7a',
-                        '#ffa426',
-                        '#fc544b',
-                        '#6777ef',
-                    ],
-                    label: 'Dataset 1'
-                }],
-                labels: [
-                    'Black',
-                    'Green',
-                    'Yellow',
-                    'Red',
-                    'Blue'
-                ],
-            },
-            options: {
-                responsive: true,
-                legend: {
-                    position: 'bottom',
-                },
-            }
-        });
-
-        // pie chart Etos Kerja
-        var ctx = document.getElementById("Etos").getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                datasets: [{
-                    data: [
-                        80,
-                        50,
-                        40,
-                        30,
-                        100,
-                    ],
-                    backgroundColor: [
-                        '#191d21',
-                        '#63ed7a',
-                        '#ffa426',
-                        '#fc544b',
-                        '#6777ef',
-                    ],
-                    label: 'Dataset 1'
-                }],
-                labels: [
-                    'Black',
-                    'Green',
-                    'Yellow',
-                    'Red',
-                    'Blue'
-                ],
-            },
-            options: {
-                responsive: true,
-                legend: {
-                    position: 'bottom',
-                },
-            }
-        });
-
-        // swiper
+        // Jalankan saat seluruh DOM telah dimuat
         document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll('.init-swiper').forEach((el) => {
+                    // Tempat menyimpan data chart dari backend
+                    let chartData = [];
+
+                    // Menandai chart yang sudah dirender agar tidak dirender ulang
+                    let chartsRendered = {};
+
+                    // Fetch data dari route Laravel yang mengembalikan JSON chart
+                    fetch("{{ route('chart.penilaianKepuasan') }}")
+                        .then(res => res.json()) // Ubah response ke format JSON
+                        .then(data => {
+                                chartData = data; // Simpan data chart ke variabel
+
+                                // Untuk setiap elemen swiper di halaman
+                                document.querySelectorAll('.init-swiper').forEach((el) => {
+                                            // Ambil konfigurasi swiper dari elemen tersembunyi (biasanya <script type="application/json">)
                 const config = JSON.parse(el.querySelector('.swiper-config').textContent);
+
+                // Simpan event asli (jika ada) dari konfigurasi
+                const originalOn = config.on || {};
+
+                // Tambahkan fungsi render chart ke dalam event swiper
+                config.on = {
+                    ...originalOn,
+    
+                // Saat pertama kali inisialisasi swiper
+                init: function () {
+                    // Tunggu sedikit agar DOM canvas benar-benar ter-render
+                    setTimeout(() => {
+                        renderVisibleCharts(); // Panggil render chart pertama
+                    }, 300); // jeda 300ms (bisa kamu atur jadi 500 jika perlu)
+                },
+
+                // Saat slide digeser dan transisi selesai
+                slideChangeTransitionEnd: function () {
+                    renderVisibleCharts();
+                }
+                };
+
+                // Inisialisasi swiper dengan konfigurasi yang sudah dimodifikasi
                 new Swiper(el, config);
             });
         });
+
+    // Fungsi untuk menampilkan chart pada canvas yang terlihat (slide aktif)
+    function renderVisibleCharts() {
+        // Ambil semua canvas di slide yang sedang aktif
+        document.querySelectorAll('.swiper-slide-active canvas').forEach(canvas => {
+            const canvasId = canvas.id;
+
+            // Cari data chart yang sesuai dengan canvas_id dari data backend
+            const item = chartData.find(d => d.canvas_id === canvasId);
+
+            // Jika data ada dan belum pernah dirender
+            if (item && !chartsRendered[canvasId]) {
+                const ctx = canvas.getContext('2d'); // Ambil context 2D canvas
+
+                // Buat chart pie dengan Chart.js
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: ["Sangat Kurang", "Kurang", "Cukup", "Baik", "Sangat Baik"], // Label pie chart
+                        datasets: [{
+                            data: item.data, // Data jumlah responden per skala
+                            backgroundColor: ['#fc544b', '#ffa426', '#63ed7a', '#6777ef', '#191d21'] // Warna tiap sektor
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: item.label // Judul chart dari pertanyaan
+                            },
+                            legend: {
+                                position: 'bottom' // Posisi legenda chart
+                            }
+                        }
+                    }
+                });
+
+                // Tandai chart ini sudah dirender
+                chartsRendered[canvasId] = true;
+            }
+        });
+    }
+});
     </script>
-@endpush
+                                        @endpush
+

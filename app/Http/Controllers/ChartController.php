@@ -4,6 +4,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use App\Models\PertanyaanModel;
+use App\Models\ResponsModel;
 use Illuminate\Support\Facades\DB;
 
 class ChartController extends Controller
@@ -62,4 +65,47 @@ class ChartController extends Controller
 
         return response()->json($data);
     }
+
+    public function penilaianKepuasan()
+    {
+        $pertanyaan = PertanyaanModel::all();
+    
+        // Mapping pertanyaan ke canvas_id sesuai urutan dan id canvas yang ada di frontend
+        $mappingCanvasId = [
+            'Kerja Sama Tim' => 'Kerja',
+            'Keahlian Bidang TI' => 'Keahlian',
+            'Kemampuan Berbahasa Asing' => 'Kemampuan',
+            'Kemampuan Berkomunikasi' => 'Berkomunikasi',
+            'Pengembangan Diri' => 'Pengembangan',
+            'Kepemimpinan' => 'Kepemimpinan',
+            'Etos Kerja' => 'Etos',
+        ];
+    
+        $result = [];
+    
+        foreach ($pertanyaan as $p) {
+            $skala = [];
+    
+            // Hitung jumlah responden per nilai (1 - 5)
+            for ($i = 1; $i <= 5; $i++) {
+                $skala[] = ResponsModel::where('pertanyaan_id', $p->id)
+                    ->where('respon', $i)
+                    ->count();
+            }
+    
+            $canvas_id = $mappingCanvasId[$p->pertanyaan] ?? null;
+    
+            if ($canvas_id) { // hanya tambahkan jika canvas_id sesuai mapping
+                $result[] = [
+                    'id' => $p->id,
+                    'label' => $p->pertanyaan,
+                    'canvas_id' => $canvas_id,
+                    'data' => $skala,
+                ];
+            }
+        }
+    
+        return response()->json($result);
+    }    
+
 }

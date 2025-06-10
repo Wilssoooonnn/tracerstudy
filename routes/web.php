@@ -56,9 +56,10 @@ Route::prefix('lulusan')->name('lulusan.')->group(function () {
 Route::get('data-lulusan/import', [LulusanController::class, 'import_view'])->name('lulusan_import_view');
 Route::post('data-lulusan/import', [LulusanController::class, 'lulusan_import'])->name('lulusan_import_post');
 
-// Chart routes
-Route::get('/chart/top-profesi', [ChartController::class, 'topProfesi'])->name('chart.topProfesi');
-Route::get('/chart/jenis-instansi', [ChartController::class, 'jenisInstansi'])->name('chart.jenisInstansi');
+// routes chart
+Route::get('/chart/top-profesi', [ChartController::class, 'topProfesi'])->name('chart.topProfesi');          // Route grafik profesi lulusan
+Route::get('/chart/jenis-instansi', [ChartController::class, 'jenisInstansi'])->name('chart.jenisInstansi'); // Route grafik jenis instansi
+Route::get('/chart/penilaian-kepuasan', [ChartController::class, 'penilaianKepuasan'])->name('chart.penilaianKepuasan');
 
 // Pertanyaan routes
 Route::prefix('pertanyaan')->name('pertanyaan.')->group(function () {
