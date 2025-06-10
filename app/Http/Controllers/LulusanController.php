@@ -52,7 +52,7 @@ class LulusanController extends Controller
             $totalFiltered = $request->has('search') && !empty($request->input('search.value')) ? $query->count() : $totalRecords;
 
             $data = $lulusan->map(function ($item) {
-                $keterangan = empty($item->nohp) && empty($item->email) ? 'Belum Mengisi' : 'Sudah Mengisi';
+                $keterangan = empty($item->nohp) || empty($item->email) ? 'Belum Mengisi' : 'Sudah Mengisi';
 
                 return [
                     'id' => $item->id,
@@ -389,7 +389,7 @@ class LulusanController extends Controller
 
                         // Validate program_studi
                         if (!isset($semuaProdi[$program_studi])) {
-                            \Log::warning("Program studi tidak ditemukan: {$program_studi}, baris: {$baris}");
+                            Log::warning("Program studi tidak ditemukan: {$program_studi}, baris: {$baris}");
                             continue; // Skip invalid program_studi
                         }
 
@@ -408,14 +408,14 @@ class LulusanController extends Controller
                                     }
                                 }
                             } catch (\Exception $e) {
-                                \Log::warning("Invalid date format on row {$baris}: {$tanggal_lulus}");
+                                Log::warning("Invalid date format on row {$baris}: {$tanggal_lulus}");
                                 continue; // Skip rows with invalid dates
                             }
                         }
 
                         // Validate email
                         if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                            \Log::warning("Invalid email on row {$baris}: {$email}");
+                            Log::warning("Invalid email on row {$baris}: {$email}");
                             continue; // Skip rows with invalid emails
                         }
 
@@ -451,7 +451,7 @@ class LulusanController extends Controller
                 ]);
             }
         } catch (\Exception $e) {
-            \Log::error('Error importing lulusan: ' . $e->getMessage());
+            Log::error('Error importing lulusan: ' . $e->getMessage());
             return response()->json([
                 'status' => false,
                 'message' => 'Terjadi kesalahan saat memproses file: ' . $e->getMessage()

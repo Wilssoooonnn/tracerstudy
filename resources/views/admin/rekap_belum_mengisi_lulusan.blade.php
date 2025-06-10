@@ -27,12 +27,6 @@
                                 <div class="card-header-form">
                                     <form>
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <div class="input-group w-auto">
-                                                <input type="text" class="form-control" placeholder="Search">
-                                                <div class="input-group-btn">
-                                                    <button class="btn btn-primary"><i class="fas fa-search"></i></button>
-                                                </div>
-                                            </div>
                                             <div class="ml-3">
                                                 <a href="{{ url('/rekaplulusan/export_excel') }}" class="btn btn-primary">
                                                     <i class="fa fa-file-excel"></i> 
