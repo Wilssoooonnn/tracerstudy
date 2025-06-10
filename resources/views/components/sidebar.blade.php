@@ -22,6 +22,10 @@
                 <a class="nav-link" href="{{ url('admin/data-stakeholder') }}"><i
                         class="fas fa-user"></i><span>Data Stakeholder</span></a>
             </li>
+            <li class="{{ Request::is('admin/profesi ') ? 'active' : '' }}">
+                <a class="nav-link" href="{{ url('admin/profesi') }}"><i
+                        class="fas fa-user-cog"></i><span>Pengelolaan Profesi</span></a>
+            </li>
             <li class="menu-header">Survei</li>
             <li class="{{ Request::is('admin/pertanyaan') ? 'active' : '' }}">
                 <a class="nav-link" href="{{ url('admin/pertanyaan') }}"><i class="fas fa-lightbulb"></i> <span>Pertanyaan</span></a>

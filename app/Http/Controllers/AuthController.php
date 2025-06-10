@@ -150,6 +150,11 @@ class AuthController extends Controller
         return view('admin.data_stakeholder', ['type_menu' => 'sidebar']);
     }
 
+    public function profesi()
+    {
+        return view('admin.profesi', ['type_menu' => 'sidebar']);
+    }
+
     public function response_data()
     {
         return view('admin.response_data', ['type_menu' => 'sidebar']);

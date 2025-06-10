@@ -3,16 +3,17 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\LulusanController;
+use App\Http\Controllers\ProfesiController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\InstansiController;
 use App\Http\Controllers\ResponseController;
-use App\Http\Controllers\PertanyaanController;
-use App\Http\Controllers\RekapLulusanController;
-use App\Http\Controllers\TracerStudyController;
-use App\Http\Controllers\ChartController;
 use App\Http\Controllers\BelumMengisiPengguna;
+use App\Http\Controllers\PertanyaanController;
 use App\Http\Controllers\RekapSurveyController;
+use App\Http\Controllers\TracerStudyController;
+use App\Http\Controllers\RekapLulusanController;
 
 // Public route
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
@@ -32,6 +33,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('generate-link-lulusan', [AuthController::class, 'generate_link_lulusan'])->name('generate-link-lulusan');
         Route::get('data-stakeholder', [AuthController::class, 'data_stakeholder'])->name('data-stakeholder');
         Route::get('generate-link-penggunalulusan', [AuthController::class, 'generate_link_penggunalulusan'])->name('generate-link-penggunalulusan');
+        Route::get('profesi', [AuthController::class, 'profesi'])->name('profesi');
         Route::get('pertanyaan', [AuthController::class, 'pertanyaan'])->name('pertanyaan');
         Route::get('response-data', [AuthController::class, 'response_data'])->name('response-data');
         Route::get('rekap-hasil-lulusan', [AuthController::class, 'rekap_hasil_lulusan'])->name('rekap-hasil-lulusan');
@@ -129,4 +131,15 @@ Route::prefix('rekaphasilsurvey')->name('rekaphasilsurvey.')->group(function () 
     Route::post('/list', [RekapSurveyController::class, 'list'])->name('list');
     Route::get('/export-rekap-survey', [RekapSurveyController::class, 'export_rekap_hasil_survey'])->name('export');
     Route::get('/{id}', [RekapSurveyController::class, 'show'])->name('show');
+});
+
+Route::prefix('profesi')->name('profesi')->group(function () {
+    Route::get('/', [ProfesiController::class, 'index'])->name('index');
+    Route::post('/list', [ProfesiController::class, 'list'])->name('list');
+    Route::get('/create', [ProfesiController::class, 'create'])->name('create');
+    Route::post('/', [ProfesiController::class, 'store'])->name('store');
+    Route::get('/{id}', [ProfesiController::class, 'show'])->name('show');
+    Route::get('/{id}/edit', [ProfesiController::class, 'edit'])->name('edit');
+    Route::put('/{id}', [ProfesiController::class, 'update'])->name('update');
+    Route::delete('/{id}', [ProfesiController::class, 'destroy'])->name('destroy');
 });
