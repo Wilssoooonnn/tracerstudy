@@ -216,12 +216,11 @@ class InstansiController extends Controller
 
     public function list(Request $request)
     {
-        $stakeholders = StakeholderModel::with('lulusan')->get();
-
+        $stakeholders = StakeholderModel::with('alumni')->get();
         return DataTables::of($stakeholders)
             ->addIndexColumn()
             ->addColumn('nama_lulusan', function ($row) {
-                return $row->lulusan->nama ?? '-';
+                return $row->alumni->nama ?? '-';
             })
             ->addColumn('action', function ($stakeholder) {
                 return '<a href="' . url('/instansi/' . $stakeholder->id) . '" class="btn btn-primary btn-sm">Detail</a>';
@@ -229,10 +228,9 @@ class InstansiController extends Controller
             ->rawColumns(['action'])
             ->make(true);
     }
-
     public function show($id)
     {
-        $stakeholder = StakeholderModel::with('lulusan')->findOrFail($id);
+        $stakeholder = StakeholderModel::with('alumni')->findOrFail($id);
         return view('admin.stakeholder_show', compact('stakeholder'));
     }
 

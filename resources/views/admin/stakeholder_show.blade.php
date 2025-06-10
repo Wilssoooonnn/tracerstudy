@@ -50,7 +50,7 @@
                                     </tr>
                                     <tr>
                                         <th>Nama Alumni</th>
-                                        <td>{{ $stakeholder->lulusan->nama }}</td>
+                                        <td>{{ $stakeholder->alumni->nama }}</td>
                                     </tr>
                                 </table>
                                 <a href="{{ url('admin/data-stakeholder') }}" class="btn btn-sm btn-danger mt-2">Kembali</a>
