@@ -38,10 +38,6 @@
   <main class="main">
     <!-- Hero Section -->
     <section id="hero" class="hero section dark-background position-relative">
-      {{-- <video autoplay loop muted playsinline class="w-100 h-100 object-fit-cover position-absolute top-0 start-0"
-        style="z-index: -1;">
-        <source src="{{ asset('dewi/assets/videos/videoplayback.mp4') }}" type="video/mp4">
-      </video> --}}
 
       <video autoplay loop muted playsinline class="w-100 h-100 object-fit-cover position-absolute top-0 start-0">
         <source src="{{ asset('dewi/assets/videos/videoplayback.mp4') }}" type="video/mp4">
@@ -51,9 +47,9 @@
       <div class="container d-flex flex-column align-items-center justify-content-center text-center text-white py-5"
         style="min-height: 100vh;">
         <h2 data-aos="fade-up" data-aos-delay="100" class="display-4 fw-bold">TRACK. CONNECT. IMPROVE.</h2>
-        <p data-aos="fade-up" data-aos-delay="200" class="lead">Halo, Selamat Datang di Tracer Study JTI POLINEMA! 
-          <br>Melalui sistem ini, kami menjalin koneksi antara kampus, alumni, dan dunia kerja 
-          untuk menciptakan pendidikan yang relevan dan berkualitas.</p>
+        <p data-aos="fade-up" data-aos-delay="200" class="lead fw-semibold">Halo, Selamat Datang di Tracer Study JTI POLINEMA!!
+          <p data-aos="fade-up" data-aos-delay="200" class="lead">Melalui sistem ini, kami menjalin koneksi antara kampus, alumni, dan dunia kerja 
+          <br>untuk menciptakan pendidikan yang relevan dan berkualitas.</p>
         <div class="d-flex mt-4 gap-3 justify-content-center" data-aos="fade-up" data-aos-delay="300">
           <a href="#about" class="btn btn-primary btn-lg px-4">Get Started</a>
         </div>
@@ -63,7 +59,7 @@
     <!-- Content Sections -->
     <section id="about" class="about section">@include('landing.about')</section>
     <section id="stats" class="stats section light-background">@include('landing.stats')</section>
-    <section id="charts" class="charts section"> @include('landing.graphic')</section>
+    <section id="graphics" class="graphics section"> @include('landing.graphic')</section>
     <section id="services" class="services section">
       <div class="container section-title" data-aos="fade-up">
         <h2>Services</h2>
@@ -72,8 +68,6 @@
       @include('landing.services')
     </section>
     <section id="testimonials" class="testimonials section dark-background">@include('landing.testimonial')</section>
-    {{-- <section id="portfolio" class="portfolio section">@include('landing.portofolio')</section> --}}
-    <section id="team" class="team section light-background">@include('landing.team')</section>
   </main>
 
   <footer id="footer" class="footer dark-background">
