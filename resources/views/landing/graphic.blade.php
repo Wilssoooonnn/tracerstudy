@@ -30,85 +30,89 @@
 
     <!-- JS Libraies -->
     <script src="{{ asset('library/chart.js/dist/Chart.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@1.0.0"></script>
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/modules-chartjs.js') }}"></script>
 
     {{-- js untuk pie chart --}}
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Chart untuk Data Pekerjaan Alumni (myChart1)
+        document.addEventListener("DOMContentLoaded", function () {
             fetch("{{ route('chart.topProfesi') }}")
-                .then(response => response.json())
-                .then(data => {
-                    const labels = data.map(item => item.profesi);
-                    const values = data.map(item => item.jumlah);
+            .then(response => response.json())
+            .then(data => {
+                const labels = data.map(item => item.profesi);
+                const values = data.map(item => item.jumlah);
 
-                    const backgroundColors = [
-                        '#FFD5E5', '#AD88C6', '#B4E4FF', '#A5D6A7', '#F7B5CA',
-                        '#F5E8C7', '#EEC759', '#AB886D', '#CD5656', '#B0DB9C',
-                        '#B4E4FF'
-                    ];
-
-                    var ctx = document.getElementById("myChart1").getContext('2d');
-                    var myChart = new Chart(ctx, {
-                        type: 'doughnut',
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                label: 'Jumlah Lulusan',
-                                data: values,
-                                backgroundColor: backgroundColors.slice(0, labels.length),
-                            }]
-                        },
-                        options: {
-                            responsive: true,
+                const ctx = document.getElementById("myChart1").getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: values,
+                            backgroundColor: ['#FFD5E5', '#AD88C6', '#B4E4FF', '#A5D6A7', '#F7B5CA'],
+                        }]
+                    },
+                    options: {
+                        plugins: {
                             legend: {
                                 position: 'bottom'
+                            },
+                            datalabels: {
+                                formatter: (value, context) => {
+                                    const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                    return ((value / total) * 100).toFixed(1) + '%';
+                                },
+                                color: '#fff',
+                                font: {
+                                    weight: 'bold',
+                                    size: 14
+                                }
                             }
                         }
-                    });
-                })
-                .catch(error => {
-                    console.error('Gagal mengambil data chart untuk profesi:', error);
+                    },
+                    plugins: [ChartDataLabels]
                 });
+            });
 
             // Chart untuk Data Jenis Instansi (myChart2)
-            fetch("{{ route('chart.jenisInstansi') }}")
-                .then(response => response.json())
-                .then(data => {
-                    const labels = data.map(item => item.instansi_nama);
-                    const values = data.map(item => item.jumlah);
-
-                    const backgroundColors = [
-                        '#FF8A80', // Perguruan Tinggi
-                        '#FFD180', // Instansi Pemerintah
-                        '#A5D6A7', // Perusahaan Swasta
-                        '#B39DDB' // BUMN
-                    ];
-
-                    var ctx = document.getElementById("myChart2").getContext('2d');
-                    var myChart = new Chart(ctx, {
-                        type: 'doughnut',
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                label: 'Jenis Instansi',
-                                data: values,
-                                backgroundColor: backgroundColors.slice(0, labels.length),
-                            }]
-                        },
-                        options: {
-                            responsive: true,
+                fetch("{{ route('chart.jenisInstansi') }}")
+                    .then(response => response.json())
+                    .then(data => {
+                        const labels = data.map(item => item.instansi_nama);
+                        const values = data.map(item => item.jumlah);
+                        const ctx = document.getElementById("myChart2").getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: values,
+                            backgroundColor: ['#FF8A80', '#FFD180', '#A5D6A7', '#B39DDB'],
+                        }]
+                    },
+                    options: {
+                        plugins: {
                             legend: {
-                                position: 'bottom'
+                                position: 'bottom',
+                            },
+                            datalabels: {
+                                formatter: (value, context) => {
+                                    const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                    return ((value / total) * 100).toFixed(1) + '%';
+                                },
+                                color: '#fff',
+                                font: {
+                                    weight: 'bold',
+                                    size: 14
+                                }
                             }
                         }
-                    });
-                })
-                .catch(error => {
-                    console.error('Gagal mengambil data chart untuk Jenis Instansi:', error);
+                    },
+                    plugins: [ChartDataLabels]
                 });
+            });
         });
 </script>
 @endpush

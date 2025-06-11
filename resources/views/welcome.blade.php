@@ -9,9 +9,8 @@
   <meta name="keywords" content="">
 
   <!-- Favicons -->
-  <link href="{{ asset('dewi/assets/img/favicon.png') }}" rel="icon">
-  <link href="{{ asset('dewi/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
-
+  <link href="{{ asset('LOGO TS.png') }}" rel="icon">
+  <link href="{{ asset('LOGO TS.png') }}" rel="apple-touch-icon">
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com" rel="preconnect">
   <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>

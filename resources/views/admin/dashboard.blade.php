@@ -171,6 +171,7 @@
                                         $total_cukup = 0;
                                         $total_baik = 0;
                                         $total_sangat_baik = 0;
+                                        $jumlah_pertanyaan = count($survei);
                                     @endphp
 
                                     <thead>
@@ -186,32 +187,50 @@
                                     </thead>
 
                                     @foreach ($survei as $i => $row)
-                                        <tr>
-                                            <td>{{ $i + 1 }}</td>
-                                            <td>{{ $row->pertanyaan }}</td>
-                                            <td>{{ $row->sangat_kurang }}</td>
-                                            <td>{{ $row->kurang }}</td>
-                                            <td>{{ $row->cukup }}</td>
-                                            <td>{{ $row->baik }}</td>
-                                            <td>{{ $row->sangat_baik }}</td>
-                                        </tr>
                                         @php
+                                            $total_per_pertanyaan = $row->sangat_kurang + $row->kurang + $row->cukup + $row->baik + $row->sangat_baik;
+
+                                            $sk = $total_per_pertanyaan ? number_format(($row->sangat_kurang / $total_per_pertanyaan) * 100, 2) : 0;
+                                            $k  = $total_per_pertanyaan ? number_format(($row->kurang / $total_per_pertanyaan) * 100, 2) : 0;
+                                            $c  = $total_per_pertanyaan ? number_format(($row->cukup / $total_per_pertanyaan) * 100, 2) : 0;
+                                            $b  = $total_per_pertanyaan ? number_format(($row->baik / $total_per_pertanyaan) * 100, 2) : 0;
+                                            $sb = $total_per_pertanyaan ? number_format(($row->sangat_baik / $total_per_pertanyaan) * 100, 2) : 0;
+
                                             $total_sangat_kurang += $row->sangat_kurang;
                                             $total_kurang += $row->kurang;
                                             $total_cukup += $row->cukup;
                                             $total_baik += $row->baik;
                                             $total_sangat_baik += $row->sangat_baik;
                                         @endphp
+
+                                        <tr>
+                                            <td>{{ $i + 1 }}</td>
+                                            <td>{{ $row->pertanyaan }}</td>
+                                            <td>{{ $sk }}%</td>
+                                            <td>{{ $k }}%</td>
+                                            <td>{{ $c }}%</td>
+                                            <td>{{ $b }}%</td>
+                                            <td>{{ $sb }}%</td>
+                                        </tr>
                                     @endforeach
+
+                                    @php
+                                        // Hitung rata-rata per kategori
+                                        $avg_sk = $jumlah_pertanyaan ? number_format($total_sangat_kurang / $jumlah_pertanyaan * 100, 2) : 0;
+                                        $avg_k  = $jumlah_pertanyaan ? number_format($total_kurang / $jumlah_pertanyaan * 100, 2) : 0;
+                                        $avg_c  = $jumlah_pertanyaan ? number_format($total_cukup / $jumlah_pertanyaan * 100, 2) : 0;
+                                        $avg_b  = $jumlah_pertanyaan ? number_format($total_baik / $jumlah_pertanyaan* 100, 2) : 0;
+                                        $avg_sb = $jumlah_pertanyaan ? number_format($total_sangat_baik / $jumlah_pertanyaan * 100, 2) : 0;
+                                    @endphp
 
                                     <tr class="fw-bold">
                                         <td></td>
                                         <td>Jumlah</td>
-                                        <td>{{ $total_sangat_kurang }}</td>
-                                        <td>{{ $total_kurang }}</td>
-                                        <td>{{ $total_cukup }}</td>
-                                        <td>{{ $total_baik }}</td>
-                                        <td>{{ $total_sangat_baik }}</td>
+                                        <td>{{ $avg_sk }}%</td>
+                                        <td>{{ $avg_k }}%</td>
+                                        <td>{{ $avg_c }}%</td>
+                                        <td>{{ $avg_b }}%</td>
+                                        <td>{{ $avg_sb }}%</td>
                                     </tr>
                                 </table>
                             </div>
@@ -324,6 +343,7 @@
     <script src="{{ asset('library/summernote/dist/summernote-bs4.min.js') }}"></script>
     <script src="{{ asset('library/chocolat/dist/js/jquery.chocolat.min.js') }}"></script>
     <script src="{{ asset('library/chart.js/dist/Chart.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@1.0.0"></script>
     <script src="{{ asset('library/datatables/media/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('library/jquery-ui-dist/jquery-ui.min.js') }}"></script>
 
@@ -338,79 +358,82 @@
 
     {{-- js untuk pie chart --}}
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            // Chart untuk Data Pekerjaan Alumni (myChart1)
+        document.addEventListener("DOMContentLoaded", function () {
             fetch("{{ route('chart.topProfesi') }}")
-                .then(response => response.json())
-                .then(data => {
-                    const labels = data.map(item => item.profesi);
-                    const values = data.map(item => item.jumlah);
+            .then(response => response.json())
+            .then(data => {
+                const labels = data.map(item => item.profesi);
+                const values = data.map(item => item.jumlah);
 
-                    const backgroundColors = [
-                        '#FFD5E5', '#AD88C6', '#B4E4FF', '#A5D6A7', '#F7B5CA',
-                        '#F5E8C7', '#EEC759', '#AB886D', '#CD5656', '#B0DB9C',
-                        '#B4E4FF'
-                    ];
-
-                    var ctx = document.getElementById("myChart1").getContext('2d');
-                    var myChart = new Chart(ctx, {
-                        type: 'doughnut',
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                label: 'Jumlah Lulusan',
-                                data: values,
-                                backgroundColor: backgroundColors.slice(0, labels.length),
-                            }]
-                        },
-                        options: {
-                            responsive: true,
+                const ctx = document.getElementById("myChart1").getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: values,
+                            backgroundColor: ['#FFD5E5', '#AD88C6', '#B4E4FF', '#A5D6A7', '#F7B5CA'],
+                        }]
+                    },
+                    options: {
+                        plugins: {
                             legend: {
                                 position: 'bottom'
+                            },
+                            datalabels: {
+                                formatter: (value, context) => {
+                                    const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                    return ((value / total) * 100).toFixed(1) + '%';
+                                },
+                                color: '#fff',
+                                font: {
+                                    weight: 'bold',
+                                    size: 14
+                                }
                             }
                         }
-                    });
-                })
-                .catch(error => {
-                    console.error('Gagal mengambil data chart untuk profesi:', error);
+                    },
+                    plugins: [ChartDataLabels]
                 });
+            });
 
             // Chart untuk Data Jenis Instansi (myChart2)
-            fetch("{{ route('chart.jenisInstansi') }}")
-                .then(response => response.json())
-                .then(data => {
-                    const labels = data.map(item => item.instansi_nama);
-                    const values = data.map(item => item.jumlah);
-
-                    const backgroundColors = [
-                        '#FF8A80', // Perguruan Tinggi
-                        '#FFD180', // Instansi Pemerintah
-                        '#A5D6A7', // Perusahaan Swasta
-                        '#B39DDB' // BUMN
-                    ];
-
-                    var ctx = document.getElementById("myChart2").getContext('2d');
-                    var myChart = new Chart(ctx, {
-                        type: 'doughnut',
-                        data: {
-                            labels: labels,
-                            datasets: [{
-                                label: 'Jenis Instansi',
-                                data: values,
-                                backgroundColor: backgroundColors.slice(0, labels.length),
-                            }]
-                        },
-                        options: {
-                            responsive: true,
+                fetch("{{ route('chart.jenisInstansi') }}")
+                    .then(response => response.json())
+                    .then(data => {
+                        const labels = data.map(item => item.instansi_nama);
+                        const values = data.map(item => item.jumlah);
+                        const ctx = document.getElementById("myChart2").getContext('2d');
+                new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            data: values,
+                            backgroundColor: ['#FF8A80', '#FFD180', '#A5D6A7', '#B39DDB'],
+                        }]
+                    },
+                    options: {
+                        plugins: {
                             legend: {
-                                position: 'bottom'
+                                position: 'bottom',
+                            },
+                            datalabels: {
+                                formatter: (value, context) => {
+                                    const total = context.chart.data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                    return ((value / total) * 100).toFixed(1) + '%';
+                                },
+                                color: '#fff',
+                                font: {
+                                    weight: 'bold',
+                                    size: 14
+                                }
                             }
                         }
-                    });
-                })
-                .catch(error => {
-                    console.error('Gagal mengambil data chart untuk Jenis Instansi:', error);
+                    },
+                    plugins: [ChartDataLabels]
                 });
+            });
         });
 
         //pie chart Kerja Tim

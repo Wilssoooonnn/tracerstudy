@@ -81,6 +81,7 @@ class AuthController extends Controller
             ROUND(AVG(TIMESTAMPDIFF(MONTH, a.tanggal_lulus, t.first_job_date))) as rata_tunggu
         ')
         ->groupBy(DB::raw('YEAR(a.tanggal_lulus)'))
+        ->orderBy('tahun', 'asc')
         ->get();
 
     $jumlahLulusan = DB::table('data_alumni')
