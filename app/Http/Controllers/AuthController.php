@@ -41,33 +41,38 @@ class AuthController extends Controller
 
     public function dashboard()
     {
-        $data = DB::table('tracer_record as t')
-        ->join('data_alumni as a', 'a.id', '=', 't.alumni_id')
-        ->selectRaw('
-            YEAR(a.tanggal_lulus) as tahun_lulus,
-            COUNT(t.id) as jumlah_terlacak,
-            SUM(CASE WHEN t.category_profession = 1 THEN 1 ELSE 0 END) as kerja_infokom,
-            SUM(CASE WHEN t.category_profession = 2 THEN 1 ELSE 0 END) as kerja_non_infokom,
-            SUM(CASE WHEN t.instansi_scale = 3 THEN 1 ELSE 0 END) as multinasional,
-            SUM(CASE WHEN t.instansi_scale = 2 THEN 1 ELSE 0 END) as nasional,
-            SUM(CASE WHEN t.instansi_type = 4 THEN 1 ELSE 0 END) as wirausaha
-        ')
-        ->groupBy(DB::raw('YEAR(a.tanggal_lulus)'))
-        ->orderBy('tahun_lulus')
-        ->get();
+        $totalAlumni = DB::table('data_alumni')->count();
+        $totalAdmin = DB::table('admins')->count();
+        $totalStakeholder = DB::table('data_stakeholder')->count();
+        $totalTracerRecord = DB::table('tracer_record')->count();
 
-    $jumlah_lulusan = DB::table('data_alumni')
-        ->selectRaw('YEAR(tanggal_lulus) as tahun_lulus, COUNT(*) as jumlah')
-        ->groupBy(DB::raw('YEAR(tanggal_lulus)'))
-        ->pluck('jumlah', 'tahun_lulus'); // hasil: ['2021' => 213, '2022' => 180, ...]
+        $sebaranData = DB::table('tracer_record as t')
+            ->join('data_alumni as a', 'a.id', '=', 't.alumni_id')
+            ->join('programs as p', 'p.id', '=', 'a.programs_id')
+            ->selectRaw('
+        p.program_studi,
+        YEAR(a.tanggal_lulus) as tahun_lulus,
+        COUNT(t.id) as jumlah_terlacak,
+        SUM(CASE WHEN t.category_profession = 1 THEN 1 ELSE 0 END) as kerja_infokom,
+        SUM(CASE WHEN t.category_profession = 2 THEN 1 ELSE 0 END) as kerja_non_infokom,
+        SUM(CASE WHEN t.category_profession = 3 THEN 1 ELSE 0 END) as belum_bekerja,
+        SUM(CASE WHEN t.instansi_scale = 1 THEN 1 ELSE 0 END) as international,
+        SUM(CASE WHEN t.instansi_scale = 2 THEN 1 ELSE 0 END) as nasional,
+        SUM(CASE WHEN t.instansi_scale = 3 THEN 1 ELSE 0 END) as wirausaha
+    ')
+            ->groupBy('p.program_studi', DB::raw('YEAR(a.tanggal_lulus)'))
+            ->orderBy('tahun_lulus')
+            ->get();
 
-    $sebaran = $data->map(function ($item) use ($jumlah_lulusan) {
-        $item->jumlah_lulusan = $jumlah_lulusan[$item->tahun_lulus] ?? 0;
-        return $item;
-    });
 
-    // table masa tunguu
+        $jumlahLulusan = DB::table('data_alumni as a')
+            ->join('programs as p', 'p.id', '=', 'a.programs_id')
+            ->selectRaw('p.program_studi, YEAR(a.tanggal_lulus) as tahun_lulus, COUNT(*) as jumlah')
+            ->groupBy('p.program_studi', DB::raw('YEAR(a.tanggal_lulus)'))
+            ->orderBy('tahun_lulus')
+            ->get();
 
+<<<<<<< HEAD
         $alumni = DB::table('data_alumni')
         ->select('tanggal_lulus')
         ->selectRaw('YEAR(tanggal_lulus) as tahun_lulus')
@@ -83,39 +88,147 @@ class AuthController extends Controller
         ->groupBy(DB::raw('YEAR(a.tanggal_lulus)'))
         ->orderBy('tahun', 'asc')
         ->get();
+=======
+        $result = $sebaranData->map(function ($item) use ($jumlahLulusan) {
+            $item->jumlah_lulusan = $jumlahLulusan->first(function ($jl) use ($item) {
+                return $jl->tahun_lulus == $item->tahun_lulus && $jl->program_studi == $item->program_studi;
+            })->jumlah ?? 0;
+            return $item;
+        });
+>>>>>>> 9ad27f5b2a656d319a7d5b79aafba9c9ce0baca2
 
-    $jumlahLulusan = DB::table('data_alumni')
-        ->selectRaw('YEAR(tanggal_lulus) as tahun, COUNT(*) as jumlah_lulusan')
-        ->groupBy(DB::raw('YEAR(tanggal_lulus)'))
-        ->pluck('jumlah_lulusan', 'tahun');
+        $masaTungguData = DB::table('tracer_record as t')
+            ->join('data_alumni as a', 'a.id', '=', 't.alumni_id')
+            ->join('programs as p', 'p.id', '=', 'a.programs_id')
+            ->selectRaw('
+        p.program_studi,
+        YEAR(a.tanggal_lulus) as tahun,
+        COUNT(t.id) as jumlah_terlacak,
+        ROUND(AVG(TIMESTAMPDIFF(MONTH, a.tanggal_lulus, t.first_job_date)), 1) as rata_tunggu
+    ')
+            ->groupBy('p.program_studi', DB::raw('YEAR(a.tanggal_lulus)'))
+            ->orderBy('tahun')
+            ->get();
 
-    // Gabung hasil tracer dan alumni
-    $masaTunggu = $data->map(function ($item) use ($jumlahLulusan) {
-        $item->jumlah_lulusan = $jumlahLulusan[$item->tahun] ?? 0;
-        return $item;
-    });
 
-    // table survei
-    $data = DB::table('respon as r')
-        ->join('pertanyaan as p', 'p.id', '=', 'r.pertanyaan_id')
-        ->whereBetween('r.pertanyaan_id', [1, 9])
-        ->select(
-            'p.pertanyaan',
-            DB::raw('SUM(CASE WHEN r.respon = 1 THEN 1 ELSE 0 END) as sangat_kurang'),
-            DB::raw('SUM(CASE WHEN r.respon = 2 THEN 1 ELSE 0 END) as kurang'),
-            DB::raw('SUM(CASE WHEN r.respon = 3 THEN 1 ELSE 0 END) as cukup'),
-            DB::raw('SUM(CASE WHEN r.respon = 4 THEN 1 ELSE 0 END) as baik'),
-            DB::raw('SUM(CASE WHEN r.respon = 5 THEN 1 ELSE 0 END) as sangat_baik')
-        )
-        ->groupBy('p.pertanyaan')
-        ->get();
+        $tunggu_result = $masaTungguData->map(function ($item) use ($jumlahLulusan) {
+            $item->jumlah_lulusan = $jumlahLulusan->first(function ($jl) use ($item) {
+                return $jl->tahun_lulus == $item->tahun && $jl->program_studi == $item->program_studi;
+            })->jumlah ?? 0;
+            return $item;
+        });
 
-    return view('admin.dashboard', [
-    'result' => $sebaran,
-    'tunggu_result' => $masaTunggu, // ini supaya di view ada variabel $tunggu_result
-    'survei' => $data,
-    'type_menu' => 'sidebar',
-    ]);
+        $survei = DB::table('respon as r')
+            ->join('pertanyaan as p', 'p.id', '=', 'r.pertanyaan_id')
+            ->where('p.question_type', 'scale')
+            ->select(
+                'p.id as pertanyaan_id',
+                'p.pertanyaan',
+                DB::raw('SUM(CASE WHEN r.respon = "1" THEN 1 ELSE 0 END) as sangat_kurang'),
+                DB::raw('SUM(CASE WHEN r.respon = "2" THEN 1 ELSE 0 END) as kurang'),
+                DB::raw('SUM(CASE WHEN r.respon = "3" THEN 1 ELSE 0 END) as cukup'),
+                DB::raw('SUM(CASE WHEN r.respon = "4" THEN 1 ELSE 0 END) as baik'),
+                DB::raw('SUM(CASE WHEN r.respon = "5" THEN 1 ELSE 0 END) as sangat_baik')
+            )
+            ->groupBy('p.id', 'p.pertanyaan')
+            ->orderBy('p.id')
+            ->get();
+
+        $chartData = [];
+        foreach ($survei as $item) {
+            $chartData[$item->pertanyaan_id] = [
+                'pertanyaan' => $item->pertanyaan,
+                'data' => [
+                    $item->sangat_kurang,
+                    $item->kurang,
+                    $item->cukup,
+                    $item->baik,
+                    $item->sangat_baik
+                ]
+            ];
+        }
+
+        $programs = DB::table('programs')->select('program_studi')->distinct()->get();
+
+        $years = DB::table('data_alumni')
+            ->selectRaw('YEAR(tanggal_lulus) as year')
+            ->distinct()->pluck('year')->sort()->values();
+
+        $yearRanges = $years->chunk(4)->map(function ($chunk) {
+            return $chunk->first() . '-' . $chunk->last();
+        });
+
+        $dataAlumniJob = DB::table('tracer_record as t')
+            ->join('category as c', 'c.id', '=', 't.category_profession')
+            ->select('c.name', DB::raw('COUNT(*) as total'))
+            ->groupBy('c.id', 'c.name')
+            ->get();
+
+        $dataInstansi = DB::table('tracer_record as t')
+            ->join('instansi as i', 'i.id', '=', 't.instansi_type')
+            ->select('i.instansi_nama', DB::raw('COUNT(*) as total'))
+            ->groupBy('i.id', 'i.instansi_nama')
+            ->get();
+
+        $dataScale = DB::table('tracer_record as t')
+            ->join('skala as s', 's.id', '=', 't.instansi_scale')
+            ->select('s.skala_nama', DB::raw('COUNT(*) as total'))
+            ->groupBy('s.id', 's.skala_nama')
+            ->get();
+
+        $dataProfesi = DB::table('data_alumni as a')
+            ->leftJoin('tracer_record as t', 'a.id', '=', 't.alumni_id')
+            ->leftJoin('profesi as p', 't.profession_id', '=', 'p.id')
+            ->selectRaw('COALESCE(p.profesi, "Belum Bekerja") as profesi, COUNT(CASE WHEN p.profesi IS NULL THEN a.id ELSE t.id END) as total')
+            ->groupBy('p.id', 'p.profesi')
+            ->orderByDesc('total')
+            ->get();
+
+        $totalAlumni = DB::table('data_alumni')->count();
+        $totalTracked = DB::table('tracer_record')->count();
+        $untrackedCount = $totalAlumni - $totalTracked;
+        if ($dataProfesi->where('profesi', 'Belum Bekerja')->isEmpty() && $untrackedCount > 0) {
+            $dataProfesi->push((object) [
+                'profesi' => 'Belum Bekerja',
+                'total' => $untrackedCount
+            ]);
+        }
+
+        $maxProfesi = $dataProfesi->max('total');
+
+        $chartData = [];
+        foreach ($survei as $item) {
+            $chartData[$item->pertanyaan_id] = [
+                'pertanyaan' => $item->pertanyaan,
+                'data' => [
+                    $item->sangat_kurang,
+                    $item->kurang,
+                    $item->cukup,
+                    $item->baik,
+                    $item->sangat_baik
+                ]
+            ];
+        }
+
+        return view('admin.dashboard', [
+            'totalAlumni' => $totalAlumni,
+            'totalAdmin' => $totalAdmin,
+            'totalStakeholder' => $totalStakeholder,
+            'totalTracerRecord' => $totalTracerRecord,
+            'result' => $result,
+            'tunggu_result' => $tunggu_result,
+            'survei' => $survei,
+            'dataAlumniJob' => $dataAlumniJob,
+            'dataInstansi' => $dataInstansi,
+            'dataScale' => $dataScale,
+            'chartData' => $chartData,
+            'type_menu' => 'sidebar',
+            'dataProfesi' => $dataProfesi,
+            'maxProfesi' => $maxProfesi,
+            'jumlahLulusan' => $jumlahLulusan,
+            'yearRanges' => $yearRanges,
+            'programs' => $programs
+        ]);
     }
 
     public function logout(Request $request)

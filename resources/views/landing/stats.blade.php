@@ -36,7 +36,7 @@
         <div class="stats-item d-flex align-items-center w-100 h-100">
           <i class="bi bi-person-check"></i>
           <div>
-            <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="200" data-purecounter-duration="1" class="purecounter"></span>
             <p>Pengguna Lulusan Berpartisipasi</p>
           </div>
         </div>

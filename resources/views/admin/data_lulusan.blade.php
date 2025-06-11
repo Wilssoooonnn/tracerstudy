@@ -3,8 +3,8 @@
 @section('title', 'Data Lulusan')
 
 @push('style')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.17/dist/sweetalert2.min.css">
+    
 @endpush
 
 @section('main')
