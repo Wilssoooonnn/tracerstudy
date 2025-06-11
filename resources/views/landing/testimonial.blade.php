@@ -23,14 +23,15 @@
             <div class="swiper-slide">
               <div class="testimonial-item">
                 <img src="{{ asset('dewi/assets/img/testimonials/testimonials-1.jpg') }}" class="testimonial-img" alt="">
-                <h3>Saul Goodman</h3>
-                <h4>Ceo &amp; Founder</h4>
+                <h3>Irwan Aditya</h3>
+                <h4>Project Manager, PT NextDev Apps</h4>
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</span>
+                  <span>Kami merekrut beberapa lulusan dari Polinema Jurusan TI untuk proyek pengembangan aplikasi mobile. Mereka mampu bekerja mandiri, <br>memahami 
+                    dokumentasi teknis, dan menyelesaikan tugas tepat waktu.</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>
@@ -39,14 +40,15 @@
             <div class="swiper-slide">
               <div class="testimonial-item">
                 <img src="{{ asset('dewi/assets/img/testimonials/testimonials-2.jpg') }}" class="testimonial-img" alt="">
-                <h3>Sara Wilsson</h3>
-                <h4>Designer</h4>
+                <h3>Dina Kartika</h3>
+                <h4>HRD Manager, PT Solusi Digital Nusantara</h4>
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.</span>
+                  <span>Lulusan Teknologi Informasi dari Politeknik Negeri Malang memiliki dasar teknis yang kuat dan siap kerja. Mereka cepat beradaptasi 
+                    <br>dengan ritme kerja kami di dunia startup yang dinamis.</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>
@@ -55,14 +57,14 @@
             <div class="swiper-slide">
               <div class="testimonial-item">
                 <img src="{{ asset('dewi/assets/img/testimonials/testimonials-3.jpg')}}" class="testimonial-img" alt="">
-                <h3>Jena Karlis</h3>
-                <h4>Store Owner</h4>
+                <h3>Maya Sari</h3>
+                <h4>Head of IT Division, PT Bumi Teknologi Global</h4>
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.</span>
+                  <span>Lulusan Polinema jurusan TI unggul dalam praktik dan punya etos kerja tinggi. Mereka cocok ditempatkan di berbagai divisi, <br>mulai dari support, software development, hingga infrastruktur.</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>
@@ -71,14 +73,15 @@
             <div class="swiper-slide">
               <div class="testimonial-item">
                 <img src="{{ asset('dewi/assets/img/testimonials/testimonials-4.jpg')}}" class="testimonial-img" alt="">
-                <h3>Matt Brandon</h3>
-                <h4>Freelancer</h4>
+                <h3>Andi Prasetyo</h3>
+                <h4>HR Manager</h4>
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam.</span>
+                  <span>Kami telah merekrut beberapa lulusan dari jurusan Teknologi Informasi Politeknik Negeri Malang, dan mereka menunjukkan kemampuan teknis yang solid, terutama dalam pengembangan web dan manajemen basis data. 
+                    Mereka juga cepat beradaptasi dengan kultur kerja kami di industri IT.</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>
@@ -87,14 +90,15 @@
             <div class="swiper-slide">
               <div class="testimonial-item">
                 <img src="{{ asset('dewi/assets/img/testimonials/testimonials-5.jpg')}}" class="testimonial-img" alt="">
-                <h3>John Larson</h3>
-                <h4>Entrepreneur</h4>
+                <h3>Yohanes P</h3>
+                <h4>IT Supervisor, PT Telkom Akses</h4>
                 <div class="stars">
                   <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
                 </div>
                 <p>
                   <i class="bi bi-quote quote-icon-left"></i>
-                  <span>Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid.</span>
+                  <span>Salah satu staf kami yang lulusan TI Polinema menunjukkan kompetensi luar biasa dalam pengelolaan sistem jaringan dan keamanan data. 
+                    <br>Ia juga cepat belajar teknologi baru.</span>
                   <i class="bi bi-quote quote-icon-right"></i>
                 </p>
               </div>

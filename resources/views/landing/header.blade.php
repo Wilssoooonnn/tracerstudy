@@ -16,6 +16,7 @@
       <li><a href="#about">About</a></li>
       <li><a href="#graphics">Graphics</a></li>
       <li><a href="#services">Services</a></li>
+      <li><a href="#testimonials">Testimonial</a></li>
     </ul>
     <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
   </nav>
