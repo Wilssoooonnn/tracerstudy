@@ -21,7 +21,7 @@ return new class extends Migration {
 
             $table->foreign('programs_id')->references('id')->on('programs')->onDelete('restrict');
         });
-    }
+    } 
 
     public function down()
     {

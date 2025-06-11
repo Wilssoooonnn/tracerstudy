@@ -53,6 +53,7 @@ class LulusanController extends Controller
 
             $data = $lulusan->map(function ($item) {
                 $keterangan = empty($item->nohp) || empty($item->email) ? 'Belum Mengisi' : 'Sudah Mengisi';
+                $class = $keterangan === 'Sudah Mengisi' ? 'badge badge-pill badge-success' : 'badge badge-pill badge-danger';
 
                 return [
                     'id' => $item->id,
@@ -60,7 +61,7 @@ class LulusanController extends Controller
                     'nama' => $item->nama,
                     'prodi' => $item->program ? $item->program->program_studi : '-',
                     'tanggal_lulus' => $item->tanggal_lulus ?? '-',
-                    'keterangan' => $keterangan,
+                    'keterangan' => '<span class="' . $class . '">' . $keterangan . '</span>',
                     'action' => '<button class="btn btn-primary btn-sm" onclick="kirimToken(' . $item->id . ')">Kirim Token</button>'
                 ];
             })->toArray();
@@ -345,10 +346,8 @@ class LulusanController extends Controller
         return view('admin.lulusan_import');
     }
 
-
     public function lulusan_import(Request $request)
     {
-        // Validate file
         $rules = [
             'file_lulusan' => ['required', 'mimes:xlsx', 'max:1024']
         ];
@@ -368,55 +367,59 @@ class LulusanController extends Controller
             $reader->setReadDataOnly(true);
             $spreadsheet = $reader->load($file->getRealPath());
             $sheet = $spreadsheet->getActiveSheet();
-            $semuaProdi = DB::table('programs')->pluck('id', 'program_studi')->toArray();
-            $data = $sheet->toArray(null, false, true, true);
 
+            // Ambil daftar program studi dari database
+            $semuaProdi = DB::table('programs')->pluck('id', 'program_studi')->toArray();
+
+            $data = $sheet->toArray(null, false, true, true); // Kolom: A, B, C, dst
             $insert = [];
 
             if (count($data) > 1) {
                 foreach ($data as $baris => $value) {
-                    if ($baris > 1) { // Skip header row
+                    if ($baris > 1) {
                         $program_studi = trim($value['A'] ?? '');
                         $nim = trim($value['B'] ?? '');
                         $nama = trim($value['C'] ?? '');
                         $tanggal_lulus = $value['D'] ?? null;
                         $email = trim($value['E'] ?? '');
 
-                        // Validate required fields
+                        // Cek kolom wajib
                         if (empty($program_studi) || empty($nim) || empty($nama)) {
-                            continue; // Skip rows with missing required fields
+                            Log::info("Baris $baris dilewati: kolom wajib kosong", $value);
+                            continue;
                         }
 
-                        // Validate program_studi
+                        // Cek program studi
                         if (!isset($semuaProdi[$program_studi])) {
-                            Log::warning("Program studi tidak ditemukan: {$program_studi}, baris: {$baris}");
-                            continue; // Skip invalid program_studi
+                            Log::warning("Program studi tidak ditemukan pada baris $baris: $program_studi");
+                            continue;
                         }
 
-                        // Convert Excel date to Y-m-d format
+                        // Format tanggal
                         $tanggal_lulus_formatted = null;
                         if (!empty($tanggal_lulus)) {
                             try {
                                 if (is_numeric($tanggal_lulus)) {
-                                    // Excel date (numeric)
                                     $tanggal_lulus_formatted = Date::excelToDateTimeObject($tanggal_lulus)->format('Y-m-d');
                                 } else {
-                                    // String date (e.g., "2023-12-25" or "25/12/2023")
-                                    $parsedDate = \DateTime::createFromFormat('d/m/Y', $tanggal_lulus) ?: \DateTime::createFromFormat('Y-m-d', $tanggal_lulus);
-                                    if ($parsedDate) {
-                                        $tanggal_lulus_formatted = $parsedDate->format('Y-m-d');
+                                    $parsed = \DateTime::createFromFormat('d/m/Y', $tanggal_lulus) ?: \DateTime::createFromFormat('Y-m-d', $tanggal_lulus);
+                                    if ($parsed) {
+                                        $tanggal_lulus_formatted = $parsed->format('Y-m-d');
+                                    } else {
+                                        Log::warning("Format tanggal tidak dikenali pada baris $baris: $tanggal_lulus");
+                                        continue;
                                     }
                                 }
                             } catch (\Exception $e) {
-                                Log::warning("Invalid date format on row {$baris}: {$tanggal_lulus}");
-                                continue; // Skip rows with invalid dates
+                                Log::warning("Gagal parsing tanggal pada baris $baris: $tanggal_lulus");
+                                continue;
                             }
                         }
 
-                        // Validate email
+                        // Validasi email jika ada
                         if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                            Log::warning("Invalid email on row {$baris}: {$email}");
-                            continue; // Skip rows with invalid emails
+                            Log::warning("Email tidak valid pada baris $baris: $email");
+                            continue;
                         }
 
                         $insert[] = [
@@ -424,7 +427,7 @@ class LulusanController extends Controller
                             'nim' => $nim,
                             'nama' => $nama,
                             'tanggal_lulus' => $tanggal_lulus_formatted,
-                            'email' => $email ?: null, // Allow null if email is empty
+                            'email' => $email ?: null,
                             'created_at' => now(),
                         ];
                     }
@@ -432,7 +435,6 @@ class LulusanController extends Controller
 
                 if (count($insert) > 0) {
                     LulusanModel::insertOrIgnore($insert);
-
                     return response()->json([
                         'status' => true,
                         'message' => 'Data berhasil diimport. ' . count($insert) . ' baris diproses.',
@@ -441,7 +443,7 @@ class LulusanController extends Controller
                 } else {
                     return response()->json([
                         'status' => false,
-                        'message' => 'Tidak ada data valid yang diimport.'
+                        'message' => 'Tidak ada data valid yang diimport. Periksa log untuk detail.'
                     ]);
                 }
             } else {
@@ -458,4 +460,5 @@ class LulusanController extends Controller
             ]);
         }
     }
+
 }

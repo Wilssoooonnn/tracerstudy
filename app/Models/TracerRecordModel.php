@@ -36,22 +36,23 @@ class TracerRecordModel extends Model
 
     public function instansi()
     {
-        return $this->belongsTo(InstansiModel::class, 'id');
+        return $this->belongsTo(InstansiModel::class, 'instansi_type');
     }
 
     public function skala()
     {
-        return $this->belongsTo(SkalaModel::class, 'id');
+        return $this->belongsTo(SkalaModel::class, 'instansi_scale');
     }
 
     public function category()
     {
-        return $this->belongsTo(KategoriModel::class, 'id');
+        return $this->belongsTo(KategoriModel::class, 'category_profession');
     }
 
     public function profesi()
     {
         return $this->belongsTo(ProfesiModel::class, 'profession_id');
-    }   
+    }
+
 
 }

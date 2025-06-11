@@ -40,7 +40,7 @@ class TracerStudyController extends Controller
     {
         $tracerRecord = TracerRecordModel::with('data_alumni', 'instansi', 'skala', 'category', 'profesi')
             ->where('alumni_id', $id)->first();
-
+        
         if (!$tracerRecord) {
             return back()->with('error', 'Data tidak ditemukan atau belum diisi.');
         }
