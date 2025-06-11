@@ -14,20 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([
-            AdminSeeder::class,
-            programsSeeder::class,
-            instansiSeeder::class,
-            SkalaSeeder::class,
-            categorySeeder::class,
-            // data_stakeholder::class
-            // PertanyaanSeeder::class
-        ]);
-        // \App\Models\User::factory(10)->create();
+        $this->call(ResponSeeder::class);
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }

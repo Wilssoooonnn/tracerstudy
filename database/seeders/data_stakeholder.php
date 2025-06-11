@@ -2,27 +2,36 @@
 
 namespace Database\Seeders;
 
+use App\Models\LulusanModel;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Str;
 
 class data_stakeholder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
-        DB::table('data_stakeholder')->insert([
-            'nama' => 'Sinta Kamelia',
-            'instansi' => 'PT. Otsuka',
-            'jabatan' => 'CEO',
-            'email' => 'sintakamelia@otsuka.com',
-            'alumni_id' => 7, // pastikan ID 1 ada di tabel data_alumni
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        $faker = \Faker\Factory::create();
+
+        $alumniList = LulusanModel::all();
+
+        $data = [];
+
+        foreach ($alumniList as $alumni) {
+            $data[] = [
+                'nama' => $faker->name,
+                'instansi' => $faker->company,
+                'jabatan' => $faker->jobTitle,
+                'email' => $faker->companyEmail,
+                'alumni_id' => $alumni->id,
+                'token' => Str::uuid(),
+                'is_used' => false,
+                'token_expires_at' => $faker->optional()->dateTimeBetween('now', '+6 months'),
+                'created_at' => now(),
+                'updated_at' => now()
+            ];
+        }
+
+        DB::table('data_stakeholder')->insert($data);
     }
 }

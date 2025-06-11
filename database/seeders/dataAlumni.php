@@ -4,31 +4,31 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Support\Str;
 
-class dataAlumni extends Seeder
+class DataAlumni extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    public function run(): void
     {
-        DB::table('data_alumni')->insert([
-            [
-                'programs_id' => 1,
-                'NIM' => '2341760000',
-                'nama' => 'Fasya',
-                'tanggal_lulus' => '2024-07-15',
-                'email' => 'fasyadita1@gmail.com',
-                'token' => null,  // Set to null (not 'null')
-                'token_expires_at' => null,  // Set to null (not 'null')
-                'nohp' => null,  // Set to null (not 'null')
+        $faker = \Faker\Factory::create();
+
+        $data = [];
+
+        for ($i = 0; $i < 20; $i++) {
+            $data[] = [
+                'programs_id' => 1, // pastikan program dengan ID 1 ada
+                'NIM' => '234176' . str_pad($i, 4, '0', STR_PAD_LEFT),
+                'nama' => $faker->name,
+                'nohp' => $faker->optional()->phoneNumber,
+                'email' => $faker->optional()->safeEmail,
+                'tanggal_lulus' => $faker->dateTimeBetween('-5 years', 'now')->format('Y-m-d'),
+                'token' => $faker->optional()->sha256,
+                'token_expires_at' => $faker->optional()->dateTimeBetween('now', '+1 year'),
                 'created_at' => now(),
                 'updated_at' => now()
-            ]
-        ]);
+            ];
+        }
 
+        DB::table('data_alumni')->insert($data);
     }
 }
